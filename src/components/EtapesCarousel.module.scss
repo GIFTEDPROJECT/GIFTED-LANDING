@@ -1,0 +1,299 @@
+@use 'sass:color';
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+.etapesSection {
+  background: $beige-bg;
+  padding: 6rem 2rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  @include tablet-max {
+    padding: 4rem 1rem;
+  }
+}
+
+.container {
+  @include centered-container();
+  position: relative;
+}
+
+.title {
+  @include section-title(2.8rem);
+  
+  @include tablet-max {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.6rem;
+  }
+  
+  & {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+}
+
+.swiperContainer {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.swiper {
+  padding: 2rem 0;
+  overflow: visible;
+  width: 100%;
+}
+
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  transition: opacity 0.3s ease;
+  @media (max-width: 768px) {
+    opacity: 0.3;
+  }
+}
+
+// Cibler les slides actives avec les classes Swiper natives
+.swiperSlideActive {
+  opacity: 1 !important;
+}
+
+.slideCard {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  background: #fff;
+  padding: 1rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  
+}
+
+.slideImage {
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+}
+
+.slideContent {
+  padding: 2rem 0;
+  color: $text-brown;
+  
+  @include tablet-max {
+    padding: 2rem;
+  }
+  
+  @include mobile-only {
+    padding: 1rem 0;
+  }
+}
+
+.slideTitle {
+  @include card-title(2.5rem);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  
+  @include tablet-max {
+    font-size: 1.6rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.4rem;
+  }
+}
+
+.slideDescriptionContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.slideDescription {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: $text-brown;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.4s ease;
+  margin-bottom: 0;
+  
+  &.expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    margin-bottom: 0.5rem;
+  }
+  
+  @include tablet-max {
+    font-size: 1rem;
+  }
+  
+  @include mobile-only {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+  
+  & {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  color: $gold;
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: color.adjust($gold, $lightness: -10%);
+  }
+  
+  @include mobile-only {
+    font-size: 0.8rem;
+  }
+}
+
+// Boutons de navigation personnalisés
+.prevButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: url('/images/nav-slider-bg.png') center 8px no-repeat;
+  background-size: contain;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  
+  &:hover {
+    transform: translateY(-50%) scale(1.1);
+    border-color: $gold;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: translateY(-50%);
+    }
+  }
+  
+  @include mobile-only {
+    display: none;
+  }
+}
+
+.prevButton {
+  left: -30px;
+}
+
+.nextButton {
+  right: -30px;
+}
+
+// Styles pour les images des flèches
+.prevArrow {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.nextArrow {
+  transition: transform 0.3s ease;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+// Effet hover sur les images
+.prevButton:hover .prevArrow {
+  transform: rotate(180deg) scale(1.1);
+}
+
+.nextButton:hover .nextArrow {
+  transform: scale(1.1);
+}
+
+// Pagination personnalisée
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 8px;
+}
+
+.bullet {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 1);
+  margin-top: 2rem;
+}
+
+.bulletActive {
+  background: $gold;
+}
+
+// Animation d'entrée
+.etapesSection {
+  opacity: 0;
+  animation: sectionFadeIn 1s ease-out 0.3s forwards;
+}
+
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive adjustments
+@include mobile-only {
+  .swiperContainer {
+    width: 100%;
+    padding: 0;
+  }
+  
+  .slideCard {
+    width: 100%;
+    max-width: 100%;
+  }
+} 

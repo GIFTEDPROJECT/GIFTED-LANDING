@@ -1,0 +1,267 @@
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+.reveSection {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4rem 2rem;
+  
+  @include tablet-max {
+    min-height: 80vh;
+    padding: 3rem 1rem;
+  }
+}
+
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: url('/images/dream-bg.png') center center/cover no-repeat;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+}
+
+.container {
+  @include centered-container();
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 2rem;
+  @include section-title(2.8rem);
+  
+  @include tablet-max {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  
+  & {
+    text-align: center;
+  }
+}
+
+.subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+  color: $beige-bg;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 4rem;
+  font-family: $font-primary;
+  
+  @include tablet-max {
+    font-size: 1.6rem;
+    margin-bottom: 3rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.bullesContainer {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  margin: 4rem 0;
+  
+  @include tablet-max {
+    height: 300px;
+    margin: 3rem 0;
+  }
+  
+  @include mobile-only {
+    height: 250px;
+    margin: 2rem 0;
+  }
+}
+
+.bulle {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: float 6s ease-in-out infinite;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: url('/images/bulle.png') center no-repeat;
+  background-size: contain;
+  
+  @include tablet-max {
+    width: 160px;
+    height: 160px;
+  }
+  
+  @include mobile-only {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.bulleContent {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $beige-bg;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: $font-primary;
+  padding: 1rem;
+  
+  @include tablet-max {
+    font-size: 1.2rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+}
+
+// Positions des bulles
+.top-left {
+  top: 0;
+  left: 10%;
+  animation-delay: 0s;
+  
+  @include mobile-only {
+    left: 5%;
+  }
+}
+
+.top-center {
+  top: 0;
+  left: calc(50% - 100px);
+  animation-delay: 1s;
+}
+
+.top-right {
+  top: 0;
+  right: 10%;
+  animation-delay: 2s;
+  
+  @include mobile-only {
+    right: 5%;
+  }
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 25%;
+  animation-delay: 3s;
+  
+  @include mobile-only {
+    left: 15%;
+  }
+}
+
+.bottom-center {
+  bottom: 0;
+  right: 25%;
+  transform: translateX(-50%);
+  animation-delay: 4s;
+  
+  left: 50% !important;
+}
+
+.conclusion {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: $beige-bg;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  font-family: $font-primary;
+  margin-top: 3rem;
+  
+  @include tablet-max {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+  }
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    transform: translateY(-20px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  75% {
+    transform: translateY(-30px) scale(1.08);
+  }
+}
+
+// Animation d'entrée pour la section
+.reveSection {
+  opacity: 0;
+  animation: sectionFadeIn 1.5s ease-out 0.5s forwards;
+}
+
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive - Sur mobile, réorganiser les bulles
+@include mobile-only {
+  .bullesContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1rem;
+    height: auto;
+    padding: 2rem 0;
+  }
+  
+  .bulle {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    transform: none;
+    margin: 0 auto;
+  }
+  
+  .bottomCenter {
+    grid-column: 1 / 3;
+  }
+} 

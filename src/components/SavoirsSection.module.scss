@@ -1,0 +1,226 @@
+@use 'sass:color';
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+.savoirsSection {
+  min-height: 100vh;
+  position: relative;
+  background: url('/images/bg-savoir.png');
+  background-size: cover;
+  padding: 4rem 2rem;
+  overflow: hidden;
+}
+
+// Décor d'arrière-plan
+.backgroundDecor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+// Contenu principal
+.container {
+  position: relative;
+  z-index: 5;
+  max-width: $max-width;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 2rem;
+  @include section-title(2.8rem);
+  
+  @include tablet-max {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  
+  & {
+    text-align: center;
+  }
+}
+
+// Grille des savoirs
+.savoirsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2rem;
+  flex: 1;
+  min-height: 500px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+    gap: 1.5rem;
+    min-height: auto;
+  }
+}
+
+// Cartes de savoirs
+.savoirCard {
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: $card-shadow;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  animation: card-enter 0.8s ease-out forwards;
+  
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+}
+
+// Couleurs des cartes
+.blue {
+  background: rgba($blue-bg, 0.3);
+}
+
+.green {
+  background: rgba($green-bg, 0.3);
+}
+
+.purple {
+  background: rgba($purple-bg, 0.3);
+}
+
+.yellow {
+  background: rgba($yellow-bg, 0.3);
+}
+
+// Positionnement des cartes
+.top-left {
+  grid-column: 1;
+  grid-row: 1;
+  
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.top-right {
+  grid-column: 2;
+  grid-row: 1;
+  
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+.bottom-left {
+  grid-column: 1;
+  grid-row: 2;
+  
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
+.bottom-right {
+  grid-column: 2;
+  grid-row: 2;
+  
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: 4;
+  }
+}
+
+.cardContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.cardTitle {
+  @include card-title(1.8rem);
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+}
+
+.cardDescription {
+  font-size: 1.2rem;
+  color: $text-white;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+  filter: drop-shadow(0 2px 0 $title-shadow);
+
+  
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+}
+
+// Animations
+@keyframes tree-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes waterfall-flow {
+  0% { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(20px);
+    opacity: 0.3;
+  }
+}
+
+@keyframes platform-glow {
+  0%, 100% { 
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  }
+  50% { 
+    filter: drop-shadow(0 8px 24px rgba(218, 165, 32, 0.4));
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Effet de parallax léger sur le scroll
+@media (prefers-reduced-motion: no-preference) {
+  .tree {
+    transform-style: preserve-3d;
+  }
+  
+  .waterfall {
+    transform-style: preserve-3d;
+  }
+} 

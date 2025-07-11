@@ -1,0 +1,368 @@
+@use 'sass:color';
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+.donationSection {
+  background: linear-gradient(135deg, $beige-bg 0%, color.adjust($beige-bg, $lightness: 5%) 100%);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+  
+  @include tablet-max {
+    padding: 4rem 1.5rem;
+  }
+  
+  @include mobile-only {
+    padding: 3rem 1rem;
+  }
+}
+
+.container {
+  @include centered-container();
+  position: relative;
+  z-index: 2;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  
+  @include mobile-only {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  & {
+    text-align: center;
+  }
+}
+
+.header {
+  margin-bottom: 3rem;
+  
+  @include mobile-only {
+    margin-bottom: 2rem;
+  }
+}
+
+.title {
+  @include section-title(2.8rem);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  
+  @include tablet-max {
+    font-size: 2.2rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.8rem;
+  }
+  span {
+    color: red !important;
+  }
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  color: $text-brown;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  
+  @include mobile-only {
+    font-size: 1.1rem;
+  }
+}
+
+.donationCard {
+  background: white;
+  border-radius: 25px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: 10px solid $gold;
+  position: relative;
+  
+  @include tablet-max {
+    padding: 2rem;
+  }
+  
+  @include mobile-only {
+    padding: 1.5rem;
+  }
+}
+
+.cardHeader {
+  margin-bottom: 2.5rem;
+}
+
+.iconContainer {
+  margin-bottom: 1rem;
+}
+
+.icon {
+  font-size: 3rem;
+  display: block;
+  animation: bounce 2s ease-in-out infinite;
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+}
+
+.cardTitle {
+  @include card-title(2rem);
+  margin-bottom: 1rem;
+  color: $text-brown;
+}
+
+.cardDescription {
+  font-size: 1.1rem;
+  color: $text-brown;
+  line-height: 1.6;
+  
+  @include mobile-only {
+    font-size: 1rem;
+  }
+  
+  & {
+    margin-bottom: 1rem;
+    color: $text-brown;
+  }
+}
+
+.amountSelection {
+  margin-bottom: 2rem;
+}
+
+.amountTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: $text-brown;
+  margin-bottom: 1.5rem;
+  
+  @include mobile-only {
+    font-size: 1.1rem;
+  }
+}
+
+.predefinedAmounts {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  
+  @include mobile-only {
+    gap: 0.5rem;
+  }
+}
+.ctaButton {
+  width: 100%;
+  background: url('/images/btn-pricing.png') center center/contain no-repeat;
+  color: $beige-bg;
+  text-shadow: 2px 2px 4px #0000004d;
+  border: none;
+  padding: 1rem 2rem;
+  font-family: $font-primary;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+
+.amountButton {
+  background: white;
+  border: 2px solid $wood-brown;
+  border-radius: 15px;
+  padding: 1rem 1.5rem;
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: $text-brown;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: $gold;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  &.selected {
+    background: $gold;
+    border-color: $gold;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
+  }
+  
+  @include mobile-only {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+  }
+}
+
+.customAmount {
+  margin-bottom: 2rem;
+}
+
+.customLabel {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text-brown;
+  margin-bottom: 1rem;
+  
+  @include mobile-only {
+    font-size: 1rem;
+  }
+}
+
+.customInputContainer {
+  position: relative;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.customInput {
+  width: 100%;
+  padding: 1rem 2.5rem 1rem 1rem;
+  border: 2px solid $wood-brown;
+  border-radius: 15px;
+  font-family: $font-primary;
+  font-size: 1.1rem;
+  color: $text-brown;
+  background: white;
+  transition: border-color 0.3s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: $gold;
+  }
+  
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.currency {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 600;
+  color: $text-brown;
+}
+
+.donationInfo {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  
+  @include mobile-only {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  @include mobile-only {
+    font-size: 0.9rem;
+  }
+}
+
+.infoIcon {
+  font-size: 1.2rem;
+}
+
+.infoText {
+  font-weight: 500;
+  color: $text-brown;
+}
+
+.donateButton {
+  background: linear-gradient(135deg, $gold, color.adjust($gold, $lightness: -10%));
+  border: none;
+  border-radius: 25px;
+  padding: 1.2rem 3rem;
+  font-family: $font-primary;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(218, 165, 32, 0.4);
+    background: linear-gradient(135deg, color.adjust($gold, $lightness: 10%), $gold);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  @include mobile-only {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+.buttonIcon {
+  font-size: 1.2rem;
+  animation: pulse 2s ease-in-out infinite;
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.legalText {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+  max-width: 500px;
+  margin: 0 auto;
+  
+  @include mobile-only {
+    font-size: 0.8rem;
+  }
+} 

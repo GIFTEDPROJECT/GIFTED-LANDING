@@ -1,0 +1,346 @@
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+@use 'sass:color';
+
+.pricingSection {
+  padding: 4rem 2rem;
+  background: rgb(238, 220, 201);
+  
+  @include tablet-max {
+    padding: 4rem 1.5rem;
+  }
+  
+  @include mobile-only {
+    padding: 3rem 1rem;
+  }
+}
+
+.container {
+  @include centered-container();
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: linear-gradient(to right, $title-gradient-start, $title-gradient-end);
+  color: $text-brown;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  @media screen and (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.title {
+  @include section-title(2.8rem);
+  
+  @include tablet-max {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.8rem;
+  }
+  
+  & {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.2;
+  }
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: $text-brown;
+  margin-bottom: 2rem;
+  img {
+    margin-top: 10px;
+    margin-left: 4px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 1rem;
+    line-height: .8;
+  }
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    max-width: 500px;
+  }
+  
+  @include mobile-only {
+    gap: 2rem;
+  }
+}
+
+.pricingCard {
+	position: relative;
+  background: $beige-bg;
+  border: 10px solid $wood-brown;
+  border-radius: 25px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+  box-shadow:
+    0 0 10px rgba(0, 0, 0, 0.8);
+  min-height: 400px;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  @include mobile-only {
+    padding: 1.5rem;
+    min-height: 350px;
+  }
+  
+  &:first-child {
+    border-color: #F2850E;
+    .price{
+      color: #F2850E;
+    }
+    .typeButton {
+      background: #F2850E;
+      border-bottom: 2px solid color.adjust(#F2850E, $lightness: -10%);
+    }
+  }
+  &:last-child {
+    border-color: $dark-brown;
+    .price{
+      color: $dark-brown;
+      text-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+    }
+    .typeButton {
+      background: $dark-brown;
+      border-bottom: 2px solid color.adjust($dark-brown, $lightness: -10%);
+    }
+  }
+}
+
+.cardHeader {
+  margin-bottom: 2rem;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+}
+
+.iconContainer {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+	position: absolute;
+	top: -48px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.typeLabel {
+  font-family: $font-primary;
+  font-size: 1.2rem;
+  color: $text-brown;
+  margin-bottom: 0.5rem;
+  font-weight: 600
+}
+
+.typeButton {
+  display: inline-block;
+  background: $wood-brown;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 20px;
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+	border-bottom: 2px solid color.adjust($wood-brown, $lightness: -10%);
+}
+
+.description {
+  font-family: $font-primary;
+  font-size: 1.2rem;
+  color: $text-brown;
+  line-height: 1.4;
+  margin: 0;
+  flex:1;
+  font-weight: 600;
+  @media screen and (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.priceContainer {
+  margin-bottom: 2rem;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+}
+
+.price {
+  font-family: $font-primary;
+  font-size: 2rem;
+  font-weight: 700;
+  color: $wood-brown;
+  margin-bottom: 0.5rem;
+  sup {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  @include mobile-only {
+    font-size: 2rem;
+  }
+}
+
+.detailsLink {
+  border: none;
+  background: none;
+  font-weight: 600;
+  color: $text-brown;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  &:hover {
+    text-decoration: none;
+  }
+  span {
+    position: relative;
+    top: 3px;
+    margin-left: 5px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-bottom: 0;
+  }
+} 
+
+.originalPrice {
+  font-family: $font-primary;
+  font-size: 0.9rem;
+  color: $text-brown;
+  line-height: 1.3;
+}
+
+.featuresList {
+  text-align: left;
+  margin: 2rem 0;
+  animation: slideDown 0.3s ease-out;
+  overflow: hidden;
+  @media screen and (max-width: 768px) {
+    margin: 1rem 0;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+  font-family: $font-primary;
+  font-size: 1rem;
+  line-height: 1.4;
+  
+  &.included {
+    .checkmark {
+      color: $nature-green;
+      background: url('/images/check.png') center center/cover no-repeat;
+      width: 18px;
+      height: 18px;
+    }
+    .featureText {
+      color: $text-brown;
+    }
+  }
+  
+  &.notIncluded {
+    .checkmark {
+      color: #ccc;
+      background: url('/images/check.png') center center/cover no-repeat;
+      width: 18px;
+      height: 18px;
+      opacity: 0.5;
+      filter: grayscale(100%);
+    }
+    .featureText {
+      color: #999;
+    }
+  }
+}
+
+.consents{
+  font-size: 1rem;
+  color: $text-brown;
+  font-weight: 400;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+
+.checkmark {
+  margin-right: 0.8rem;
+  margin-top: 0.1rem;
+  font-weight: bold;
+  min-width: 15px;
+}
+
+.featureText {
+  flex: 1;
+}
+
+.ctaButton {
+  width: 100%;
+  background: url('/images/btn-pricing.png') center center/contain no-repeat;
+  color: $beige-bg;
+  text-shadow: 2px 2px 4px #0000004d;
+  border: none;
+  padding: 1rem 2rem;
+  font-family: $font-primary;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
