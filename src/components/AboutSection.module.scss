@@ -1,0 +1,168 @@
+@use 'sass:color';
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+.aboutSection {
+  background: $beige-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  @media screen and (max-width: 768px) {
+    padding: 2rem; 
+  }
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: center;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+}
+
+// Section image et avatar
+.imageContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.nameplate {
+  background: linear-gradient(135deg, $gold, color.adjust($gold, $lightness: 15%));
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  border: 3px solid color.adjust($gold, $lightness: 25%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  margin-bottom: 2rem;
+  transform: perspective(1000px) rotateX(15deg);
+  animation: nameplate-entrance 1s ease-out;
+
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.5rem;
+    transform: perspective(1000px) rotateX(10deg);
+  }
+}
+
+.name {
+  font-family: $font-primary;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.05em;
+}
+
+.avatarContainer {
+  position: relative;
+}
+
+.avatar {
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(145deg, #DDD 0%, #FFF 50%, #EEE 100%);
+  border-radius: 50%;
+  border: 5px solid $wood-brown;
+  box-shadow: 
+    0 0 0 3px $gold,
+    0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+.avatarEmoji {
+  font-size: 6rem;
+  
+  @media (max-width: 768px) {
+    font-size: 4.5rem;
+  }
+}
+
+// Section texte
+.textContainer {
+  padding-left: 2rem;
+  
+  @media (max-width: 768px) {
+    padding-left: 0;
+  }
+}
+
+.title {
+  text-align: center;
+  @include section-title(2.5rem);
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.description {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: $text-brown;
+  max-width: 600px;
+  text-align: justify;
+  font-weight: 500;
+  padding: 0;
+  
+  .highlight {
+    font-family: $font-primary;
+    font-weight: 700;
+    color: $gold;
+    background: linear-gradient(135deg, $gold, color.adjust($gold, $lightness: 20%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    text-align: left;
+    padding: 0;
+  }
+}
+
+// Animations
+@keyframes gentle-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.nameplate {
+  animation: gentle-sway 6s ease-in-out infinite;
+}
+
+.avatar {
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+} 

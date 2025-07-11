@@ -1,0 +1,80 @@
+// Import du module color de SASS
+@use 'sass:color';
+
+// Variables SCSS
+$primary-color: #3b82f6;
+$secondary-color: #6b7280;
+$danger-color: #ef4444;
+$white: #ffffff;
+$border-radius: 0.375rem;
+$box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$transition: all 0.15s ease-in-out;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: $border-radius;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+  box-shadow: $box-shadow;
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Variantes
+.primary {
+  background-color: $primary-color;
+  color: $white;
+  
+  &:hover:not(:disabled) {
+    background-color: color.adjust($primary-color, $lightness: -10%);
+  }
+}
+
+.secondary {
+  background-color: $secondary-color;
+  color: $white;
+  
+  &:hover:not(:disabled) {
+    background-color: color.adjust($secondary-color, $lightness: -10%);
+  }
+}
+
+.danger {
+  background-color: $danger-color;
+  color: $white;
+  
+  &:hover:not(:disabled) {
+    background-color: color.adjust($danger-color, $lightness: -10%);
+  }
+}
+
+// Tailles
+.small {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.medium {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.large {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+} 

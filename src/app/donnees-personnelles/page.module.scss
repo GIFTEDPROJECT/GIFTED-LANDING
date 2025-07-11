@@ -1,0 +1,106 @@
+@use '../../styles/vars.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.legalHeader {
+  // Styles spécifiques pour le header des pages légales si nécessaire
+}
+
+.container {
+  min-height: 100vh;
+  background: $beige-bg;
+  padding: 2rem 1rem;
+  
+  @include tablet-max {
+    padding: 1.5rem 1rem;
+  }
+}
+
+.content {
+  @include centered-container();
+  max-width: 800px;
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  
+  @include tablet-max {
+    padding: 2rem;
+  }
+  
+  @include mobile-only {
+    padding: 1.5rem;
+  }
+}
+
+.title {
+  margin-bottom: 2rem;
+  text-align: center;
+  color: $text-brown;
+  @include section-title(2.5rem);
+  
+  @include tablet-max {
+    font-size: 2rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.8rem;
+  }
+}
+
+.subtitle {
+  color: $text-brown;
+  margin: 2rem 0 1rem 0;
+  @include card-title(1.5rem);
+  
+  @include tablet-max {
+    font-size: 1.3rem;
+  }
+}
+
+.paragraph {
+  font-family: $font-primary;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: $text-brown;
+  margin-bottom: 1rem;
+  
+  @include mobile-only {
+    font-size: 0.9rem;
+  }
+}
+
+.list {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.listItem {
+  font-family: $font-primary;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: $text-brown;
+  margin-bottom: 0.5rem;
+  
+  @include mobile-only {
+    font-size: 0.9rem;
+  }
+}
+
+.strong {
+  font-weight: 600;
+  color: $dark-brown;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.lastUpdate {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+} 

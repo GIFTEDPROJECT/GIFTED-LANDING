@@ -1,0 +1,63 @@
+// ===================================
+// VARIABLES GLOBALES GIFTED
+// ===================================
+
+// Police principale
+$font-primary: var(--font-fredoka), sans-serif;
+$font-title: var(--font-poppins), sans-serif;
+
+// Breakpoints responsive
+$mobile-max: 480px;
+$tablet-max: 768px;
+$desktop-min: 769px;
+$large-desktop-min: 1024px;
+$xl-desktop-min: 1200px;
+
+// Variables pour les titres (nouvelles couleurs)
+$title-gradient-start: #E9D99F;
+$title-gradient-end: #CFA64B;
+$title-shadow: #231504;
+
+// Couleurs principales
+$gold: #DAA520;
+$sky-blue: #87CEEB;
+$sun-yellow: #FFD700;
+$nature-green: #228B22;
+$wood-brown: #BD5405;
+$dark-brown: #57320D;
+
+// Couleurs de texte
+$text-white: #F1E6DA;
+$text-dark: #4A4A4A;
+$text-brown: #6B4423;
+
+// Couleurs de fond
+$beige-bg: #F1E6DA;
+$children-bg: #E8F5E8;
+$parents-bg: #F0E8FF;
+$cloud-white: #ffffff;
+
+// Couleurs des cartes savoirs
+$blue-bg: rgba(135, 206, 235, 0.85);
+$green-bg: rgba(144, 238, 144, 0.85);
+$purple-bg: rgba(221, 160, 221, 0.85);
+$yellow-bg: rgba(255, 228, 181, 0.85);
+
+// Couleurs pour inscription section
+$primary-gradient-start: #667eea;
+$primary-gradient-end: #764ba2;
+$card-bg: rgba(255, 255, 255, 0.95);
+
+// Header sticky
+$bg-black-transparent: rgba(0, 0, 0, 0.8);
+
+// Effets et ombres
+$text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+$card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+$magic-glow: #FFD700;
+
+// Transitions
+$transition: all 0.3s ease-in-out;
+
+// Variables de taille max
+$max-width: 1200px; 

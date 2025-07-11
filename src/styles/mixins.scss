@@ -1,0 +1,276 @@
+// ===================================
+// MIXINS GLOBAUX GIFTED
+// ===================================
+
+@use 'vars' as *;
+
+// Mixin pour le style des titres avec dégradé, stroke et ombre
+@mixin title-style($font-size: 2rem, $stroke-width: 2px, $shadow-offset-y: 1px, $shadow-offset-x: 0) {
+  font-family: $font-primary;
+  font-size: $font-size;
+  font-weight: 700;
+  line-height: 1.2;
+
+  color: $text-brown;
+  background: url('/images/wood2.png') center center;
+  background-size: cover;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  filter: drop-shadow(0 10px 16px #FFF);
+
+}
+
+// Mixin spécialisé pour les titres principaux (comme heroTitle)
+@mixin hero-title($font-size: 3.5rem) {
+  @include title-style($font-size, 2px, 2px, 0);
+  margin-bottom: 3rem;
+  
+  @include tablet-max {
+    font-size: calc($font-size * 0.7);
+    margin-bottom: 2rem;
+  }
+  
+  @include mobile-only {
+    font-size: calc($font-size * 0.57);
+  }
+}
+
+// Mixin pour les titres de section
+@mixin section-title($font-size: 2.5rem) {
+  @include title-style($font-size, 2px, 2px, 0);
+  margin-bottom: 2rem;
+  text-align: left;
+  
+  @include tablet-max {
+    font-size: calc($font-size * 0.72);
+  }
+}
+
+// Mixin pour les titres de cartes
+@mixin card-title($font-size: 1.8rem) {
+  @include title-style($font-size, 2px, 2px, 0);
+  margin-bottom: 1rem;
+  
+  @include tablet-max {
+    font-size: calc($font-size * 0.83);
+  }
+}
+
+// Mixin pour les logos
+@mixin logo-title($font-size: 1.8rem) {
+  @include title-style($font-size, 2px, 2px, 0);
+  text-decoration: none;
+  
+  @include tablet-max {
+    font-size: calc($font-size * 0.83);
+  }
+}
+
+// Mixin pour les boutons avec style doré
+@mixin gold-button() {
+  background: linear-gradient(135deg, $gold, color.adjust($gold, $lightness: -10%));
+  border: none;
+  border-radius: 25px;
+  font-family: $font-primary;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(218, 165, 32, 0.4);
+    background: linear-gradient(135deg, color.adjust($gold, $lightness: 10%), $gold);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Mixin pour les cartes avec effet glassmorphism
+@mixin glass-card($background: rgba(255, 255, 255, 0.1), $border-opacity: 0.3) {
+  background: $background;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, $border-opacity);
+  box-shadow: $card-shadow;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Mixin pour les animations d'entrée
+@mixin fade-in-up($duration: 0.8s, $delay: 0s) {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp $duration ease-out #{$delay} forwards;
+}
+
+// Keyframes pour l'animation fade-in-up
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Mixin pour les sections avec hauteur complète
+@mixin full-section($padding: 4rem 2rem) {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $padding;
+}
+
+// Mixin pour les conteneurs centrés
+@mixin centered-container($max-width: $max-width) {
+  max-width: $max-width;
+  width: 100%;
+  margin: 0 auto;
+}
+
+// Mixin pour les grilles responsives
+@mixin responsive-grid($columns: 2, $gap: 2rem, $mobile-columns: 1) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+  
+  @include tablet-max {
+    grid-template-columns: repeat($mobile-columns, 1fr);
+    gap: calc($gap * 0.75);
+  }
+}
+
+// Mixin pour les effets de flottement
+@mixin floating-animation($duration: 6s, $distance: 10px) {
+  animation: floating $duration ease-in-out infinite;
+  
+  @keyframes floating {
+    0%, 100% { 
+      transform: translateY(0); 
+    }
+    50% { 
+      transform: translateY(-$distance); 
+    }
+  }
+}
+
+// Mixin pour les ombres text avec dégradé compatible
+@mixin text-shadow-gradient($shadow-color: $title-shadow, $offset: 2px) {
+  filter: drop-shadow($offset 0 0 $shadow-color);
+}
+
+// Mixin pour les médias queries communes
+@mixin mobile-only {
+  @media (max-width: $mobile-max) {
+    @content;
+  }
+}
+
+@mixin tablet-max {
+  @media (max-width: $tablet-max) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: $desktop-min) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: $large-desktop-min) {
+    @content;
+  }
+}
+
+@mixin xl-desktop-up {
+  @media (min-width: $xl-desktop-min) {
+    @content;
+  }
+}
+
+// Animations d'entrée pour le Hero
+@mixin slide-down-fade($duration: 0.8s, $delay: 0s) {
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: slideDownFade $duration ease-out #{$delay} forwards;
+}
+
+@mixin slide-left-fade($duration: 0.8s, $delay: 0s) {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideLeftFade $duration ease-out #{$delay} forwards;
+}
+
+@mixin slide-right-fade($duration: 0.8s, $delay: 0s) {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideRightFade $duration ease-out #{$delay} forwards;
+}
+
+@mixin simple-fade($duration: 0.8s, $delay: 0s) {
+  & {
+    opacity: 0;
+    animation: simpleFade $duration ease-out #{$delay} forwards;
+  }
+}
+
+// Keyframes pour les animations du Hero
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeftFade {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRightFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes simpleFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+} 

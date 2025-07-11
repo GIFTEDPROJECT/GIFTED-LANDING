@@ -1,0 +1,15 @@
+@use 'sass:color';
+@use '../styles/vars.scss' as *;
+
+.container {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  background: $beige-bg;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: $font-primary;
+}
