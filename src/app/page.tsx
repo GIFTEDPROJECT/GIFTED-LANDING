@@ -2,6 +2,7 @@
 
 import React from "react";
 import HeroSection from "@/components/HeroSection";
+import DoubleHeroSection from "@/components/DoubleHeroSection";
 import AboutSection from "@/components/AboutSection";
 import WhySection from "@/components/WhySection";
 import SavoirsSection from "@/components/SavoirsSection";
@@ -29,21 +30,24 @@ export default function Home() {
       {/* Header Sticky */}
       <StickyHeader />
 
-      {/* Hero Section - Premier écran */}
-      <HeroSection
+      {/* Double Hero Section - Premier écran */}
+      <DoubleHeroSection />
+
+      {/* Hero Section - Deuxième écran */}
+      {/*  <HeroSection
         title="Et si l'Enfance recréait le Monde ?"
         ctaText="JE DÉCOUVRE"
         onCtaClick={handleDiscoverClick}
-      />
+      /> */}
 
       {/* Section Dr Eve Bottach - À quoi sert GIFTED */}
       <AboutSection id="about" />
 
       {/* Section Pourquoi les enfants adorent GIFTED */}
-      <WhySection type="children" />
+      {/* <WhySection type="children" /> */}
 
       {/* Section Pourquoi les parents adorent GIFTED */}
-      <WhySection type="parents" />
+      {/* <WhySection type="parents" /> */}
 
       {/* Section La transmission des savoirs dans GIFTED */}
       <SavoirsSection id="savoirs" />
