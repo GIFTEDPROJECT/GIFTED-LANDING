@@ -36,9 +36,7 @@ export const metadata: Metadata = {
     title: "GIFTED - Et si l'Enfance recréait le Monde ?",
     description:
       "Plateforme éducative innovante qui révolutionne l'apprentissage des enfants",
-    images: [
-      "https://gifted-project.net/images/social-preview.png",
-    ],
+    images: ["https://gifted-project.net/images/social-preview.png"],
   },
   icons: {
     icon: "/favicon.ico",
