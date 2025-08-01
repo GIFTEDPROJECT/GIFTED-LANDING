@@ -111,16 +111,23 @@
   @media (max-width: 768px) {
     padding-left: 0;
   }
-}
+  .title {
+    text-align: center;
+    @include section-title(2.5rem);
 
-.title {
-  text-align: center;
-  @include section-title(2.5rem);
-  
-  @media (max-width: 768px) {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    span {
+      color: #FC8A8A;
+      &:last-child {
+        color: #CF9907;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
   }
+  
 }
 
 .description {

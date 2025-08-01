@@ -1,0 +1,54 @@
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+// Classe pour bloquer le scroll
+:global(.stop-scrolling) {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.revealSection {
+  height: 340vh;
+  width: 100%;
+  background-color: #f5f5dc; // Beige
+  position: relative;
+  padding: 10vh;
+}
+
+.container {
+    position: sticky;
+    top: 0vh;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.phrasesContainer {
+  width: 100%;
+}
+
+.phrase {
+  font-size: 3.4rem;
+  font-weight: 600;
+  line-height: 1.4;
+  opacity: 0.2;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  color: #333;
+  transform: translateY(20px);
+  margin-left: .4rem;
+  @include title-style(3.4rem, 2px, 1px, 0);
+  line-height: 1.4;
+  
+  @include mobile-only {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 
