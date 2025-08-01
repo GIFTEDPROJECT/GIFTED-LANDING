@@ -61,26 +61,76 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   const [currentSlide, setCurrentSlide] = useState(0);
   const [answeredYes, setAnsweredYes] = useState<boolean[]>([]);
   const [visitedCards, setVisitedCards] = useState<string[]>([]);
-  const [showFirstResponse, setShowFirstResponse] = useState(false);
-  const [firstResponseType, setFirstResponseType] = useState<
-    "yes" | "no" | null
-  >(null);
+  const [showPercentageBanner, setShowPercentageBanner] = useState(false);
+  const [percentageResponse, setPercentageResponse] = useState<string>("");
+  const [percentageValue, setPercentageValue] = useState<string>("");
+  const [activeCardId, setActiveCardId] = useState<string>("");
+  const [isBannerTransitioning, setIsBannerTransitioning] = useState(false);
+  const [currentTimeout, setCurrentTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  );
+  const [responseType, setResponseType] = useState<"oui" | "non" | null>(null);
+
+  const clearCurrentBanner = () => {
+    if (currentTimeout) {
+      clearTimeout(currentTimeout);
+      setCurrentTimeout(null);
+    }
+    const banner = document.querySelector(
+      `.${styles.percentageBanner}`
+    ) as HTMLElement;
+    if (banner) {
+      banner.classList.add(styles.slideDown);
+      setTimeout(() => {
+        setShowPercentageBanner(false);
+      }, 300);
+    }
+  };
+
+  const showNewBanner = (
+    cardId: string,
+    response: string,
+    percentage: string,
+    type: "oui" | "non"
+  ) => {
+    setActiveCardId(cardId);
+    setPercentageResponse(response);
+    setPercentageValue(percentage);
+    setResponseType(type);
+    setShowPercentageBanner(true);
+
+    // Programmer la disparition automatique
+    const timeout = setTimeout(() => {
+      const banner = document.querySelector(
+        `.${styles.percentageBanner}`
+      ) as HTMLElement;
+      if (banner) {
+        banner.classList.add(styles.slideDown);
+        setTimeout(() => {
+          setShowPercentageBanner(false);
+        }, 300);
+      }
+    }, 5000);
+
+    setCurrentTimeout(timeout);
+  };
 
   const handleCardClick = (cardId: string) => {
+    // Ne pas ouvrir la popin si le bandeau est affiché
+    if (showPercentageBanner) {
+      return;
+    }
+
     if (openCard === cardId) {
       setOpenCard(null);
       setShowSecondContent(false);
       setCurrentSlide(0);
       setAnsweredYes([]);
-      setShowFirstResponse(false);
-      setFirstResponseType(null);
     } else {
       setOpenCard(cardId);
       setShowSecondContent(false);
       setCurrentSlide(0);
       setAnsweredYes([]);
-      setShowFirstResponse(false);
-      setFirstResponseType(null);
       // Ajouter la carte aux cartes visitées
       if (!visitedCards.includes(cardId)) {
         setVisitedCards((prev) => [...prev, cardId]);
@@ -95,30 +145,72 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
     setAnsweredYes([]);
   };
 
-  const handleYesClick = () => {
-    setShowFirstResponse(true);
-    setFirstResponseType("yes");
+  const handleYesClick = (cardId: string) => {
+    // Fermer la popin si elle est ouverte
+    if (openCard) {
+      setOpenCard(null);
+      setShowSecondContent(false);
+      setCurrentSlide(0);
+      setAnsweredYes([]);
+    }
+
+    const card = quizCards.find((c) => c.id === cardId);
+    if (card) {
+      // Si une bannière est déjà affichée, la faire sortir d'abord
+      if (showPercentageBanner) {
+        clearCurrentBanner();
+        setTimeout(() => {
+          showNewBanner(
+            cardId,
+            "des parents ont répondu OUI",
+            card.percentage,
+            "oui"
+          );
+        }, 400); // Attendre que la sortie soit terminée
+      } else {
+        // Première bannière
+        showNewBanner(
+          cardId,
+          "des parents ont répondu OUI",
+          card.percentage,
+          "oui"
+        );
+      }
+    }
   };
 
-  const handleNoClick = () => {
-    setShowFirstResponse(true);
-    setFirstResponseType("no");
-  };
+  const handleNoClick = (cardId: string) => {
+    // Fermer la popin si elle est ouverte
+    if (openCard) {
+      setOpenCard(null);
+      setShowSecondContent(false);
+      setCurrentSlide(0);
+      setAnsweredYes([]);
+    }
 
-  const handleSlideYes = () => {
-    setAnsweredYes((prev) => [...prev, true]);
-    setCurrentSlide((prev) => Math.min(prev + 1, 4));
-  };
-
-  const handleSlideNo = () => {
-    setAnsweredYes((prev) => [...prev, false]);
-    setCurrentSlide((prev) => Math.min(prev + 1, 4));
-  };
-
-  const handleContinue = () => {
-    setShowSecondContent(true);
-    setShowFirstResponse(false);
-    setFirstResponseType(null);
+    const card = quizCards.find((c) => c.id === cardId);
+    if (card) {
+      // Si une bannière est déjà affichée, la faire sortir d'abord
+      if (showPercentageBanner) {
+        clearCurrentBanner();
+        setTimeout(() => {
+          showNewBanner(
+            cardId,
+            "des parents ont répondu NON",
+            `${100 - parseInt(card.percentage)}%`,
+            "non"
+          );
+        }, 400); // Attendre que la sortie soit terminée
+      } else {
+        // Première bannière
+        showNewBanner(
+          cardId,
+          "des parents ont répondu NON",
+          `${100 - parseInt(card.percentage)}%`,
+          "non"
+        );
+      }
+    }
   };
 
   const getCurrentCard = () => {
@@ -141,7 +233,6 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                 styles[card.position]
               }`}
               style={{ animationDelay: `${index * 0.2}s` }}
-              onClick={() => handleCardClick(card.id)}
             >
               <div className={styles.quizLabel}>{card.title}</div>
               <div className={styles.cardContent}>
@@ -162,8 +253,18 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                   <p className={styles.cardIntro}>Répétez-vous souvent ?</p>
                   <p className={styles.cardQuestion}>{card.description}</p>
                   <div className={styles.cardButtons}>
-                    <button className={styles.cardYesButton}>OUI</button>
-                    <button className={styles.cardNoButton}>NON</button>
+                    <button
+                      className={styles.cardYesButton}
+                      onClick={() => handleYesClick(card.id)}
+                    >
+                      OUI
+                    </button>
+                    <button
+                      className={styles.cardNoButton}
+                      onClick={() => handleNoClick(card.id)}
+                    >
+                      NON
+                    </button>
                   </div>
                 </div>
                 {visitedCards.includes(card.id) && (
@@ -198,8 +299,6 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                     setShowSecondContent(false);
                     setCurrentSlide(0);
                     setAnsweredYes([]);
-                    setShowFirstResponse(false);
-                    setFirstResponseType(null);
                     setVisitedCards((prev) =>
                       prev.filter((card) => card !== openCard)
                     );
@@ -251,11 +350,14 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                   <div className={styles.buttonGroup}>
                     <button
                       className={styles.yesButton}
-                      onClick={handleSlideYes}
+                      onClick={() => handleYesClick(openCard!)}
                     >
                       Oui
                     </button>
-                    <button className={styles.noButton} onClick={handleSlideNo}>
+                    <button
+                      className={styles.noButton}
+                      onClick={() => handleNoClick(openCard!)}
+                    >
                       Non
                     </button>
                   </div>
@@ -274,11 +376,14 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                   <div className={styles.buttonGroup}>
                     <button
                       className={styles.yesButton}
-                      onClick={handleSlideYes}
+                      onClick={() => handleYesClick(openCard!)}
                     >
                       Oui
                     </button>
-                    <button className={styles.noButton} onClick={handleSlideNo}>
+                    <button
+                      className={styles.noButton}
+                      onClick={() => handleNoClick(openCard!)}
+                    >
                       Non
                     </button>
                   </div>
@@ -297,11 +402,14 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                   <div className={styles.buttonGroup}>
                     <button
                       className={styles.yesButton}
-                      onClick={handleSlideYes}
+                      onClick={() => handleYesClick(openCard!)}
                     >
                       Oui
                     </button>
-                    <button className={styles.noButton} onClick={handleSlideNo}>
+                    <button
+                      className={styles.noButton}
+                      onClick={() => handleNoClick(openCard!)}
+                    >
                       Non
                     </button>
                   </div>
@@ -320,11 +428,14 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                   <div className={styles.buttonGroup}>
                     <button
                       className={styles.yesButton}
-                      onClick={handleSlideYes}
+                      onClick={() => handleYesClick(openCard!)}
                     >
                       Oui
                     </button>
-                    <button className={styles.noButton} onClick={handleSlideNo}>
+                    <button
+                      className={styles.noButton}
+                      onClick={() => handleNoClick(openCard!)}
+                    >
                       Non
                     </button>
                   </div>
@@ -412,6 +523,24 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Bandeau de pourcentage */}
+      {showPercentageBanner && (
+        <div className={`${styles.percentageBanner} ${styles[activeCardId]}`}>
+          <div className={styles.percentageBannerInner}>
+            <div className={styles.percentageContent}>
+              <span
+                className={`${styles.percentageValue} ${
+                  responseType ? styles[responseType] : ""
+                }`}
+              >
+                {percentageValue}
+              </span>{" "}
+              {percentageResponse}
+            </div>
           </div>
         </div>
       )}

@@ -14,6 +14,7 @@ import DonationSection from "@/components/DonationSection";
 import ContactSection from "@/components/ContactSection";
 import StickyHeader from "@/components/StickyHeader";
 import Footer from "@/components/Footer";
+import { RevealSection } from "@/components/RevealSection";
 import styles from "./page.module.scss";
 
 export default function Home() {
@@ -48,6 +49,9 @@ export default function Home() {
 
       {/* Section Pourquoi les parents adorent GIFTED */}
       {/* <WhySection type="parents" /> */}
+
+      {/* Section Révélation des phrases */}
+      <RevealSection id="reveal" />
 
       {/* Section La transmission des savoirs dans GIFTED */}
       <SavoirsSection id="savoirs" />

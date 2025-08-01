@@ -30,6 +30,13 @@ const DoubleHeroSection: React.FC = () => {
     }
   };
 
+  const scrollToNextSection = () => {
+    const nextSection = document.getElementById("about");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const openVideoModal = () => {
     setIsVideoModalOpen(true);
   };
@@ -103,6 +110,20 @@ const DoubleHeroSection: React.FC = () => {
           <div className={styles.manImage}>
             <Image src="/images/man.png" alt="Man" width={250} height={400} />
           </div>
+        </div>
+
+        {/* Flèche de scroll en bas */}
+        <div
+          className={styles.scrollArrow}
+          onClick={scrollToNextSection}
+          aria-label="Aller à la section suivante"
+        >
+          <Image
+            src="/images/arrow-down2.png"
+            alt="Flèche vers le bas"
+            fill
+            className={styles.scrollArrowImage}
+          />
         </div>
       </div>
 
