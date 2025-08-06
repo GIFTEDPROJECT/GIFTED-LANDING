@@ -16,6 +16,7 @@ import StickyHeader from "@/components/StickyHeader";
 import Footer from "@/components/Footer";
 import { RevealSection } from "@/components/RevealSection";
 import styles from "./page.module.scss";
+import { MethodSection } from "@/components";
 
 export default function Home() {
   const handleDiscoverClick = () => {
@@ -33,6 +34,8 @@ export default function Home() {
 
       {/* Double Hero Section - Premier écran */}
       <DoubleHeroSection />
+      {/* Section Méthodes innovantes de GIFTED */}
+      <MethodSection id="method" />
 
       {/* Hero Section - Deuxième écran */}
       {/*  <HeroSection

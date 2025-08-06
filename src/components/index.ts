@@ -6,6 +6,7 @@ export { default as AboutSection } from './AboutSection';
 export { default as WhySection } from './WhySection';
 export { default as StickyHeader } from './StickyHeader';
 export { default as SavoirsSection } from './SavoirsSection';
+export { MethodSection } from './MethodSection';
 
 // Types exports (optionnel, mais utile pour TypeScript)
 export type { default as ButtonProps } from './Button';

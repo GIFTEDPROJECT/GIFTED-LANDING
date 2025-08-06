@@ -16,10 +16,12 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
   const sectionRef = useRef<HTMLElement>(null);
 
   const phrases = [
-    "Chaque petite tâche devient une victoire.",
-    "En moins de 5 minutes d’écran, votre enfant relève des missions ludiques.",
-    "De vraies récompenses nourrissent sa motivation, dans un univers qu’il personnalise.",
-    "Bienvenue dans le parcours d’autonomie GIFTED",
+    "Chaque petite tâche devient une grande victoire. ",
+    "Temps d'écran inférieur à 5 min.",
+    "Simples à comprendre pour l'enfant.",
+    "Amusants à réaliser et ultra motivants grâce au système de récompenses réelles, et non virtuelles.",
+    "Graphismes enchanteurs, qui résonnent avec l'imaginaire de l'enfant.",
+    "Personnalisables par l'enfant (choix d'un avatar, choix du décor).",
   ];
 
   useEffect(() => {
@@ -29,8 +31,8 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
       const rect = sectionRef.current.getBoundingClientRect();
       const sectionHeight = rect.height;
 
-      // Ne commencer que quand la section est à top: 0
-      if (rect.top > 0) {
+      // Ne redémarrer que quand on sort de la section ET qu'on a atteint au moins une phrase
+      if (rect.top > 0 && currentPhraseIndex >= 0) {
         setCurrentPhraseIndex(-1);
         return;
       }
@@ -56,7 +58,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [currentPhraseIndex, phrases.length]);
+  }, [phrases.length]);
 
   return (
     <section
@@ -70,7 +72,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
             <span
               key={index}
               className={`${styles.phrase} ${
-                index <= currentPhraseIndex ? styles.visible : ""
+                index === currentPhraseIndex ? styles.visible : ""
               }`}
             >
               {phrase}

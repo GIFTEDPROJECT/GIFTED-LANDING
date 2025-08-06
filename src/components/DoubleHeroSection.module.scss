@@ -2,12 +2,12 @@
 @use '../styles/mixins.scss' as *;
 
 .doubleHeroSection {
-  height: 200vh;
+  height: 320vh;
   width: 100%;
-  background: url('/images/doubleSectionBackground.png') no-repeat center bottom;
+  background: transparent;
   background-size: cover;
   position: relative;
-  overflow: hidden;
+  background-size: contain;
 }
 
 .topBlock {
@@ -17,13 +17,32 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  background: url('/images/hero-top-img.png') no-repeat center bottom;
+  background-size:cover
 }
 
 .topContent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   text-align: center;
-  max-width: 1024px;
   padding: 0 2rem;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+  pointer-events: none;
+}
+
+.topContentHidden {
+  .topContent {
+    opacity: 0;
+  }
 }
 
 .logoContainer {
@@ -47,33 +66,31 @@
 }
 
 .mainTitle {
-	background: linear-gradient(135deg, #fff, #fff, #fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: $text-shadow;
-  text-transform: uppercase;
- 	font-size: 4rem;
+	font-family: var(--font-nunito), sans-serif;
+  color: #deb357;
+  text-transform: none;
+ 	font-size: 4.5rem;
  	font-weight: 900;
  	line-height: 1.2;
  	margin-bottom: 2rem;
  	white-space: normal;
  	word-wrap: break-word;
- 	span {
-		background: linear-gradient(135deg, #FFFF00, #FFD700, #FFA500);
- 		-webkit-background-clip: text;
- 		-webkit-text-fill-color: transparent;
- 		background-clip: text;
- 	}
-
-	@include mobile-only {
-		font-size: 1.8rem;
-	}
+   text-shadow:
+   -2px -2px 0 #231504,
+    0   -2px 0 #231504,
+    2px -2px 0 #231504,
+    2px  2px 0 #231504,
+    0    2px 0 #231504,
+   -2px  2px 0 #231504,
+   -2px  0   0 #231504;
+   @include mobile-only {
+    font-size: 2.5rem;
+   }
 }
 
 .scrollArrow {
   position: absolute;
-  bottom: 2rem;
+  bottom: 5rem;
   left: calc(50% - 60px);
   width: 120px;
   height: 120px;
@@ -96,7 +113,6 @@
   cursor: pointer;
   transition: transform 0.3s ease;
   z-index: 10;
-
   &:hover {
     transform: translateY(10px);
   }
@@ -106,64 +122,71 @@
   object-fit: contain;
   width: 100%;
   height: 100%;
-  transition: filter 0.3s ease;
 }
 
+.visible {
+  .bottomBlock {
+    background-color: $beige-bg;
+    .container {
+      transform: scale(0.7);
+      transition: transform 0.3s ease-out;
+      .doubleHeroSectionBackgroundImage{
+        border-radius: 20px;
+      }
+    }
+  }
+}
 .bottomBlock {
-  height: 100vh;
+  height: 200vh;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
-
-  &.visible {
-    .bottomSection {
-        .womanImage {
-            transform: translateX(0);
-            opacity: 1;
-        }
+  overflow: visible;
+  .container {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    will-change: transform;
+    transform-origin: center center;
+    transition: transform 0.3s ease-out 0.5s;
+    transform: scale(1);
+    overflow: hidden;
     
-        .manImage {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
+    .doubleHeroSectionBackgroundImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: border-radius 0.4s ease-out;
+      object-position: top;
     }
   }
 }
 
-.container {
-  max-width: $max-width;
-  margin: 0 auto;
-  padding: 0 2rem;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .content {
   text-align: center;
-  max-width: 800px;
+  max-width: 1024px;
   z-index: 10;
 }
 
 .title {
-	background: linear-gradient(135deg, #5e3315, #5e3315, #5e3315);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-transform: uppercase;
-	text-shadow: $text-shadow;
- 	font-size: 4rem;
- 	font-weight: 900;
- 	line-height: 1.2;
- 	margin-bottom: 2rem;
- 	white-space: normal;
- 	word-wrap: break-word;
+	font-family: var(--font-fredoka), sans-serif;
+	font-size: 3.5rem;
+	font-weight: 700;
+	line-height: 1.2;
+	background: url(/images/wood2.png) 50%;
+	background-size: cover;
+	color: rgba(0, 0, 0, 0);
+	-webkit-background-clip: text;
+	background-clip: text;
 	filter: drop-shadow(0 10px 16px #FFF);
+	margin-top: 0;
+	margin-bottom: 4rem;
  	span {
  		-webkit-background-clip: text;
  		-webkit-text-fill-color: transparent;
@@ -201,28 +224,42 @@
 }
 
 .ctaButton {
-  background: linear-gradient(135deg, #ff6b35, #f7931e);
-  color: white;
-  border: none;
-  padding: 1.2rem 3rem;
-  border-radius: 50px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
-  
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
-  }
-  
-  &:active {
-    transform: translateY(-1px);
-  }
-  
+	background-image: url(/images/btn-bg2.png);
+	background-repeat: no-repeat;
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-shadow: rgba(0, 0, 0, 0.3) 2px 2px 4px;
+	cursor: pointer;
+	font-family: var(--font-fredoka), sans-serif;
+	letter-spacing: 0.05em;
+	color: rgb(133, 57, 27);
+	box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 20px, rgba(107, 68, 35, 0.8) 0px 0px 10px inset;
+	background-position: 50% center;
+	padding: 0.9rem 3rem;
+	transition: 0.3s;
+	background-size: cover;
+	border-width: initial;
+	border-style: none;
+	border-color: initial;
+	border-image: initial;
+	text-transform: uppercase;
+	border-radius: 40px;
+	-webkit-text-stroke: 1px rgb(161, 76, 29);
+	animation: 1.2s ease-out 3s 1 normal forwards running HeroSection_simpleFade__lROCM;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	svg {
+		position: relative;
+		top: 2px;
+		text-shadow: rgba(0, 0, 0, 0.3) 2px 2px 4px;
+	}
+
+	&:hover {
+		transform: translateY(-4px);
+	}
+ 
   @include mobile-only {
     padding: 1rem 2.5rem;
     font-size: 1rem;
@@ -240,6 +277,73 @@
   }
 }
 
+
+.visible {
+  .bottomTitle {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+.bottomTitle {
+  font-family: var(--font-nunito), sans-serif;
+  color: #deb357;
+  text-transform: none;
+ 	font-size: 3.5rem;
+ 	font-weight: 900;
+ 	line-height: 1.2;
+ 	margin-bottom: 2rem;
+ 	white-space: normal;
+ 	word-wrap: break-word;
+   text-shadow:
+   -2px -2px 0 #231504,
+    0   -2px 0 #231504,
+    2px -2px 0 #231504,
+    2px  2px 0 #231504,
+    0    2px 0 #231504,
+   -2px  2px 0 #231504,
+   -2px  0   0 #231504;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  z-index: 10;
+  text-align: center;
+  opacity: 0;
+  transition: transform 1s ease-out, opacity 1s ease-out;
+  width: 100%;
+  @include mobile-only {
+    font-size: 2.5rem;
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+  }
+
+}
+
+.logoContainerBottom {
+  opacity: 0;
+  transition: transform 1s ease-out, opacity 1s ease-out;
+  .logoImageBottom {
+    width: 340px;
+    height: auto;
+    object-fit: contain;
+    position: absolute;
+    top: 80px;
+    left: calc(50% - 170px);
+    
+
+    @include mobile-only {
+      width: 200px;
+      left: calc(50% - 100px);
+    }
+  }
+}
+.visible {
+  .logoContainerBottom {
+    opacity: 1;
+  }
+}
+
 .bottomSection {
   position: absolute;
   bottom: 0;
@@ -250,7 +354,7 @@
   justify-content: space-between;
   align-items: flex-end;
   padding: 0 2% 0 10%;
-  opacity: .8;
+  opacity: 1;
   @include tablet-max {
     padding: 0;
     width: 125%;
@@ -263,15 +367,13 @@
     height: auto !important;
   }
 
-  
-  
   .womanImage {
     width: 18vw !important;
     max-width: 300px;
     height: auto !important;
     transform: translateX(-100%);
     opacity: 0;
-    transition: all 1.2s ease-out;
+    transition: transform 1s ease-out, opacity 1s ease-out;
     
     @include tablet-max {
       width: 48vw !important;
@@ -284,11 +386,25 @@
     max-width: 300px;
     transform: translateX(100%);
     opacity: 0;
-    transition: all 1.2s ease-out;
+    transition: transform 1s ease-out, opacity 1s ease-out;
     
     @include tablet-max {
       margin-right: -40px;
       width: 48vw !important;
+    }
+  }
+  
+}
+
+.visible {
+  .bottomSection {
+    .womanImage {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .manImage {
+      transform: translateX(0);
+      opacity: 1;
     }
   }
 }
