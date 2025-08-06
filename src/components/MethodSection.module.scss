@@ -1,0 +1,250 @@
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+.methodSection {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #f8f6f0 0%, #f0e8d8 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #4a3c2c;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  
+  @include mobile-only {
+    font-size: 2.5rem;
+  }
+}
+
+.subtitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #6b5b47;
+  margin: 0;
+}
+
+.tabletIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.stepsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  align-items: center;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 900px;
+  
+  @include mobile-only {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+    
+    @include mobile-only {
+      flex-direction: column;
+    }
+  }
+}
+
+.stepCircle {
+  width: 400px;
+  height: 400px;
+  background: #e6d7c3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  
+  @include mobile-only {
+    width: 300px;
+    height: 200px;
+  }
+}
+
+.devicesContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.laptop {
+  position: absolute;
+  left: 20%;
+  z-index: 2;
+  
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.tablet {
+  position: absolute;
+  right: 20%;
+  z-index: 1;
+  
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.phonesContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phoneFront {
+  position: absolute;
+  left: 30%;
+  z-index: 2;
+  
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.phoneBack {
+  position: absolute;
+  right: 30%;
+  z-index: 1;
+  
+  img {
+    width: 100px;
+    height: auto;
+  }
+}
+
+.laptopReward {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  img {
+    width: 250px;
+    height: auto;
+  }
+}
+
+.rewardPopup {
+  position: absolute;
+  top: 20%;
+  right: 15%;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  
+  p {
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    color: #4a3c2c;
+  }
+  
+  img {
+    width: 40px;
+    height: auto;
+  }
+}
+
+.stepContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  
+  @include mobile-only {
+    align-items: center;
+  }
+}
+
+.stepNumber {
+  background: #d2691e;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(210, 105, 30, 0.3);
+}
+
+.stepText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stepTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #4a3c2c;
+  margin: 0;
+  line-height: 1.3;
+  
+  @include mobile-only {
+    font-size: 1.2rem;
+  }
+}
+
+.stepSubtitle {
+  font-size: 1rem;
+  color: #6b5b47;
+  margin: 0;
+  opacity: 0.8;
+  
+  @include mobile-only {
+    font-size: 0.9rem;
+  }
+} 
