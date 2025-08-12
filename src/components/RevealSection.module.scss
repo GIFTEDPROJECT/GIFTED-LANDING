@@ -21,6 +21,32 @@
   }
 }
 
+// Conteneur de la vague verticale
+.waveContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50vw;
+  max-width: 50vw;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  
+  @include mobile-only {
+    width: 50vw;
+    max-width: 50vw;
+  }
+}
+
+// SVG de la vague
+.waveSvg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .container {
     position: sticky;
     top: 10vh;
@@ -28,6 +54,7 @@
     display: flex;
     align-items: center;
     overflow: hidden;
+    z-index: 1;
     @include mobile-only {
       height: 100vh;
        align-items: flex-start;
@@ -36,10 +63,12 @@
 
 .phrasesContainer {
   width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .phrase {
-  @include title-style(3.5rem, 2px, 1px, 0);
+  @include title-style(3rem, 2px, 1px, 0);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   margin-left: .4rem;
   line-height: 1.4;

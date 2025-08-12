@@ -62,7 +62,7 @@ const DoubleHeroSection: React.FC = () => {
 
       // Arrêter l'animation quand bottomVisible est true
       if (!bottomVisible) {
-        setImageScale(Math.max(0.6, newScale));
+        setImageScale(Math.max(0.82, newScale));
       }
 
       // Détecter quand le bas de la section est visible
@@ -153,11 +153,23 @@ const DoubleHeroSection: React.FC = () => {
             />
           </div>
           <h2 className={styles.bottomTitle}>
+            <br />
             <span>
               Rendez vos enfants autonomes <br />
               en 5 minutes de fun par jour.
             </span>
           </h2>
+
+          {/* Bouton vidéo GIFTED */}
+          <button
+            className={styles.videoButton}
+            onClick={() => setIsVideoModalOpen(true)}
+            aria-label="Regarder la vidéo GIFTED"
+          >
+            <FaPlay className={styles.playIcon} />
+            <span className={styles.videoButtonText}>GIFTED en vidéo</span>
+          </button>
+
           <img
             src="/images/hero-bottom-img.png"
             alt="Double Hero Section Background"

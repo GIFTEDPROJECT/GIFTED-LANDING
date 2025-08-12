@@ -18,8 +18,8 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
   const phrases = [
     "Chaque petite tâche devient une grande victoire. ",
     "Temps d'écran inférieur à 5 min.",
-    "Simples à comprendre pour l'enfant.",
-    "Amusants à réaliser et ultra motivants grâce au système de récompenses réelles, et non virtuelles.",
+    "Simple à comprendre pour l'enfant.",
+    "Amusant à réaliser et ultra motivant grâce au système de récompenses réelles, et non virtuelles.",
     "Graphismes enchanteurs, qui résonnent avec l'imaginaire de l'enfant.",
     "Personnalisables par l'enfant (choix d'un avatar, choix du décor).",
   ];
@@ -66,6 +66,22 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
       id={id}
       className={`${styles.revealSection} ${className || ""}`}
     >
+      {/* SVG Vague verticale beige */}
+      <div className={styles.waveContainer}>
+        <svg
+          className={styles.waveSvg}
+          viewBox="0 0 200 600"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0,0 C50,50 100,100 150,150 C180,200 200,250 200,300 C200,350 180,400 150,450 C100,500 50,550 0,600 L0,0 Z"
+            fill="#eedcc9"
+            opacity="0.8"
+          />
+        </svg>
+      </div>
+
       <div className={styles.container}>
         <div className={styles.phrasesContainer}>
           {phrases.map((phrase, index) => (

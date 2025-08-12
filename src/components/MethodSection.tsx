@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./MethodSection.module.scss";
 
 interface MethodSectionProps {
@@ -12,10 +12,54 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
   className,
   id,
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const [stepsVisible, setStepsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === sectionRef.current) {
+              setIsVisible(true);
+            } else if (entry.target === headerRef.current) {
+              setHeaderVisible(true);
+            } else if (entry.target === stepsRef.current) {
+              setStepsVisible(true);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    if (headerRef.current) observer.observe(headerRef.current);
+    if (stepsRef.current) observer.observe(stepsRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <section id={id} className={`${styles.methodSection} ${className || ""}`}>
+    <section
+      ref={sectionRef}
+      id={id}
+      className={`${styles.methodSection} ${className || ""}`}
+    >
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div
+          ref={headerRef}
+          className={`${styles.header} ${headerVisible ? styles.animate : ""}`}
+        >
           <h2 className={styles.title}>La méthode GIFTED, c'est simple</h2>
           <div className={styles.subtitleContainer}>
             <p className={styles.subtitle}>
@@ -24,21 +68,31 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
           </div>
         </div>
 
-        <div className={styles.stepsContainer}>
+        <div
+          ref={stepsRef}
+          className={`${styles.stepsContainer} ${
+            stepsVisible ? styles.animate : ""
+          }`}
+        >
           {/* Étape 1 */}
-          <div className={styles.step}>
-            <div className={styles.stepCircle}>
-              <div className={styles.devicesContainer}>
-                <div className={styles.laptop}>
-                  <img src="/images/1.png" alt="Laptop avec jeu" />
-                </div>
-              </div>
+          <div
+            className={`${styles.step} ${stepsVisible ? styles.animate : ""}`}
+          >
+            <div className={styles.imageContainer}>
+              <img src="/images/1.png" alt="Laptop avec jeu" />
             </div>
+
             <div className={styles.stepContent}>
-              <div className={styles.stepNumber}>1</div>
+              <div
+                className={`${styles.stepNumber} ${
+                  stepsVisible ? styles.animate : ""
+                }`}
+              >
+                1
+              </div>
               <div className={styles.stepText}>
                 <p className={styles.stepTitle}>
-                  Votre enfant répond à 5 questions d'autonomie
+                  Votre enfant répond <br />à 5 questions d'autonomie
                 </p>
                 <p className={styles.stepSubtitle}>
                   2 min de Fun pour l'enfant
@@ -48,19 +102,26 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
           </div>
 
           {/* Étape 2 */}
-          <div className={styles.step}>
-            <div className={styles.stepCircle}>
-              <div className={styles.phonesContainer}>
-                <div className={styles.phoneFront}>
-                  <img src="/images/2.png" alt="Validation parent" />
-                </div>
+          <div
+            className={`${styles.step} ${stepsVisible ? styles.animate : ""}`}
+          >
+            <div className={styles.phonesContainer}>
+              <div className={styles.imageContainer}>
+                <img src="/images/2.png" alt="Laptop avec jeu" />
               </div>
             </div>
             <div className={styles.stepContent}>
-              <div className={styles.stepNumber}>2</div>
+              <div
+                className={`${styles.stepNumber} ${
+                  stepsVisible ? styles.animate : ""
+                }`}
+              >
+                2
+              </div>
               <div className={styles.stepText}>
                 <p className={styles.stepTitle}>
-                  Vous validez ses réponses... ou vous les modifiez...
+                  Vous validez ses réponses...
+                  <br /> ou vous les modifiez...
                 </p>
                 <p className={styles.stepSubtitle}>
                   Validation par le parent en quelques clics
@@ -70,17 +131,26 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
           </div>
 
           {/* Étape 3 */}
-          <div className={styles.step}>
-            <div className={styles.stepCircle}>
-              <div className={styles.laptopReward}>
-                <img src="/images/3.png" alt="Laptop avec récompense" />
-              </div>
+          <div
+            className={`${styles.step} ${stepsVisible ? styles.animate : ""}`}
+          >
+            <div className={styles.imageContainer}>
+              <img src="/images/3.png" alt="Laptop avec jeu" />
             </div>
+
             <div className={styles.stepContent}>
-              <div className={styles.stepNumber}>3</div>
+              <div
+                className={`${styles.stepNumber} ${
+                  stepsVisible ? styles.animate : ""
+                }`}
+              >
+                3
+              </div>
               <div className={styles.stepText}>
-                <p className={styles.stepTitle}>Une tâche validée</p>
-                <p className={styles.stepSubtitle}>1 GIFT POINT</p>
+                <p className={styles.stepTitle}>
+                  Une tâche validée <br />=<br />1 GIFT POINT
+                </p>
+                <p className={styles.stepSubtitle}></p>
                 <p className={styles.stepSubtitle}>
                   L'enfant s'amuse à récupérer ses GP
                 </p>
