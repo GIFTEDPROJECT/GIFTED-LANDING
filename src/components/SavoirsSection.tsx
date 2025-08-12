@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./SavoirsSection.module.scss";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 interface SavoirsSectionProps {
   className?: string;
@@ -134,6 +135,7 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   className,
   id,
 }) => {
+  const swiperRef = useRef<any>(null);
   const [openCard, setOpenCard] = useState<string | null>(null);
   const [showSecondContent, setShowSecondContent] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -157,10 +159,12 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
     }
 
     // Ouvrir la popup
-    setOpenCard(cardId);
-    setShowSecondContent(false);
-    setCurrentSlide(0);
-    setAnsweredYes([]);
+    setTimeout(() => {
+      setOpenCard(cardId);
+      setShowSecondContent(false);
+      setCurrentSlide(0);
+      setAnsweredYes([]);
+    }, 1500);
 
     // Ajouter la carte aux cartes visitées
     if (!visitedCards.includes(cardId)) {
@@ -209,7 +213,7 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                   <div
                     className={`${styles.parcoursButton} ${styles[card.color]}`}
                   >
-                    <span>Voir le parcour </span>
+                    <span>Voir le parcours </span>
                     <span>
                       {card.title}
                       <img src="/images/eyes.png" alt="Voir le parcours !" />
@@ -273,28 +277,32 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
               >
                 <div className={styles.popupHeader}>
                   <p className={styles.popupHeaderSubtitle}>
-                    {getCurrentCard()?.percentage} des parents affirment
-                    rencontrer ce type de conflits quotidiens.
+                    <span>{getCurrentCard()?.percentage} </span>des parents
+                    rencontrent cette difficulté.
                   </p>
                 </div>
                 <div className={styles.content}>
                   <Swiper
-                    modules={[Autoplay, Pagination]}
+                    modules={[Autoplay, Pagination, Navigation]}
                     spaceBetween={30}
                     slidesPerView={1}
                     autoHeight={true}
-                    autoplay={{
-                      delay: 3000,
-                      disableOnInteraction: false,
-                    }}
                     pagination={{
                       clickable: true,
                       dynamicBullets: true,
                     }}
+                    navigation={false}
                     className={styles.contentSwiper}
                     observer={true}
                     observeParents={true}
                     watchSlidesProgress={true}
+                    onSwiper={(swiper) => {
+                      swiperRef.current = swiper;
+                      console.log("Swiper initialized:", swiper);
+                    }}
+                    onSlideChange={(swiper) => {
+                      console.log("Slide changed to:", swiper.activeIndex);
+                    }}
                   >
                     {getCurrentCard()?.slides?.map((slide, index) => (
                       <SwiperSlide key={index} className={styles.contentSlide}>
@@ -312,6 +320,31 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                       </SwiperSlide>
                     ))}
                   </Swiper>
+
+                  {/* Boutons de navigation personnalisés */}
+                  <button
+                    className={styles.customPrevButton}
+                    onClick={() => {
+                      if (swiperRef.current) {
+                        swiperRef.current.slidePrev();
+                        console.log("Previous clicked");
+                      }
+                    }}
+                  >
+                    <img src="/images/swiper-arrow-left.png" alt="Précédent" />
+                  </button>
+
+                  <button
+                    className={styles.customNextButton}
+                    onClick={() => {
+                      if (swiperRef.current) {
+                        swiperRef.current.slideNext();
+                        console.log("Next clicked");
+                      }
+                    }}
+                  >
+                    <img src="/images/swiper-arrow-right.png" alt="Suivant" />
+                  </button>
                 </div>
               </div>
 

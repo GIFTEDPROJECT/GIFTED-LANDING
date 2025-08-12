@@ -34,6 +34,13 @@ export default function Home() {
 
       {/* Double Hero Section - Premier écran */}
       <DoubleHeroSection />
+
+      {/* Section Dr Eve Bottach - À quoi sert GIFTED */}
+      <AboutSection id="about" />
+
+      {/* Section La transmission des savoirs dans GIFTED */}
+      <SavoirsSection id="savoirs" />
+
       {/* Section Méthodes innovantes de GIFTED */}
       <MethodSection id="method" />
 
@@ -44,9 +51,6 @@ export default function Home() {
         onCtaClick={handleDiscoverClick}
       /> */}
 
-      {/* Section Dr Eve Bottach - À quoi sert GIFTED */}
-      <AboutSection id="about" />
-
       {/* Section Pourquoi les enfants adorent GIFTED */}
       {/* <WhySection type="children" /> */}
 
@@ -55,9 +59,6 @@ export default function Home() {
 
       {/* Section Révélation des phrases */}
       <RevealSection id="reveal" />
-
-      {/* Section La transmission des savoirs dans GIFTED */}
-      <SavoirsSection id="savoirs" />
 
       {/* Section Méthodes innovantes de GIFTED */}
       <MethodesSection />

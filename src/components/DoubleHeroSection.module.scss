@@ -283,6 +283,11 @@
     transform: translate(-50%, -50%);
     opacity: 1;
   }
+  
+  .videoButton {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
 }
 
 .bottomTitle {
@@ -313,11 +318,74 @@
   transition: transform 1s ease-out, opacity 1s ease-out;
   width: 100%;
   @include mobile-only {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     width: calc(100% - 2rem);
     margin: 0 auto;
   }
+}
 
+// Bouton vidéo GIFTED
+.videoButton {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  z-index: 10;
+  opacity: 0;
+  transition: transform 1s ease-out, opacity 1s ease-out;
+  color: #6b4423;
+  font-family: var(--font-fredoka), sans-serif;
+  cursor: pointer;
+  text-shadow: 2px 2px 4px #0000004d;
+  cursor: pointer;
+  letter-spacing: .05em;
+  -webkit-text-stroke: 1px #a14c1d;
+  text-transform: uppercase;
+  background: url(/images/btn-bg2.png) center no-repeat;
+  border: none;
+  border-radius: 25px;
+  padding: .8rem 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 0 20px #fffc, inset 0 0 10px #6b4423cc;
+  
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 
+      0 12px 35px rgba(222, 179, 87, 0.6),
+      0 6px 15px rgba(165, 97, 15, 0.4);
+  }
+  svg {
+    color: #6b4423;
+    margin-right: 8px;
+    position: relative;
+    top: 2px;
+  }
+  &:active {
+    transform: translate(-50%, -50%) scale(0.98);
+  }
+  
+  @include mobile-only {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    gap: 0.6rem;
+  }
+}
+
+.playIcon {
+  font-size: 1.2rem;
+  color: #231504;
+  
+  @include mobile-only {
+    font-size: 1rem;
+  }
+}
+
+.videoButtonText {
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .logoContainerBottom {
