@@ -124,7 +124,7 @@
       background: #F2850E;
       border-bottom: 2px solid color.adjust(#F2850E, $lightness: -10%);
     }
-  }
+  }/* 
   &:last-child {
     border-color: $dark-brown;
     .price{
@@ -135,7 +135,7 @@
       background: $dark-brown;
       border-bottom: 2px solid color.adjust($dark-brown, $lightness: -10%);
     }
-  }
+  } */
 }
 
 .cardHeader {
