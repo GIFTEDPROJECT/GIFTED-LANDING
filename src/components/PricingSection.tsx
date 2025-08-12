@@ -51,7 +51,7 @@ export const PricingSection: React.FC = () => {
       type: "confiants",
       icon: "/images/believers.png",
       price: "10 € pour un an",
-      originalPrice: "au lieu de 30 €/an à partir de Septembre",
+      originalPrice: "au lieu de 30 €/an",
       features: [
         {
           text: "Abonnement annuel pour 4 parcours d'autonomie",
@@ -79,10 +79,10 @@ export const PricingSection: React.FC = () => {
         },
       ],
       availability: "Disponible courant Septembre 2025",
-      label: "J'y crois !",
+      label: "je dis bye-bye les conflits !",
       url: "https://buy.stripe.com/5kQ4gzb08b9efy5h1u2ZO00",
     },
-    {
+    /* {
       id: 2,
       type: "SUPPORTERS",
       icon: "/images/supporters.png",
@@ -153,7 +153,7 @@ export const PricingSection: React.FC = () => {
       availability: "Disponible au printemps 2026",
       label: "Je crée !",
       url: "https://buy.stripe.com/6oUeVdfgo6SYdpX3aE2ZO02",
-    },
+    }, */
   ];
 
   return (
@@ -220,7 +220,7 @@ export const PricingSection: React.FC = () => {
                 </div>
               )}
 
-              <button
+              {/* <button
                 className={styles.detailsLink}
                 onClick={() => toggleFeatures(formule.id)}
               >
@@ -234,7 +234,7 @@ export const PricingSection: React.FC = () => {
                     <IoChevronDown />
                   )}
                 </span>
-              </button>
+              </button> */}
             </div>
           ))}
         </div>
