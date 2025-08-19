@@ -8,6 +8,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import ParcoursModal from "./Parcours/ParcoursModal";
 
 interface SavoirsSectionProps {
   className?: string;
@@ -142,6 +143,7 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   const [answeredYes, setAnsweredYes] = useState<boolean[]>([]);
   const [visitedCards, setVisitedCards] = useState<string[]>([]);
   const [transformedCards, setTransformedCards] = useState<string[]>([]);
+  const [isParcoursModalOpen, setIsParcoursModalOpen] = useState(false);
 
   const handleCardClick = (cardId: string) => {
     if (openCard === cardId) {
@@ -177,6 +179,10 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
     setShowSecondContent(false);
     setCurrentSlide(0);
     setAnsweredYes([]);
+  };
+
+  const handleDiscoverParcoursClick = () => {
+    setIsParcoursModalOpen(true);
   };
 
   const getCurrentCard = () => {
@@ -254,6 +260,17 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bouton Découvrir un parcours */}
+        <div className={styles.discoverParcoursContainer}>
+          <button
+            className={styles.discoverParcoursButton}
+            onClick={handleDiscoverParcoursClick}
+          >
+            <span>Découvrir un parcours</span>
+            <img src="/images/arrow-down.png" alt="Découvrir" />
+          </button>
         </div>
       </div>
 
@@ -567,6 +584,12 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
           </div>
         </div>
       )}
+
+      {/* Popin ParcoursModal */}
+      <ParcoursModal
+        isOpen={isParcoursModalOpen}
+        onClose={() => setIsParcoursModalOpen(false)}
+      />
     </section>
   );
 };
