@@ -10,8 +10,6 @@ import ModalHeader from "./ModalHeader";
 import { Parcours, defaultParcours } from "./mocks/parcoursData";
 import { getParcoursConfig, ParcoursConfig } from "../../config/parcoursSimple";
 
-import IntroStep from "./IntroStep";
-
 interface ParcoursModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -43,7 +41,6 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
       resetForm();
     }
   }, [isOpen]);
-  const [showIntro, setShowIntro] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<boolean[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<boolean | null>(null);
@@ -241,7 +238,6 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
   };
 
   const resetForm = () => {
-    setShowIntro(true);
     setCurrentStep(0);
     setAnswers([]);
     setSelectedAnswer(null);
@@ -272,9 +268,9 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div
-        className={`${styles.modalContent} ${
-          !showIntro ? styles.started : null
-        } ${isClosing ? styles.closing : ""}`}
+        className={`${styles.modalContent} ${styles.started} ${
+          isClosing ? styles.closing : ""
+        }`}
         onClick={(e) => e.stopPropagation()}
         style={{
           backgroundImage: parcoursConfig
@@ -282,8 +278,6 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
             : "url(/images/hygiene.png)",
         }}
       >
-        <IntroStep onStart={() => setShowIntro(false)} isStarted={showIntro} />
-
         {/* Bouton mute en bas à gauche */}
         <div
           className={styles.muteButton}
@@ -303,7 +297,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
               onPreviousStep={handlePreviousStep}
               onClose={handleClose}
               titleTransition={titleTransition}
-              isStarted={!showIntro}
+              isStarted={true}
             />
           )}
 
@@ -337,7 +331,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
                     className={`${styles.answer} ${
                       selectedAnswer === false ? styles.selected : ""
                     } ${selectedAnswer === true ? styles.hiding : ""} ${
-                      !showIntro ? styles.started : ""
+                      styles.started
                     }`}
                     onClick={
                       selectedAnswer === null && !isTransitioning
@@ -371,7 +365,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
                     className={`${styles.answer} ${
                       selectedAnswer === true ? styles.selected : ""
                     } ${selectedAnswer === false ? styles.hiding : ""} ${
-                      !showIntro ? styles.started : ""
+                      styles.started
                     }`}
                     onClick={
                       selectedAnswer === null && !isTransitioning
@@ -409,7 +403,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
           )}
           {!showFinalStep && (
             <FooterParcours
-              isStarted={!showIntro}
+              isStarted={true}
               parcoursData={parcours.steps}
               answers={answers}
               currentStep={currentStep}

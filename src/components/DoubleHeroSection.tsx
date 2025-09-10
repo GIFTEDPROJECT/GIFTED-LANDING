@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import styles from "./DoubleHeroSection.module.scss";
 import { FaPlay } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 
 const DoubleHeroSection: React.FC = () => {
   const [visiblePart, setVisiblePart] = useState<boolean>(false);
@@ -14,6 +15,10 @@ const DoubleHeroSection: React.FC = () => {
   const [movementStarted, setMovementStarted] = useState<boolean>(false);
   const [imageScale, setImageScale] = useState<number>(1);
   const [currentScrollY, setCurrentScrollY] = useState<number>(0);
+  const [titleVisible, setTitleVisible] = useState<boolean>(false);
+  const [videoButtonVisible, setVideoButtonVisible] = useState<boolean>(false);
+  const [chapterVisible, setChapterVisible] = useState<boolean>(false);
+  const [parentsVisible, setParentsVisible] = useState<boolean>(false);
 
   // Constante pour la hauteur de la fenêtre
   const WINDOW_HEIGHT = typeof window !== "undefined" ? window.innerHeight : 0;
@@ -93,8 +98,61 @@ const DoubleHeroSection: React.FC = () => {
       setVisiblePart(false);
       setBottomVisible(false);
       setImageScale(1);
+      setTitleVisible(false);
     }
   }, [currentScrollY, bottomVisible, initialScrollY, movementStarted]);
+
+  // useEffect pour gérer l'apparition du chapitre et du titre
+  useEffect(() => {
+    if (visiblePart) {
+      // Détecter quand #bottom-hero arrive au top 0
+      const bottomHeroElement = document.getElementById("bottom-hero");
+      if (bottomHeroElement) {
+        const rect = bottomHeroElement.getBoundingClientRect();
+        const isBottomHeroAtTopZero = rect.top <= 0;
+
+        if (isBottomHeroAtTopZero) {
+          // Le chapitre s'affiche dès que #bottom-hero arrive au top 0
+          setChapterVisible(true);
+          console.log("Chapitre visible - bottom-hero rect.top:", rect.top);
+
+          // Détecter quand le header apparaît (sticky header)
+          const headerElement = document.querySelector(
+            'header, .sticky-header, [class*="header"]'
+          );
+          if (headerElement) {
+            const headerRect = headerElement.getBoundingClientRect();
+            const isHeaderVisible =
+              headerRect.top <= 0 && headerRect.bottom > 0;
+
+            if (isHeaderVisible) {
+              // Le titre principal s'affiche quand le header apparaît
+              setTitleVisible(true);
+              console.log(
+                "Titre visible - header détecté, titleVisible:",
+                true
+              );
+            } else {
+              setTitleVisible(false);
+              console.log(
+                "Titre caché - header non visible, titleVisible:",
+                false
+              );
+            }
+          } else {
+            // Pas de header détecté, le titre reste caché
+            setTitleVisible(false);
+          }
+        } else {
+          setChapterVisible(false);
+          setTitleVisible(false);
+        }
+      }
+    } else {
+      setChapterVisible(false);
+      setTitleVisible(false);
+    }
+  }, [visiblePart, currentScrollY]);
 
   const closeVideoModal = () => {
     setIsVideoModalOpen(false);
@@ -106,6 +164,8 @@ const DoubleHeroSection: React.FC = () => {
         visiblePart ? styles.visible : ""
       } ${topContentHidden ? styles.topContentHidden : ""} ${
         bottomVisible ? "bottom-section-visible" : ""
+      } ${chapterVisible ? styles.chapterVisible : ""} ${
+        titleVisible ? styles.titleVisible : ""
       }`}
     >
       <div className={styles.topContent}>
@@ -125,6 +185,11 @@ const DoubleHeroSection: React.FC = () => {
             le monde ?
           </span>
         </h1>
+
+        <div className={styles.chevronScroll}>
+          <FaChevronDown className={styles.chevronIcon} />
+          <FaChevronDown className={styles.chevronIcon} />
+        </div>
       </div>
       {/* Bloc du haut - Titre centré */}
       <div className={styles.topBlock}></div>
@@ -152,6 +217,9 @@ const DoubleHeroSection: React.FC = () => {
               priority
             />
           </div>
+          <div className={styles.chapterStep}>
+            <span className={styles.chapterText}>Chapitre 1 : l'autonomie</span>
+          </div>
           <h2 className={styles.bottomTitle}>
             <br />
             <span>
@@ -175,6 +243,13 @@ const DoubleHeroSection: React.FC = () => {
             alt="Double Hero Section Background"
             className={styles.doubleHeroSectionBackgroundImage}
           />
+
+          {/* Chevron pour la section du bas */}
+          <div className={styles.chevronScrollBottom}>
+            <FaChevronDown className={styles.chevronIconBottom} />
+            <FaChevronDown className={styles.chevronIconBottom} />
+          </div>
+
           <div className={styles.bottomSection}>
             <div className={styles.womanImage}>
               <Image

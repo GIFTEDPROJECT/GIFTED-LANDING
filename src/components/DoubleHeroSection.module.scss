@@ -21,6 +21,76 @@
   background-size:cover
 }
 
+.chevronScroll {
+  position: fixed;
+  bottom: 2rem;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: -20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.chevronIcon {
+  font-size: 6rem;
+  color: #D2AC55;
+  filter: drop-shadow(0 4px 8px rgba(210, 172, 85, 0.3));
+  transition: all 0.3s ease;
+  -webkit-text-stroke: 2px #231504;
+  text-stroke: 2px #231504;
+  
+  &:hover {
+    color: #deb357;
+    transform: scale(1.1);
+  }
+
+  &:first-child {
+    position: relative;
+    top: 28px;
+  }
+}
+
+.chevronScrollBottom {
+  position: absolute;
+  bottom: 2rem;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: -20px;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+
+.chevronIconBottom {
+  font-size: 6rem;
+  color: #D2AC55;
+  filter: drop-shadow(0 4px 8px rgba(210, 172, 85, 0.3));
+  transition: all 0.3s ease;
+  -webkit-text-stroke: 2px #231504;
+  text-stroke: 2px #231504;
+  
+  &:hover {
+    color: #deb357;
+    transform: scale(1.1);
+  }
+
+  &:first-child {
+    position: relative;
+    top: 28px;
+  }
+}
+
 .topContent {
   position: fixed;
   top: 0;
@@ -280,12 +350,105 @@
 .visible {
   .bottomTitle {
     transform: translate(-50%, -75%);
+    opacity: 0;
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+  
+  .videoButton {
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+}
+
+// Afficher le chapitre quand la section arrive au top 0
+.chapterVisible {
+  .chapterStep {
+    transform: translate(-50%, -85%);
     opacity: 1;
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+}
+
+// Faire disparaître le chapitre quand le titre apparaît
+.titleVisible {
+  .chapterStep {
+    opacity: 0;
+    transform: translate(-50%, -90%);
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  }
+  
+  .bottomTitle {
+    transform: translate(-50%, -75%);
+    opacity: 1;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
   }
   
   .videoButton {
     transform: translate(-50%, -50%);
     opacity: 1;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  }
+}
+
+// Afficher les parents et le logo quand le titre est visible
+.titleVisible .container .bottomSection {
+  .womanImage {
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  }
+  .manImage {
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  }
+}
+
+.titleVisible .container .logoContainerBottom {
+  opacity: 1;
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+.titleVisible .container .chevronScrollBottom {
+  opacity: 1;
+  transition: opacity 0.8s ease-out;
+}
+
+.chapterStep {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  z-index: 10;
+  text-align: center;
+  opacity: 0;
+  transition: transform 1s ease-out, opacity 1s ease-out;
+  width: 100%;
+  
+  .chapterText {
+    font-family: var(--font-nunito), sans-serif;
+    color: #deb357;
+    text-transform: none;
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1.2;
+    white-space: normal;
+    word-wrap: break-word;
+    text-shadow:
+      -2px -2px 0 #231504,
+       0   -2px 0 #231504,
+       2px -2px 0 #231504,
+       2px  2px 0 #231504,
+       0    2px 0 #231504,
+      -2px  2px 0 #231504,
+      -2px  0   0 #231504;
+    
+    @include mobile-only {
+      font-size: 1.5rem;
+      width: calc(100% - 2rem);
+      margin: 0 auto;
+    }
   }
 }
 
@@ -407,7 +570,7 @@
 }
 .visible {
   .logoContainerBottom {
-    opacity: 1;
+    opacity: 0;
   }
 }
 
@@ -466,12 +629,12 @@
 .visible {
   .bottomSection {
     .womanImage {
-      transform: translateX(0);
-      opacity: 1;
+      transform: translateX(-100%);
+      opacity: 0;
     }
     .manImage {
-      transform: translateX(0);
-      opacity: 1;
+      transform: translateX(100%);
+      opacity: 0;
     }
   }
 }

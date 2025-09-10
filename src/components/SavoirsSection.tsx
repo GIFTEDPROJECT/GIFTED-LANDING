@@ -19,7 +19,7 @@ const quizCards = [
   {
     id: "hygiene",
     title: "HYGIÈNE",
-    description: "Pour la troisième fois, va te brosser les dents !",
+    description: "« Pour la troisième fois, va te brosser les dents ! »",
     color: "green",
     position: "top-left",
     courseName: "Le Parcours Hygiène",
@@ -50,7 +50,7 @@ const quizCards = [
   {
     id: "rangement",
     title: "RANGEMENT",
-    description: "Tu as vu l'état de ta chambre !!!",
+    description: "« Tu as vu l'état de ta chambre !!! »",
     color: "blue",
     position: "top-right",
     courseName: "Le Parcours Rangement",
@@ -80,7 +80,7 @@ const quizCards = [
   {
     id: "respect",
     title: "RESPECT",
-    description: "Non mais, tu parles pas comme ça !!!",
+    description: "« Non mais, tu parles pas comme ça !!! »",
     color: "purple",
     position: "bottom-left",
     courseName: "Le Parcours Respect",
@@ -109,7 +109,7 @@ const quizCards = [
   {
     id: "devoirs",
     title: "DEVOIRS",
-    description: "Allez, montre-moi ton cahier de textes !!!",
+    description: "« Allez, montre-moi ton cahier de textes !!! »",
     color: "yellow",
     position: "bottom-right",
     courseName: "Le Parcours Devoirs",
@@ -216,10 +216,9 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   return (
     <section id={id} className={`${styles.savoirsSection} ${className || ""}`}>
       <div className={styles.container}>
-        <h2 className={styles.title}>Les parcours d'autonomie</h2>
-        <h3 className={styles.subtitle}>
+        <h2 className={styles.title}>
           Aimeriez-vous arrêter de répéter à votre enfant...?
-        </h3>
+        </h2>
 
         <div className={styles.savoirsGrid}>
           {quizCards.map((card, index) => (
@@ -230,7 +229,10 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
               }`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className={styles.cardContent}>
+              <div
+                className={styles.cardContent}
+                onClick={() => handleButtonClick(card.id)}
+              >
                 <div className={styles.cardBottomSection}>
                   <Image
                     src={card.beackgroundImlage}

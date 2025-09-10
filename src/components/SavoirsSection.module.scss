@@ -34,8 +34,8 @@
 }
 
 .title {
-  @include section-title(3.5rem);
-  margin-bottom: 0;
+  @include section-title(2.5rem);
+  margin-bottom: 60px;
   
   @include tablet-max {
     font-size: 2rem;
@@ -340,7 +340,7 @@
 }
 
 .cardQuestion {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: $text-brown;
   line-height: 1.4;
   margin-bottom: 1.5rem;
