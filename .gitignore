@@ -89,3 +89,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 public/images/*.flac
+public/images/*.flac
