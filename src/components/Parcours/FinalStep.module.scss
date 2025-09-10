@@ -1,0 +1,100 @@
+@use '../../styles/vars.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.finalStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  animation: slideDown 0.6s ease-out;
+  
+  button {
+    color: #6b4423;
+    font-family: var(--font-fredoka), sans-serif;
+    cursor: pointer;
+    text-shadow: 2px 2px 4px #0000004d;
+    cursor: pointer;
+    letter-spacing: .05em;
+    -webkit-text-stroke: 1px #a14c1d;
+    text-transform: uppercase;
+    background: url(/images/btn-bg2.png) center no-repeat;
+    border: none;
+    border-radius: 25px;
+    padding: .8rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .3s;
+    display: inline-block;
+    box-shadow: 0 0 20px #fffc, inset 0 0 10px #6b4423cc;
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.finalMessage {
+  @include centered-container();
+  width: 100%;
+  height: 500px;
+  background: url('/images/contact-modal.png') center center/contain no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  padding: 100px;
+  position: relative;
+  text-align: center;
+  @include mobile-only {
+    padding: 50px;
+  }
+
+  
+  @media screen and (max-width: 768px) {
+    height: 100%;
+  }
+  
+  h2 {
+    font-family: var(--font-nunito), sans-serif;
+    color: #deb357;
+    text-transform: none;
+    white-space: normal;
+    word-wrap: break-word;
+    text-shadow: -2px -2px #231504, 0 -2px #231504, 2px -2px #231504, 2px 2px #231504, 0 2px #231504, -2px 2px #231504, -2px 0 #231504;
+    margin-bottom: 2rem;
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1.2;
+    @include mobile-only {
+      font-size: 2rem;
+      line-height: 1;
+      margin: 0 0 10px;
+    }
+  }
+  
+  p {
+    font-size: 1.4rem;
+    color: #fff;
+    text-shadow: 1px 2px 0px rgba(0, 0, 0, 0.8);
+    margin-bottom: 15px;
+    line-height: 1.6;
+    @include mobile-only {
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

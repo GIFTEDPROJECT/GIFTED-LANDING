@@ -120,8 +120,9 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
               </div>
               <div className={styles.stepText}>
                 <p className={styles.stepTitle}>
-                  Vous validez ses réponses...
-                  <br /> ou vous les modifiez...
+                  Vous vérifiez ses réponses,
+                  <br /> les modifiez si besoin,
+                  <br /> puis les validez
                 </p>
                 <p className={styles.stepSubtitle}>
                   Validation par le parent en quelques clics
@@ -148,7 +149,8 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
               </div>
               <div className={styles.stepText}>
                 <p className={styles.stepTitle}>
-                  Une tâche validée <br />=<br />1 GIFT POINT
+                  Une tâche validée par le parent
+                  <br />=<br />1 GIFT POINT pour l'enfant
                 </p>
                 <p className={styles.stepSubtitle}></p>
                 <p className={styles.stepSubtitle}>

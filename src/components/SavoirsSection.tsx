@@ -8,6 +8,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import ParcoursModal from "./Parcours/ParcoursModal";
 
 interface SavoirsSectionProps {
   className?: string;
@@ -24,6 +25,7 @@ const quizCards = [
     courseName: "Le Parcours Hygiène",
     question: "Est-ce que tu t'es lavé les dents ce matin ?",
     percentage: "87%",
+    beackgroundImlage: "/images/slide1.png",
     slides: [
       {
         image: "/images/slide1.png",
@@ -54,9 +56,10 @@ const quizCards = [
     courseName: "Le Parcours Rangement",
     question: "As-tu rangé ta chambre aujourd'hui ?",
     percentage: "84%",
+    beackgroundImlage: "/images/slide2.png",
     slides: [
       {
-        image: "/images/slide4.png",
+        image: "/images/slide2.png",
         title: "Organisation de l'espace",
         description:
           "Apprenez à organiser l'espace de votre enfant de manière efficace",
@@ -83,6 +86,7 @@ const quizCards = [
     courseName: "Le Parcours Respect",
     question: "As-tu parlé poliment aujourd'hui ?",
     percentage: "64%",
+    beackgroundImlage: "/images/slide3.png",
     slides: [
       {
         image: "/images/slide1.png",
@@ -111,6 +115,7 @@ const quizCards = [
     courseName: "Le Parcours Devoirs",
     question: "As-tu fait tes devoirs aujourd'hui ?",
     percentage: "99%",
+    beackgroundImlage: "/images/slide4.png",
     slides: [
       {
         image: "/images/slide4.png",
@@ -142,6 +147,8 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   const [answeredYes, setAnsweredYes] = useState<boolean[]>([]);
   const [visitedCards, setVisitedCards] = useState<string[]>([]);
   const [transformedCards, setTransformedCards] = useState<string[]>([]);
+  const [isParcoursModalOpen, setIsParcoursModalOpen] = useState(false);
+  const [selectedParcoursId, setSelectedParcoursId] = useState<number>(1);
 
   const handleCardClick = (cardId: string) => {
     if (openCard === cardId) {
@@ -158,13 +165,16 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
       setTransformedCards((prev) => [...prev, cardId]);
     }
 
-    // Ouvrir la popup
+    // Afficher le message transformé au centre de l'écran
+    setOpenCard(cardId);
+    setShowSecondContent(false);
+    setCurrentSlide(0);
+    setAnsweredYes([]);
+
+    // Après 3 secondes, afficher la popup normale
     setTimeout(() => {
-      setOpenCard(cardId);
-      setShowSecondContent(false);
-      setCurrentSlide(0);
-      setAnsweredYes([]);
-    }, 1500);
+      setShowSecondContent(true);
+    }, 3000);
 
     // Ajouter la carte aux cartes visitées
     if (!visitedCards.includes(cardId)) {
@@ -179,8 +189,28 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
     setAnsweredYes([]);
   };
 
+  const handleDiscoverParcoursClick = () => {
+    setIsParcoursModalOpen(true);
+  };
+
+  const handleParcoursClick = (parcoursId: number) => {
+    setSelectedParcoursId(parcoursId);
+    setIsParcoursModalOpen(true);
+  };
+
   const getCurrentCard = () => {
     return quizCards.find((card) => card.id === openCard);
+  };
+
+  // Mapping des IDs de cartes vers les IDs de parcours
+  const getParcoursIdFromCardId = (cardId: string): number => {
+    const mapping: Record<string, number> = {
+      hygiene: 1,
+      rangement: 2,
+      respect: 3,
+      devoirs: 4,
+    };
+    return mapping[cardId] || 1; // Par défaut parcours 1
   };
 
   return (
@@ -203,7 +233,7 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
               <div className={styles.cardContent}>
                 <div className={styles.cardBottomSection}>
                   <Image
-                    src="/images/project1.png"
+                    src={card.beackgroundImlage}
                     alt="Projet"
                     width="425"
                     height="239"
@@ -223,15 +253,6 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                 <div className={styles.cardTopSection}>
                   <p className={styles.cardQuestion}>{card.description}</p>
                   <div className={styles.cardButtons}>
-                    {transformedCards.includes(card.id) && (
-                      <div
-                        className={`${styles.transformedMessage} ${
-                          styles[card.color]
-                        }`}
-                      >
-                        Laissez Gifted répéter <span>à votre place</span>
-                      </div>
-                    )}
                     <div className={styles.buttonsContainer}>
                       <button
                         className={styles.cardYesButton}
@@ -248,9 +269,6 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
                     </div>
                   </div>
                 </div>
-                {visitedCards.includes(card.id) && (
-                  <div className={styles.cardCheckIcon}>✓</div>
-                )}
               </div>
             </div>
           ))}
@@ -263,310 +281,34 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
           className={`${styles.overlay} ${styles[getCurrentCard()!.color]}`}
           onClick={handleOverlayClick}
         >
-          <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
+          <div className={styles.centeredMessage}>
             <div
-              className={`${styles.popupContent} ${
-                styles[getCurrentCard()!.id]
+              className={`${styles.transformedMessage} ${
+                styles[getCurrentCard()!.color]
               }`}
             >
-              {/* Contenu principal - Parcours spécifique */}
-              <div
-                className={`${styles.mainContent} ${
-                  showSecondContent ? styles.slideOut : ""
-                } ${styles[getCurrentCard()!.color]}`}
-              >
-                <div className={styles.popupHeader}>
-                  <p className={styles.popupHeaderSubtitle}>
-                    <span>{getCurrentCard()?.percentage} </span>des parents
-                    rencontrent cette difficulté.
-                  </p>
-                </div>
-                <div className={styles.content}>
-                  <Swiper
-                    modules={[Autoplay, Pagination, Navigation]}
-                    spaceBetween={30}
-                    slidesPerView={1}
-                    autoHeight={true}
-                    pagination={{
-                      clickable: true,
-                      dynamicBullets: true,
-                    }}
-                    navigation={false}
-                    className={styles.contentSwiper}
-                    observer={true}
-                    observeParents={true}
-                    watchSlidesProgress={true}
-                    onSwiper={(swiper) => {
-                      swiperRef.current = swiper;
-                      console.log("Swiper initialized:", swiper);
-                    }}
-                    onSlideChange={(swiper) => {
-                      console.log("Slide changed to:", swiper.activeIndex);
-                    }}
-                  >
-                    {getCurrentCard()?.slides?.map((slide, index) => (
-                      <SwiperSlide key={index} className={styles.contentSlide}>
-                        <div className={styles.slideContent}>
-                          <div className={styles.slideImage}>
-                            <Image
-                              src={slide.image}
-                              alt={slide.title}
-                              width={300}
-                              height={200}
-                              style={{ width: "100%", height: "auto" }}
-                            />
-                          </div>
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-
-                  {/* Boutons de navigation personnalisés */}
-                  <button
-                    className={styles.customPrevButton}
-                    onClick={() => {
-                      if (swiperRef.current) {
-                        swiperRef.current.slidePrev();
-                        console.log("Previous clicked");
-                      }
-                    }}
-                  >
-                    <img src="/images/swiper-arrow-left.png" alt="Précédent" />
-                  </button>
-
-                  <button
-                    className={styles.customNextButton}
-                    onClick={() => {
-                      if (swiperRef.current) {
-                        swiperRef.current.slideNext();
-                        console.log("Next clicked");
-                      }
-                    }}
-                  >
-                    <img src="/images/swiper-arrow-right.png" alt="Suivant" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Troisième contenu - Slides spécifiques */}
-              <div
-                className={`${styles.thirdContent} ${
-                  showSecondContent ? styles.slideIn : ""
-                }`}
-              >
-                {/* Slide 1 */}
-                <div
-                  className={`${styles.slide} ${
-                    currentSlide === 0 ? styles.active : ""
-                  }`}
-                >
-                  <h3 className={styles.popupTitle}>
-                    {getCurrentCard()?.question}
-                  </h3>
-                  <div className={styles.rotatingCircle}></div>
-                  <div className={styles.buttonGroup}>
-                    <button
-                      className={styles.yesButton}
-                      onClick={() => {
-                        setCurrentSlide(currentSlide + 1);
-                        setAnsweredYes([...answeredYes, true]);
-                      }}
-                    >
-                      Oui
-                    </button>
-                    <button
-                      className={styles.noButton}
-                      onClick={() => {
-                        setCurrentSlide(currentSlide + 1);
-                        setAnsweredYes([...answeredYes, false]);
-                      }}
-                    >
-                      Non
-                    </button>
-                  </div>
-                </div>
-
-                {/* Slide 2 */}
-                <div
-                  className={`${styles.slide} ${
-                    currentSlide === 1 ? styles.active : ""
-                  }`}
-                >
-                  <h3 className={styles.popupTitle}>
-                    As-tu respecté les règles aujourd'hui ?
-                  </h3>
-                  <div className={styles.rotatingCircle}></div>
-                  <div className={styles.buttonGroup}>
-                    <button
-                      className={styles.yesButton}
-                      onClick={() => {
-                        setCurrentSlide(currentSlide + 1);
-                        setAnsweredYes([...answeredYes, true]);
-                      }}
-                    >
-                      Oui
-                    </button>
-                    <button
-                      className={styles.noButton}
-                      onClick={() => {
-                        setCurrentSlide(currentSlide + 1);
-                        setAnsweredYes([...answeredYes, false]);
-                      }}
-                    >
-                      Non
-                    </button>
-                  </div>
-                </div>
-
-                {/* Slide 3 */}
-                <div
-                  className={`${styles.slide} ${
-                    currentSlide === 2 ? styles.active : ""
-                  }`}
-                >
-                  <h3 className={styles.popupTitle}>
-                    As-tu aidé quelqu'un aujourd'hui ?
-                  </h3>
-                  <div className={styles.rotatingCircle}></div>
-                  <div className={styles.buttonGroup}>
-                    <button
-                      className={styles.yesButton}
-                      onClick={() => {
-                        setCurrentSlide(currentSlide + 1);
-                        setAnsweredYes([...answeredYes, true]);
-                      }}
-                    >
-                      Oui
-                    </button>
-                    <button
-                      className={styles.noButton}
-                      onClick={() => {
-                        setCurrentSlide(currentSlide + 1);
-                        setAnsweredYes([...answeredYes, false]);
-                      }}
-                    >
-                      Non
-                    </button>
-                  </div>
-                </div>
-
-                {/* Slide 4 */}
-                <div
-                  className={`${styles.slide} ${
-                    currentSlide === 3 ? styles.active : ""
-                  }`}
-                >
-                  <h3 className={styles.popupTitle}>
-                    As-tu été responsable aujourd'hui ?
-                  </h3>
-                  <div className={styles.rotatingCircle}></div>
-                  <div className={styles.buttonGroup}>
-                    <button
-                      className={styles.yesButton}
-                      onClick={() => {
-                        setCurrentSlide(currentSlide + 1);
-                        setAnsweredYes([...answeredYes, true]);
-                      }}
-                    >
-                      Oui
-                    </button>
-                    <button
-                      className={styles.noButton}
-                      onClick={() => {
-                        setCurrentSlide(currentSlide + 1);
-                        setAnsweredYes([...answeredYes, false]);
-                      }}
-                    >
-                      Non
-                    </button>
-                  </div>
-                </div>
-
-                {/* Slide 5 - Félicitations */}
-                <div
-                  className={`${styles.slide} ${
-                    currentSlide === 4 ? styles.active : ""
-                  }`}
-                >
-                  <h3 className={styles.popupTitle}>Bravo ! 🎉</h3>
-                  <p className={styles.popupDescription}>
-                    Tu as répondu à toutes les questions. Tes parents vont
-                    désormais valider tes réponses pour que tu puisses récupérer
-                    tes gift points !
-                  </p>
-                  <div className={styles.buttonGroup}>
-                    <button
-                      className={styles.discoverButton}
-                      onClick={() => {
-                        setOpenCard(null);
-                        setShowSecondContent(false);
-                        setCurrentSlide(0);
-                        setAnsweredYes([]);
-                      }}
-                    >
-                      Terminer
-                    </button>
-                  </div>
-                </div>
-              </div>
+              Laissez Gifted répéter <span>à votre place</span>
             </div>
-
-            {/* Éléments fixes qui s'allument progressivement */}
-            {showSecondContent && currentSlide < 4 && (
-              <div className={styles.elementsContainer}>
-                <div
-                  className={`${styles.element} ${
-                    currentSlide >= 1 && answeredYes[0] === true
-                      ? styles.active
-                      : ""
-                  }`}
-                >
-                  Étape 1
-                  {currentSlide >= 1 && answeredYes[0] === true && (
-                    <div className={styles.checkIcon}>✓</div>
-                  )}
-                </div>
-                <div
-                  className={`${styles.element} ${
-                    currentSlide >= 2 && answeredYes[1] === true
-                      ? styles.active
-                      : ""
-                  }`}
-                >
-                  Étape 2
-                  {currentSlide >= 2 && answeredYes[1] === true && (
-                    <div className={styles.checkIcon}>✓</div>
-                  )}
-                </div>
-                <div
-                  className={`${styles.element} ${
-                    currentSlide >= 3 && answeredYes[2] === true
-                      ? styles.active
-                      : ""
-                  }`}
-                >
-                  Étape 3
-                  {currentSlide >= 3 && answeredYes[2] === true && (
-                    <div className={styles.checkIcon}>✓</div>
-                  )}
-                </div>
-                <div
-                  className={`${styles.element} ${
-                    currentSlide >= 4 && answeredYes[3] === true
-                      ? styles.active
-                      : ""
-                  }`}
-                >
-                  Étape 4
-                  {currentSlide >= 4 && answeredYes[3] === true && (
-                    <div className={styles.checkIcon}>✓</div>
-                  )}
-                </div>
-              </div>
-            )}
+            <div
+              className={styles.buttonTest}
+              onClick={() =>
+                handleParcoursClick(
+                  getParcoursIdFromCardId(getCurrentCard()!.id)
+                )
+              }
+            >
+              Je teste !
+            </div>
           </div>
         </div>
       )}
+
+      {/* Popin ParcoursModal */}
+      <ParcoursModal
+        isOpen={isParcoursModalOpen}
+        onClose={() => setIsParcoursModalOpen(false)}
+        parcoursId={selectedParcoursId}
+      />
     </section>
   );
 };

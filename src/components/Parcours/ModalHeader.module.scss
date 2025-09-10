@@ -1,0 +1,155 @@
+@use '../../styles/vars.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.madalHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: auto;
+  transition: all 1s ease;
+  transition-delay: 0.5s;
+  opacity: 0;
+  transform: translateX(-100%);
+
+  &.started {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+  
+  .arrow {
+    transform: rotate(90deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: rotate(90deg) scale(1.1);
+      opacity: 1;
+    }
+    
+    img {
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    @include mobile-only {
+      position: absolute;
+      top: -42px;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  
+  .arrowPlaceholder {
+    width: 100px;
+    height: 100px;
+    @include mobile-only {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+  
+  .question {
+    flex: 1;
+    font-size: 20px;
+    line-height: 1.2;
+    text-align: center;
+    font-weight: 700;
+    padding: 12px 84px 16px 84px;
+    color: #fff;
+    text-shadow: 2px 4px 0px rgba(0, 0, 0, 1);
+    // background: url("/images/wood-question-bg.png") repeat center center; // Maintenant géré en inline
+    background-position: center;
+    width: 100%;
+    border-radius: 10px;
+    position: relative;
+    transition: all 1s ease-in-out;
+
+    &.questionSlideUp {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+
+    @include mobile-only {
+      padding: 12px 24px 16px 24px;
+    }
+    
+    .bird {
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 140px;
+      @include mobile-only {
+        display: none;
+      }
+      
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0;
+      text-shadow: 2px 4px 0px rgba(0, 0, 0, 1);
+
+      @include mobile-only {
+        font-size: 18px;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+      }
+    }
+    
+    .progress {
+      font-size: 24px;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+      font-weight: 700;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      @include mobile-only {
+        top: auto;
+        right: 10px;
+        bottom: -34px;
+        font-size: 16px;
+      }
+    }
+  }
+  
+  .home {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000;
+
+    @include mobile-only {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  
+  .questionSlideUp {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+} 

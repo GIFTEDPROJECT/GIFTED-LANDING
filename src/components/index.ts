@@ -7,6 +7,8 @@ export { default as WhySection } from './WhySection';
 export { default as StickyHeader } from './StickyHeader';
 export { default as SavoirsSection } from './SavoirsSection';
 export { MethodSection } from './MethodSection';
+// Export des composants du parcours
+export { ParcoursModal, FinalStep, FooterParcours, ModalHeader } from './Parcours';
 
 // Types exports (optionnel, mais utile pour TypeScript)
 export type { default as ButtonProps } from './Button';

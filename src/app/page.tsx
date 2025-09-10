@@ -61,16 +61,16 @@ export default function Home() {
       <RevealSection id="reveal" />
 
       {/* Section Méthodes innovantes de GIFTED */}
-      <MethodesSection />
+      {/*  <MethodesSection /> */}
 
       {/* Carrousel des étapes du GIFTED PROJECT */}
-      <EtapesCarousel />
+      {/* <EtapesCarousel /> */}
 
       {/* Section Notre rêve */}
-      <ReveSection />
+      {/* <ReveSection /> */}
 
       {/* Section Pricing/Soutien */}
-      {/* <PricingSection /> */}
+      <PricingSection />
 
       {/* Section Don */}
       <DonationSection />

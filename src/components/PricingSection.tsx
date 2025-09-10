@@ -47,127 +47,51 @@ export const PricingSection: React.FC = () => {
 
   const formules = [
     {
-      id: 1,
-      type: "confiants",
+      id: 2,
       icon: "/images/believers.png",
       price: "10 € pour un an",
-      originalPrice: "au lieu de 30 €/an",
+      originalPrice: "au lieu de 30 €/an à partir de Septembre",
       features: [
         {
-          text: "Abonnement annuel pour 4 parcours d'autonomie",
+          text: "Abonnement ANNUEL aux 4 parcours d’autonomie (hygiène, rangement, respect, devoirs)",
           included: true,
         },
         {
-          text: "Récompenses incluses, sous forme de cadeau choisi par l'enfant",
-          included: false,
+          text: "Avatars personnalisables et évolutifs",
+          included: true,
         },
         {
-          text: "Accès à la première économie de partage pour enfants",
-          included: false,
-        },
-        {
-          text: "50% à vie sur toutes les fonctionnalités à venir",
-          included: false,
-        },
-        {
-          text: "Co-construction de l'appli avec les fondateurs de GIFTED",
-          included: false,
-        },
-        {
-          text: "Possibilité de tester nouvelles fonctionnalités en avant-première",
-          included: false,
+          text: `Possibilité de Co-Création avec les fondateurs de GIFTED:
+          <ul>
+            <li>Choix des “récompenses” pour les enfants</li>
+            <li>Création du prochain parcours : le “Parcours Ecrans”</li>
+            <li>Et de toutes les fonctionnalités à venir</li>
+          </ul>
+`,
+          included: true,
         },
       ],
       availability: "Disponible courant Septembre 2025",
-      label: "je dis bye-bye les conflits !",
+      label: "Je m'inscris",
       url: "https://buy.stripe.com/5kQ4gzb08b9efy5h1u2ZO00",
     },
-    /* {
-      id: 2,
-      type: "SUPPORTERS",
-      icon: "/images/supporters.png",
-      price: "30 € pour un an",
-      originalPrice: "au lieu de 100 €/an à partir de Septembre",
-      features: [
-        {
-          text: "Abonnement annuel pour 4 parcours d'autonomie",
-          included: true,
-        },
-        {
-          text: "Récompenses incluses, sous forme de cadeau choisi par l'enfant",
-          included: true,
-        },
-        {
-          text: "Accès à la première économie de partage pour enfants",
-          included: true,
-        },
-        {
-          text: "50% à vie sur toutes les fonctionnalités à venir",
-          included: false,
-        },
-        {
-          text: "Co-construction de l'appli avec les fondateurs de GIFTED",
-          included: false,
-        },
-        {
-          text: "Possibilité de tester les nouvelles fonctionnalités en avant-première",
-          included: false,
-        },
-      ],
-      availability: "Disponible au printemps 2026",
-      label: "Je soutiens !",
-      url: "https://buy.stripe.com/00w4gz1py1yE2LjcLe2ZO01",
-    },
-    {
-      id: 3,
-      type: "créateurs",
-      icon: "/images/founders.png",
-      price: "100 € pour un an",
-      originalPrice: "50% à vie sur toutes les fonctionnalités",
-      features: [
-        {
-          text: "Abonnement annuel pour 4 parcours d'autonomie",
-          included: true,
-        },
-        {
-          text: "Récompenses incluses, sous forme de cadeau choisi par l'enfant",
-          included: true,
-        },
-        {
-          text: "Accès à la première économie de partage pour enfants",
-          included: true,
-        },
-        {
-          text: "50% à vie sur toutes les fonctionnalités à venir",
-          included: true,
-        },
-        {
-          text: "Co-construction de l'appli avec les fondateurs de GIFTED",
-          included: true,
-        },
-        {
-          text: "Possibilité de tester les nouvelles fonctionnalités en avant-première",
-          included: true,
-        },
-      ],
-      availability: "Disponible au printemps 2026",
-      label: "Je crée !",
-      url: "https://buy.stripe.com/6oUeVdfgo6SYdpX3aE2ZO02",
-    }, */
   ];
 
   return (
     <section id="pricing" className={styles.pricingSection}>
       <div className={styles.container}>
-        <div className={styles.badge}>PRÉVENTES ÉTÉ 2025</div>
+        <div className={styles.badge}>PRÉVENTES 2025</div>
 
+        <h2 className={styles.title}>
+          Rendez vos enfants autonomes en 5 min de FUN par jour!
+        </h2>
+        <p className={styles.subtitle}>
+          L’application sera disponible fin 2025.
+        </p>
         <p className={styles.subtitle}>
           ❤️ 10% de votre participation sera reversée à{" "}
           <Image src="/images/dift.webp" width="50" height="20" alt="Dift" />
         </p>
-        <h2 className={styles.title}>
-          Comment inscrire mon enfant de primaire sur GIFTED ?
-        </h2>
 
         <div className={styles.pricingGrid}>
           {formules.map((formule) => (
@@ -177,15 +101,10 @@ export const PricingSection: React.FC = () => {
               data-card-id={formule.id}
             >
               <div className={styles.cardHeader}>
-                <div className={styles.typeLabel}>Parents</div>
-                <div className={styles.typeButton}>{formule.type}</div>
                 <p className={styles.description}>
-                  {formule.id === 1 &&
-                    "Bénéficiez de 70% de réduction sur l'abonnement annuel aux parcours d'autonomie."}
+                  {formule.id === 1 && "Testez avant de vous engager"}
                   {formule.id === 2 &&
-                    "Soyez les pionniers de la première économie de partage pour enfants"}
-                  {formule.id === 3 &&
-                    "Co-créez avec nous la plus innovante des aventures éducatives."}
+                    "Dites bye-bye aux conflits et Welcome au bonheur en famille"}
                 </p>
               </div>
 
@@ -198,43 +117,27 @@ export const PricingSection: React.FC = () => {
                   {formule.originalPrice}
                 </div>
               </div>
+              <div className={styles.featuresList}>
+                {formule.features.map((feature, index) => (
+                  <div
+                    key={index}
+                    className={`${styles.feature} ${
+                      feature.included ? styles.included : styles.notIncluded
+                    }`}
+                  >
+                    <span className={styles.checkmark} />
+                    <span
+                      className={styles.featureText}
+                      dangerouslySetInnerHTML={{ __html: feature.text }}
+                    />
+                  </div>
+                ))}
+              </div>
 
               <a href={formule.url} target="_blank" rel="noopener noreferrer">
                 <button className={styles.ctaButton}>{formule.label}</button>
               </a>
-              {/* <button className={styles.ctaButton}>{formule.label}</button> */}
-
-              {expandedCards.includes(formule.id) && (
-                <div className={styles.featuresList}>
-                  {formule.features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className={`${styles.feature} ${
-                        feature.included ? styles.included : styles.notIncluded
-                      }`}
-                    >
-                      <span className={styles.checkmark} />
-                      <span className={styles.featureText}>{feature.text}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* <button
-                className={styles.detailsLink}
-                onClick={() => toggleFeatures(formule.id)}
-              >
-                {expandedCards.includes(formule.id)
-                  ? "Masquer les détails"
-                  : "Détails de l'offre"}
-                <span className={styles.arrow}>
-                  {expandedCards.includes(formule.id) ? (
-                    <IoChevronUp />
-                  ) : (
-                    <IoChevronDown />
-                  )}
-                </span>
-              </button> */}
+              <p>Disponible avant fin 2025</p>
             </div>
           ))}
         </div>
