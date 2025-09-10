@@ -1,10 +1,24 @@
 import { Metadata } from "next";
 import Script from "next/script";
-import { Fredoka } from "next/font/google";
+import { Fredoka, Nunito, Quicksand } from "next/font/google";
 import "./globals.scss";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
+const quicksand = Quicksand({
+  variable: "--font-quicksand",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
@@ -36,9 +50,7 @@ export const metadata: Metadata = {
     title: "GIFTED - Et si l'Enfance recréait le Monde ?",
     description:
       "Plateforme éducative innovante qui révolutionne l'apprentissage des enfants",
-    images: [
-      "https://gifted-project.net/images/social-preview.png",
-    ],
+    images: ["https://gifted-project.net/images/social-preview.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -75,7 +87,11 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "s5fbvw1w55");
           `}
       </Script>
-      <body className={fredoka.variable}>{children}</body>
+      <body
+        className={`${fredoka.variable} ${nunito.variable} ${quicksand.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
