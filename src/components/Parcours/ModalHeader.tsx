@@ -11,6 +11,7 @@ interface ModalHeaderProps {
     question: string;
     answerText: string;
   }>;
+  parcoursId?: number;
   onPreviousStep: () => void;
   onClose: () => void;
   titleTransition: boolean;
@@ -19,6 +20,7 @@ interface ModalHeaderProps {
 export const ModalHeader: React.FC<ModalHeaderProps> = ({
   currentStep,
   parcoursData,
+  parcoursId,
   onPreviousStep,
   onClose,
   titleTransition,
@@ -41,6 +43,11 @@ export const ModalHeader: React.FC<ModalHeaderProps> = ({
         className={`${styles.question} ${
           titleTransition ? styles.questionSlideUp : ""
         }`}
+        style={{
+          background: parcoursId
+            ? `url("/assets/images/parcours/${parcoursId}/wood-question-bg.png") repeat center center`
+            : 'url("/images/wood-question-bg.png") repeat center center',
+        }}
       >
         <div className={styles.bird}>
           <Image src="/images/bird.png" alt="Bird" width={100} height={100} />

@@ -14,6 +14,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
 }) => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(-1);
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const phrases = [
     "Chaque petite tâche devient une grande victoire. ",
@@ -26,7 +27,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (!sectionRef.current || !videoRef.current) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
       const sectionHeight = rect.height;
@@ -42,6 +43,12 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
         0,
         Math.min(1, Math.abs(rect.top) / sectionHeight)
       );
+
+      // Synchroniser la vidéo avec le scroll
+      if (videoRef.current.duration) {
+        const videoTime = progress * videoRef.current.duration;
+        videoRef.current.currentTime = videoTime;
+      }
 
       // Déterminer quelle phrase doit être visible
       const totalPhrases = phrases.length;
@@ -66,23 +73,19 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
       id={id}
       className={`${styles.revealSection} ${className || ""}`}
     >
-      {/* SVG Vague verticale beige */}
-      <div className={styles.waveContainer}>
-        <svg
-          className={styles.waveSvg}
-          viewBox="0 0 200 600"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0,0 C50,50 100,100 150,150 C180,200 200,250 200,300 C200,350 180,400 150,450 C100,500 50,550 0,600 L0,0 Z"
-            fill="#eedcc9"
-            opacity="0.8"
-          />
-        </svg>
-      </div>
+      {/* Vidéo de fond paysage */}
 
       <div className={styles.container}>
+        {" "}
+        <video
+          ref={videoRef}
+          className={styles.backgroundVideo}
+          muted
+          playsInline
+          preload="metadata"
+        >
+          <source src="/images/payasagevideo.mp4" type="video/mp4" />
+        </video>
         <div className={styles.phrasesContainer}>
           {phrases.map((phrase, index) => (
             <span

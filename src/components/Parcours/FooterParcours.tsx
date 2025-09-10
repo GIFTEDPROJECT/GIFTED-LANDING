@@ -14,15 +14,19 @@ interface FooterParcoursProps {
     answerText: string;
   }>;
   isStarted: boolean;
+  showGiftMoneyIndex: number | null;
   answers: boolean[];
   currentStep?: number;
+  parcoursId?: number;
 }
 
 export const FooterParcours: React.FC<FooterParcoursProps> = ({
   parcoursData,
   answers,
   isStarted,
+  showGiftMoneyIndex,
   currentStep = 0,
+  parcoursId,
 }) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isMobile, setIsMobile] = React.useState(false);
@@ -41,7 +45,7 @@ export const FooterParcours: React.FC<FooterParcoursProps> = ({
   // Faire avancer automatiquement le Swiper à chaque changement d'étape (mobile uniquement)
   useEffect(() => {
     if (swiperRef.current && isStarted && isMobile) {
-      swiperRef.current.slideTo(currentStep, 300); // Animation de 300ms
+      swiperRef.current.slideTo(currentStep, -100); // Animation de 300ms
     }
   }, [currentStep, isStarted, isMobile]);
 
@@ -73,9 +77,12 @@ export const FooterParcours: React.FC<FooterParcoursProps> = ({
                 } ${index === currentStep ? styles.active : ""}`}
               >
                 <div className={styles.bg}>
-                  <img src="/images/nenuphare.png" alt="Hygiene" />
+                  <img
+                    src={`/assets/images/parcours/${parcoursId}/parcours-item-bg.png`}
+                    alt="Hygiene"
+                  />
                   {index < answers.length && answers[index] && (
-                    <div className={styles.gitfMoney}>
+                    <div className={`${styles.gitfMoney} ${styles.animated}`}>
                       <img src="/images/gift-money.png" alt="Money" />
                     </div>
                   )}
@@ -100,9 +107,12 @@ export const FooterParcours: React.FC<FooterParcoursProps> = ({
               } ${index === currentStep ? styles.active : ""}`}
             >
               <div className={styles.bg}>
-                <img src="/images/nenuphare.png" alt="Hygiene" />
+                <img
+                  src={`/assets/images/parcours/${parcoursId}/parcours-item-bg.png`}
+                  alt="Hygiene"
+                />
                 {index < answers.length && answers[index] && (
-                  <div className={styles.gitfMoney}>
+                  <div className={`${styles.gitfMoney} ${styles.animated}`}>
                     <img src="/images/gift-money.png" alt="Money" />
                   </div>
                 )}

@@ -10,12 +10,12 @@
   transition: all 1s ease;
   transition-delay: 0.5s;
   opacity: 0;
-  transform: translateY(-100%);
+  transform: translateX(-100%);
 
   &.started {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: translateX(0);
   }
   
   .arrow {
@@ -63,15 +63,15 @@
     padding: 12px 84px 16px 84px;
     color: #fff;
     text-shadow: 2px 4px 0px rgba(0, 0, 0, 1);
-    background: url("/images/wood-question-bg.png") repeat center center;
+    // background: url("/images/wood-question-bg.png") repeat center center; // Maintenant géré en inline
     background-position: center;
     width: 100%;
     border-radius: 10px;
     position: relative;
-    transition: all .4s ease-in-out;
+    transition: all 1s ease-in-out;
 
     &.questionSlideUp {
-      transform: translateY(-50px);
+      transform: translateY(-100%);
       opacity: 0;
     }
 
@@ -149,7 +149,7 @@
   }
   
   .questionSlideUp {
-    transform: translateY(-50px);
+    transform: translateX(-100%);
     opacity: 0;
   }
 } 

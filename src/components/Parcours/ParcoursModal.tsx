@@ -8,20 +8,41 @@ import FinalStep from "./FinalStep";
 import FooterParcours from "./FooterParcours";
 import ModalHeader from "./ModalHeader";
 import { Parcours, defaultParcours } from "./mocks/parcoursData";
+import { getParcoursConfig, ParcoursConfig } from "../../config/parcoursSimple";
 
 import IntroStep from "./IntroStep";
 
 interface ParcoursModalProps {
   isOpen: boolean;
   onClose: () => void;
+  parcoursId?: number; // ID du parcours à charger
 }
 
 export const ParcoursModal: React.FC<ParcoursModalProps> = ({
   isOpen,
   onClose,
+  parcoursId = 1, // Par défaut, parcours 1 (hygiène)
 }) => {
-  // Utilise le parcours par défaut (hygiène)
-  const parcours = defaultParcours;
+  // Charger la config du parcours selon l'ID
+  const parcoursConfig = getParcoursConfig(parcoursId);
+  const parcours = parcoursConfig
+    ? {
+        id: parcoursConfig.id.toString(),
+        title: parcoursConfig.title,
+        description: parcoursConfig.description || "",
+        steps: parcoursConfig.steps.map((step) => ({
+          question: step.question,
+          answerText: step.answerText,
+        })),
+      }
+    : defaultParcours;
+
+  // Reset complet quand la modal s'ouvre
+  useEffect(() => {
+    if (isOpen) {
+      resetForm();
+    }
+  }, [isOpen]);
   const [showIntro, setShowIntro] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<boolean[]>([]);
@@ -29,12 +50,21 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
   const [titleTransition, setTitleTransition] = useState(false);
   const [showFinalStep, setShowFinalStep] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [showGiftMoneyIndex, setShowGiftMoneyIndex] = useState<number | null>(
+    null
+  );
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isLionJumping, setIsLionJumping] = useState(false);
+  const [isLionReturning, setIsLionReturning] = useState(false);
+  const [isLionInBottom, setIsLionInBottom] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   // Refs pour les objets audio
   const yesSoundRef = useRef<HTMLAudioElement | null>(null);
   const noSoundRef = useRef<HTMLAudioElement | null>(null);
   const prevStepSoundRef = useRef<HTMLAudioElement | null>(null);
   const backgroundMusicRef = useRef<HTMLAudioElement | null>(null);
+  const gainSoundRef = useRef<HTMLAudioElement | null>(null);
 
   // Initialiser les objets audio une seule fois
   useEffect(() => {
@@ -42,13 +72,36 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
       yesSoundRef.current = new Audio("/images/yes.wav");
       noSoundRef.current = new Audio("/images/no.wav");
       prevStepSoundRef.current = new Audio("/images/prev-step.wav");
+      gainSoundRef.current = new Audio("/images/gain.mp3");
 
-      const music = new Audio("/images/sound.flac");
+      console.log(parcoursConfig?.backgroundMusic);
+
+      // Utiliser la musique de fond de la config ou p1.mp3 par défaut
+      const musicFile = parcoursConfig?.backgroundMusic;
+      const music = new Audio(`${musicFile}`);
       music.loop = true;
       music.volume = 0.3;
       backgroundMusicRef.current = music;
     }
-  }, []);
+  }, [parcoursConfig]);
+
+  // Appliquer la couleur principale du parcours
+  useEffect(() => {
+    if (parcoursConfig?.primaryColor) {
+      const root = document.documentElement;
+      root.style.setProperty(
+        "--parcours-primary-color",
+        parcoursConfig.primaryColor
+      );
+    }
+
+    // Debug: afficher le chemin de l'image
+    if (parcoursConfig) {
+      console.log(
+        `Background image path: /assets/images/parcours/${parcoursConfig.id}/background.png`
+      );
+    }
+  }, [parcoursConfig]);
 
   // Gérer la musique de fond selon l'état du modal
   useEffect(() => {
@@ -100,42 +153,80 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
   };
 
   const handleAnswer = (answer: boolean) => {
+    // Empêcher les clics pendant la transition
+    if (isTransitioning) return;
+
+    // Démarrer la transition
+    setIsTransitioning(true);
+
+    // Faire sauter le lion
+    setIsLionJumping(true);
+
+    // Centrer la réponse sélectionnée
     setSelectedAnswer(answer);
 
-    // Jouer le son selon la réponse
+    // Jouer le son
     if (answer === true) {
-      playSound(yesSoundRef.current);
+      playSound(gainSoundRef.current);
     } else if (answer === false) {
       playSound(noSoundRef.current);
     }
 
+    // Enregistrer la réponse
+    let newAnswers;
+    if (currentStep < answers.length) {
+      newAnswers = [...answers];
+      newAnswers[currentStep] = answer;
+    } else {
+      newAnswers = [...answers, answer];
+    }
+    setAnswers(newAnswers);
+
+    // Afficher le gift money si "Oui"
+    if (answer === true) {
+      setShowGiftMoneyIndex(currentStep);
+    }
+
+    // Arrêter l'animation du lion après 0.8 seconde
     setTimeout(() => {
-      let newAnswers;
+      setIsLionJumping(false);
+      setIsLionInBottom(true);
+      // Le lion reste en bas pendant 500ms avant de repartir
+      setTimeout(() => {
+        setIsLionInBottom(false);
+        setIsLionReturning(true);
+        // Arrêter l'animation de retour après 0.6 seconde
+        setTimeout(() => {
+          setIsLionReturning(false);
+        }, 600);
+      }, 500);
+    }, 800);
 
-      // Si on est revenu en arrière, remplacer la réponse existante
-      if (currentStep < answers.length) {
-        newAnswers = [...answers];
-        newAnswers[currentStep] = answer;
-      } else {
-        // Sinon, ajouter une nouvelle réponse
-        newAnswers = [...answers, answer];
-      }
-
-      setAnswers(newAnswers);
-
-      if (currentStep < parcours.steps.length - 1) {
-        // Animation de transition du titre
+    // Pause de 3 secondes avec le nénuphare au centre, puis passer à l'étape suivante
+    if (currentStep < parcours.steps.length - 1) {
+      setTimeout(() => {
         setTitleTransition(true);
         setTimeout(() => {
           setCurrentStep(currentStep + 1);
-          setSelectedAnswer(null);
           setTitleTransition(false);
-        }, 300);
-      } else {
-        // Toutes les questions ont été répondues
+          setSelectedAnswer(null); // Réinitialiser la sélection
+          setIsTransitioning(false); // Fin de la transition
+          // S'assurer que le lion est bien revenu à sa position initiale
+          setIsLionJumping(false);
+          setIsLionReturning(false);
+          setIsLionInBottom(false);
+        }, 500);
+      }, 3000); // Pause de 3 secondes
+    } else {
+      setTimeout(() => {
         setShowFinalStep(true);
-      }
-    }, 1200);
+        setIsTransitioning(false); // Fin de la transition
+        // S'assurer que le lion est bien revenu à sa position initiale
+        setIsLionJumping(false);
+        setIsLionReturning(false);
+        setIsLionInBottom(false);
+      }, 3000); // Pause de 3 secondes avant la fin
+    }
   };
 
   const handlePreviousStep = () => {
@@ -157,17 +248,25 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
     setTitleTransition(false);
     setShowFinalStep(false);
     setIsMuted(false);
+    setShowGiftMoneyIndex(null);
+    setIsTransitioning(false);
+    setIsLionJumping(false);
+    setIsLionReturning(false);
+    setIsLionInBottom(false);
   };
 
   const handleClose = () => {
-    // Arrêter la musique de fond quand on ferme la popin
-    console.log("close");
-    if (backgroundMusicRef.current) {
-      backgroundMusicRef.current.pause();
-      backgroundMusicRef.current.currentTime = 0;
-    }
-    resetForm();
-    onClose();
+    setIsClosing(true);
+    // Attendre la fin de l'animation avant de fermer
+    setTimeout(() => {
+      // Arrêter la musique de fond quand on ferme la popin
+      if (backgroundMusicRef.current) {
+        backgroundMusicRef.current.pause();
+        backgroundMusicRef.current.currentTime = 0;
+      }
+      onClose();
+      setIsClosing(false);
+    }, 600); // Durée de l'animation de fermeture
   };
 
   return (
@@ -175,8 +274,13 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
       <div
         className={`${styles.modalContent} ${
           !showIntro ? styles.started : null
-        }`}
+        } ${isClosing ? styles.closing : ""}`}
         onClick={(e) => e.stopPropagation()}
+        style={{
+          backgroundImage: parcoursConfig
+            ? `url(/assets/images/parcours/${parcoursConfig.id}/background.png)`
+            : "url(/images/hygiene.png)",
+        }}
       >
         <IntroStep onStart={() => setShowIntro(false)} isStarted={showIntro} />
 
@@ -195,6 +299,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
             <ModalHeader
               currentStep={currentStep}
               parcoursData={parcours.steps}
+              parcoursId={parcoursConfig?.id}
               onPreviousStep={handlePreviousStep}
               onClose={handleClose}
               titleTransition={titleTransition}
@@ -205,7 +310,13 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
           {!showFinalStep ? (
             <>
               <div className={styles.modalContentInner}>
-                <div className={styles.avatarContainer}>
+                <div
+                  className={`${styles.avatarContainer} ${
+                    isLionJumping ? styles.jumping : ""
+                  } ${isLionInBottom ? styles.inBottom : ""} ${
+                    isLionReturning ? styles.returning : ""
+                  }`}
+                >
                   <Image
                     src="/images/moving-lion.gif"
                     alt="Avatar"
@@ -229,22 +340,25 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
                       !showIntro ? styles.started : ""
                     }`}
                     onClick={
-                      selectedAnswer === null
+                      selectedAnswer === null && !isTransitioning
                         ? () => handleAnswer(false)
                         : undefined
                     }
                     style={{
-                      cursor: selectedAnswer === null ? "pointer" : "default",
+                      cursor:
+                        selectedAnswer === null && !isTransitioning
+                          ? "pointer"
+                          : "default",
                     }}
                   >
                     <div className={styles.answerItem}>
                       <Image
-                        src="/images/feuille-no.png"
+                        src={`/assets/images/parcours/${parcoursConfig?.id}/no.png`}
                         alt="Toothbrush"
                         width={334}
                         height={116}
                         style={{
-                          width: "160px",
+                          width: "120px",
                           height: "auto",
                         }}
                       />
@@ -260,22 +374,25 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
                       !showIntro ? styles.started : ""
                     }`}
                     onClick={
-                      selectedAnswer === null
+                      selectedAnswer === null && !isTransitioning
                         ? () => handleAnswer(true)
                         : undefined
                     }
                     style={{
-                      cursor: selectedAnswer === null ? "pointer" : "default",
+                      cursor:
+                        selectedAnswer === null && !isTransitioning
+                          ? "pointer"
+                          : "default",
                     }}
                   >
                     <div className={styles.answerItem}>
                       <Image
-                        src="/images/feuille-yes.png"
+                        src={`/assets/images/parcours/${parcoursConfig?.id}/yes.png`}
                         alt="Toothbrush"
                         width={334}
                         height={116}
                         style={{
-                          width: "160px",
+                          width: "120px",
                           height: "auto",
                         }}
                       />
@@ -296,6 +413,8 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
               parcoursData={parcours.steps}
               answers={answers}
               currentStep={currentStep}
+              showGiftMoneyIndex={showGiftMoneyIndex}
+              parcoursId={parcoursConfig?.id}
             />
           )}
         </>
