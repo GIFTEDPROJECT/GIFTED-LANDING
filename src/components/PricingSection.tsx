@@ -134,9 +134,9 @@ export const PricingSection: React.FC = () => {
                 ))}
               </div>
 
-              <a href={formule.url} target="_blank" rel="noopener noreferrer">
+              {/*<a href={formule.url} target="_blank" rel="noopener noreferrer">
                 <button className={styles.ctaButton}>{formule.label}</button>
-              </a>
+              </a>*/}
               <p>Disponible avant fin 2025</p>
             </div>
           ))}
