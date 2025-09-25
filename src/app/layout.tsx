@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Script from "next/script";
 import { Fredoka, Nunito, Quicksand } from "next/font/google";
 import "./globals.scss";
+import Footer from "@/components/Footer";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -91,6 +92,7 @@ export default function RootLayout({
         className={`${fredoka.variable} ${nunito.variable} ${quicksand.variable}`}
       >
         {children}
+        <Footer />
       </body>
     </html>
   );

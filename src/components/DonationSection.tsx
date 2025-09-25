@@ -8,19 +8,13 @@ export const DonationSection: React.FC = () => {
     <section className={styles.donationSection}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.header}>
-            <h2 className={styles.title}>
-              Soutenez le GIFTED Project <span>🚀</span>
-            </h2>
-          </div>
-
           <div className={styles.donationCard}>
             <div className={styles.cardHeader}>
               <div className={styles.iconContainer}>
                 <span className={styles.icon}>💎</span>
               </div>
               <h2 className={styles.subtitle}>
-                Ajoutez votre pierre ( précieuse ) à notre édifice.
+                Ajoutez votre pierre ( précieuse )<br /> à notre édifice.
               </h2>
               <p className={styles.cardDescription}>
                 Grâce à vous, GIFTED pourra réaliser ses promesses plus
@@ -33,8 +27,13 @@ export const DonationSection: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className={styles.ctaButton}>J&apos;adore !</button>
+              <button className={styles.ctaButton}>Je fais un don</button>
             </a>
+            <p>
+              <span className={styles.infoText}>
+                Paiement sécurisé par Stripe
+              </span>
+            </p>
           </div>
         </div>
       </div>

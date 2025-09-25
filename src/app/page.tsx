@@ -12,8 +12,8 @@ import ReveSection from "@/components/ReveSection";
 import PricingSection from "@/components/PricingSection";
 import DonationSection from "@/components/DonationSection";
 import ContactSection from "@/components/ContactSection";
+import DiscoverFutureSection from "@/components/DiscoverFutureSection";
 import StickyHeader from "@/components/StickyHeader";
-import Footer from "@/components/Footer";
 import { RevealSection } from "@/components/RevealSection";
 import styles from "./page.module.scss";
 import { MethodSection } from "@/components";
@@ -70,16 +70,16 @@ export default function Home() {
       {/* <ReveSection /> */}
 
       {/* Section Pricing/Soutien */}
-      <PricingSection />
+      <PricingSection id="pricing" />
 
       {/* Section Don */}
       <DonationSection />
 
       {/* Section Contact/email */}
-      <ContactSection />
+      <ContactSection id="contact" />
 
-      {/* Footer */}
-      <Footer />
+      {/* Section Découvrir l'avenir */}
+      <DiscoverFutureSection />
     </div>
   );
 }

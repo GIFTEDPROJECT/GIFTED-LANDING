@@ -1,0 +1,136 @@
+@use '../styles/vars' as *;
+@use '../styles/mixins' as *;
+
+.discoverFutureSection {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/images/wood.png') repeat;
+    opacity: 0.05;
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    position: relative;
+    z-index: 2;
+
+    @include mobile-only {
+      flex-direction: column;
+      gap: 40px;
+      text-align: center;
+    }
+  }
+
+  .content {
+    flex: 1;
+  }
+
+  .title {
+    font-family: var(--font-fredoka);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    line-height: 1.2;
+
+    @include mobile-only {
+      font-size: 2.5rem;
+    }
+  }
+
+  .description {
+    font-family: var(--font-nunito);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    line-height: 1.6;
+    max-width: 500px;
+
+    @include mobile-only {
+      font-size: 1.1rem;
+      max-width: 100%;
+    }
+  }
+
+  .discoverButton {
+    background: url('/images/btn-bg2.png') no-repeat center center;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-family: var(--font-fredoka);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-shadow: 2px 2px 4px #0000004d;
+    cursor: pointer;
+    letter-spacing: .05em;
+    -webkit-text-stroke: 1px #a14c1d;
+    color: #8B4513;
+    box-shadow: 0 0 20px #fffc, inset 0 0 10px #6b4423cc;
+    text-transform: uppercase;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      background: url('/images/btn-bg2.png') no-repeat center center;
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    @include mobile-only {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+    }
+  }
+
+  .visual {
+    flex: 0 0 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include mobile-only {
+      flex: none;
+    }
+  }
+
+  .icon {
+    font-size: 6rem;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+
+    @include mobile-only {
+      font-size: 4rem;
+    }
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

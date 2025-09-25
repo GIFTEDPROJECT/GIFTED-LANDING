@@ -39,14 +39,29 @@ const DoubleHeroSection: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [getScrollPosition]);
 
+  // useEffect pour initialiser l'état au chargement
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const initialScrollY = window.scrollY;
+      setCurrentScrollY(initialScrollY);
+
+      // Vérifier l'état initial du topContent
+      if (initialScrollY > window.innerHeight * 0.8) {
+        setTopContentHidden(true);
+      } else {
+        setTopContentHidden(false);
+      }
+    }
+  }, []);
+
   // useEffect pour topContentHidden
   useEffect(() => {
-    if (currentScrollY > WINDOW_HEIGHT / 1.2) {
+    if (currentScrollY > WINDOW_HEIGHT * 0.8) {
       setTopContentHidden(true);
     } else {
       setTopContentHidden(false);
     }
-  }, [currentScrollY]);
+  }, [currentScrollY, WINDOW_HEIGHT]);
 
   // useEffect pour visible
   useEffect(() => {
@@ -186,9 +201,13 @@ const DoubleHeroSection: React.FC = () => {
           </span>
         </h1>
 
+        {/* Flèche informative */}
         <div className={styles.chevronScroll}>
           <FaChevronDown className={styles.chevronIcon} />
           <FaChevronDown className={styles.chevronIcon} />
+          <span className={styles.scrollText}>
+            Scroller pour découvrir GIFTED
+          </span>
         </div>
       </div>
       {/* Bloc du haut - Titre centré */}
@@ -244,10 +263,13 @@ const DoubleHeroSection: React.FC = () => {
             className={styles.doubleHeroSectionBackgroundImage}
           />
 
-          {/* Chevron pour la section du bas */}
+          {/* Flèche informative du bas */}
           <div className={styles.chevronScrollBottom}>
             <FaChevronDown className={styles.chevronIconBottom} />
             <FaChevronDown className={styles.chevronIconBottom} />
+            <span className={styles.scrollTextBottom}>
+              Continuer à découvrir
+            </span>
           </div>
 
           <div className={styles.bottomSection}>

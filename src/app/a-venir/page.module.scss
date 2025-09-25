@@ -1,0 +1,39 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f5dc 0%, #e8d5b7 100%);
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.main {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #D2AC55;
+  text-shadow:
+    -2px -2px 0 #231504,
+     0   -2px 0 #231504,
+     2px -2px 0 #231504,
+     2px  2px 0 #231504,
+     0    2px 0 #231504,
+    -2px  2px 0 #231504,
+    -2px  0   0 #231504;
+  margin: 0;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #f5f5dc 0%, #e8d5b7 100%);
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+}
