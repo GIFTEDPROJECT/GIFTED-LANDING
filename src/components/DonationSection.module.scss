@@ -2,9 +2,7 @@
 @use '../styles/vars.scss' as *;
 @use '../styles/mixins.scss' as *;
 
-:global(img) {
-  display: block;
-}
+// Global styles moved to globals.scss
 
 .donationSection {
   background: #FEF4E7;
