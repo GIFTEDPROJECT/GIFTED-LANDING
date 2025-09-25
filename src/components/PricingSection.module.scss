@@ -68,27 +68,32 @@
   font-weight: 600;
   color: $text-brown;
   margin-bottom: 2rem;
+  display: flex;
+    align-items: center;
+    justify-content: center;
   img {
-    margin-top: 10px;
-    margin-left: 4px;
+    margin-left: 6px;
   }
   @media screen and (max-width: 768px) {
     margin-top: 1rem;
     line-height: .8;
+    flex-direction: column;
+    img {
+      margin-top: 10px;
+      margin-left: 0;
+    }
   }
 }
 
 .pricingGrid {
   display: flex;
-  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   
   @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    gap: 3rem;
     max-width: 500px;
+    flex-direction: column;
   }
   
   @include mobile-only {
@@ -110,6 +115,29 @@
   max-width: 60%;
   margin: 0 auto;
   flex: 2;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1024px) {
+    flex: 1;
+    max-width: 100%;
+  }
+
+  &:first-child {
+    flex: 1;
+    border-color: #059EBD;
+    background: #DFECEC;
+    .ctaButton {
+      background: url('/images/btn-pricing-bleu.png') center center/contain no-repeat;
+    }
+
+    .description{
+      color: #406674;
+    }
+    .price{
+      color: #00485B;
+    } 
+  }
   
   &:hover {
     transform: translateY(-5px);
@@ -119,26 +147,16 @@
   @include mobile-only {
     padding: 1.5rem;
     min-height: 350px;
+    max-width: 100%;
   }
 
   
 }
 
-.cardHeader {
-  margin-bottom: 2rem;
-  @media screen and (max-width: 768px) {
-    margin-bottom: 1rem;
-  }
-}
 
 .iconContainer {
-  margin-bottom: 1rem;
   display: flex;
   justify-content: center;
-	position: absolute;
-	top: -48px;
-	left: 50%;
-	transform: translateX(-50%);
 }
 
 .typeLabel {
@@ -166,12 +184,14 @@
 
 .description {
   font-family: $font-primary;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: $text-brown;
   line-height: 1.4;
-  margin: 0;
-  flex:1;
-  font-weight: 600;
+  margin: 0 auto;
+  flex: 1;
+  font-weight: 400;
+  max-width: 340px;
+ 
   @media screen and (max-width: 768px) {
     font-size: 1rem;
   }
@@ -186,10 +206,10 @@
 
 .price {
   font-family: $font-primary;
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.4rem;
+  font-weight: 600;
   color: $wood-brown;
-  margin-bottom: 0.5rem;
+  margin-bottom: .3rem;
   sup {
     font-size: 16px;
     font-weight: 400;
@@ -222,16 +242,20 @@
 
 .originalPrice {
   font-family: $font-primary;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   color: $text-brown;
   line-height: 1.3;
+  position: absolute;
+  width: calc(100% - 4rem);
+  text-align: center;
 }
 
 .featuresList {
   text-align: left;
-  margin: 2rem 0;
+  margin: 0 0 2rem;
   animation: slideDown 0.3s ease-out;
   overflow: hidden;
+  flex:1;
   @media screen and (max-width: 768px) {
     margin: 1rem 0;
   }
@@ -321,6 +345,8 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 1rem;
+  
+text-shadow: -1px -1px 1px rgba(0,0,0,.1), 1px 1px 1px rgba(0,0,0,.7);
   
   &:hover {
     transform: translateY(-2px);

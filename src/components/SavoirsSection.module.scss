@@ -339,6 +339,16 @@
   }
 }
 
+.firework {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 50%;
+  width: 500px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
 .cardQuestion {
   font-size: 1.2rem;
   color: $text-brown;

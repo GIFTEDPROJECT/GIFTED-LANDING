@@ -2,8 +2,12 @@
 @use '../styles/vars.scss' as *;
 @use '../styles/mixins.scss' as *;
 
+:global(img) {
+  display: block;
+}
+
 .donationSection {
-  background: linear-gradient(135deg, $beige-bg 0%, color.adjust($beige-bg, $lightness: 5%) 100%);
+  background: #FEF4E7;
   padding: 6rem 2rem;
   position: relative;
   overflow: hidden;
@@ -63,7 +67,7 @@
 }
 
 .subtitle {
-  font-size: 1.3rem;
+  font-size: 2rem;
   color: $text-brown;
   line-height: 1.6;
   max-width: 600px;
@@ -79,7 +83,7 @@
   border-radius: 25px;
   padding: 3rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-  border: 10px solid $gold;
+  border: 10px solid #F2758E;
   position: relative;
   
   @include tablet-max {
@@ -166,7 +170,7 @@
 }
 .ctaButton {
   width: 100%;
-  background: url('/images/btn-pricing.png') center center/contain no-repeat;
+  background: url('/images/btn-pricing-pink.png') center center/contain no-repeat;
   color: $beige-bg;
   text-shadow: 2px 2px 4px #0000004d;
   border: none;
@@ -179,6 +183,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 1rem;
+  color: white;
   
   &:hover {
     transform: translateY(-2px);
@@ -343,16 +348,6 @@
 
 .buttonIcon {
   font-size: 1.2rem;
-  animation: pulse 2s ease-in-out infinite;
-  
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-  }
 }
 
 .legalText {

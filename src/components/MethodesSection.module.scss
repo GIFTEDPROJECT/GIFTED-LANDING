@@ -81,7 +81,7 @@
   
   &:hover {
     background: rgba(255, 255, 255, 1);
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%);
   }
 }
 
@@ -115,7 +115,7 @@
 }
 
 .bulletActive {
-  background: $gold;
+  background: #DAA520;
 }
 
 .cardsGrid {

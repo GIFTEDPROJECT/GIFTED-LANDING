@@ -1,26 +1,33 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import styles from "./ContactSection.module.scss";
 import Image from "next/image";
 
-export const ContactSection: React.FC = () => {
+interface ContactSectionProps {
+  id?: string;
+}
+
+export const ContactSection: React.FC<ContactSectionProps> = ({ id }) => {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-  
+
     try {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-  
+
       const data = await res.json();
-  
+
       if (res.ok && data.success) {
         setStatus("success");
         setEmail("");
@@ -36,10 +43,9 @@ export const ContactSection: React.FC = () => {
       setStatus("error");
     }
   };
-  
 
   return (
-    <section className={styles.contactSection}>
+    <section id={id} className={styles.contactSection}>
       <div className={styles.birds}>
         <Image
           src="/images/birds.png"
@@ -57,7 +63,7 @@ export const ContactSection: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.frame}>
           <div className={styles.content}>
-            <h2 className={styles.title}>On garde le contact ?</h2>
+            <h2 className={styles.title}>Inscrivez-vous à la newsletter</h2>
 
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.inputWrapper}>

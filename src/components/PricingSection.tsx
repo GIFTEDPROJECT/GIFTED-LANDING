@@ -4,9 +4,21 @@ import React, { useState } from "react";
 import styles from "./PricingSection.module.scss";
 import Image from "next/image";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { ParcoursModal } from "./Parcours/ParcoursModal";
 
-export const PricingSection: React.FC = () => {
+interface PricingSectionProps {
+  id?: string;
+}
+
+export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
+  const [isParcoursModalOpen, setIsParcoursModalOpen] = useState(false);
+  const [selectedParcoursId, setSelectedParcoursId] = useState<number>(1);
+
+  const handleTestGratuit = () => {
+    setSelectedParcoursId(1); // Parcours hygiène par défaut
+    setIsParcoursModalOpen(true);
+  };
 
   const toggleFeatures = (cardId: number) => {
     const wasExpanded = expandedCards.includes(cardId);
@@ -47,13 +59,37 @@ export const PricingSection: React.FC = () => {
 
   const formules = [
     {
+      id: 1,
+      icon: "/images/pricing-card1.png",
+      price: "Test gratuit",
+      originalPrice: "",
+      features: [
+        {
+          text: "Testez dès maintenant nos 4 parcours d'autonomie",
+          included: true,
+        },
+        {
+          text: "Hygiène, rangement, respect, devoirs",
+          included: true,
+        },
+        {
+          text: `Découvrez nos avatars"
+`,
+          included: true,
+        },
+      ],
+      availability: "Disponible avant fin 2025",
+      label: "Je teste gratuitement",
+      url: "https://buy.stripe.com/5kQ4gzb08b9efy5h1u2ZO00",
+    },
+    {
       id: 2,
-      icon: "/images/believers.png",
+      icon: "/images/pricing-card2.png",
       price: "10 € pour un an",
       originalPrice: "au lieu de 30 €/an à partir de Septembre",
       features: [
         {
-          text: "Abonnement ANNUEL aux 4 parcours d’autonomie (hygiène, rangement, respect, devoirs)",
+          text: "Abonnement ANNUEL aux 4 parcours d'autonomie (hygiène, rangement, respect, devoirs)",
           included: true,
         },
         {
@@ -63,8 +99,8 @@ export const PricingSection: React.FC = () => {
         {
           text: `Possibilité de Co-Création avec les fondateurs de GIFTED:
           <ul>
-            <li>Choix des “récompenses” pour les enfants</li>
-            <li>Création du prochain parcours : le “Parcours Ecrans”</li>
+            <li>Choix des "récompenses" pour les enfants</li>
+            <li>Création du prochain parcours : le "Parcours Ecrans"</li>
             <li>Et de toutes les fonctionnalités à venir</li>
           </ul>
 `,
@@ -101,6 +137,14 @@ export const PricingSection: React.FC = () => {
               data-card-id={formule.id}
             >
               <div className={styles.cardHeader}>
+                <div className={styles.iconContainer}>
+                  <Image
+                    src={formule.icon}
+                    alt={formule.id.toString()}
+                    width={100}
+                    height={100}
+                  />
+                </div>
                 <p className={styles.description}>
                   {formule.id === 1 && "Testez avant de vous engager"}
                   {formule.id === 2 &&
@@ -134,9 +178,30 @@ export const PricingSection: React.FC = () => {
                 ))}
               </div>
 
-              {/*<a href={formule.url} target="_blank" rel="noopener noreferrer">
-                <button className={styles.ctaButton}>{formule.label}</button>
-              </a>*/}
+              <button
+                className={styles.ctaButton}
+                onClick={() => {
+                  if (formule.id === 1) {
+                    // Pour le test gratuit, ouvrir le parcours
+                    handleTestGratuit();
+                  } else {
+                    // Pour l'abonnement, rediriger vers contact
+                    const contactSection = document.getElementById("contact");
+                    if (contactSection) {
+                      contactSection.scrollIntoView({ behavior: "smooth" });
+                    } else {
+                      // Fallback : chercher par classe CSS
+                      const contactElement =
+                        document.querySelector(".contactSection");
+                      if (contactElement) {
+                        contactElement.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }
+                  }
+                }}
+              >
+                {formule.label}
+              </button>
               <p>Disponible avant fin 2025</p>
             </div>
           ))}
@@ -145,6 +210,13 @@ export const PricingSection: React.FC = () => {
       <p className={styles.consents}>
         * Offre pour 12 mois, sans engagement pour l&apos;année suivante.
       </p>
+
+      {/* Modal Parcours */}
+      <ParcoursModal
+        isOpen={isParcoursModalOpen}
+        onClose={() => setIsParcoursModalOpen(false)}
+        parcoursId={selectedParcoursId}
+      />
     </section>
   );
 };

@@ -197,7 +197,7 @@
   border: none;
   
   &:hover {
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%);
     border-color: $gold;
   }
   
@@ -239,11 +239,11 @@
 
 // Effet hover sur les images
 .prevButton:hover .prevArrow {
-  transform: rotate(180deg) scale(1.1);
+  transform: rotate(180deg);
 }
 
 .nextButton:hover .nextArrow {
-  transform: scale(1.1);
+  transform: none;
 }
 
 // Pagination personnalisée
@@ -265,7 +265,7 @@
 }
 
 .bulletActive {
-  background: $gold;
+  background: #DAA520;
 }
 
 // Animation d'entrée
