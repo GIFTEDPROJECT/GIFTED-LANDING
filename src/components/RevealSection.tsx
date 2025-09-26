@@ -50,9 +50,11 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
         videoRef.current.currentTime = videoTime;
       }
 
-      // Déterminer quelle phrase doit être visible
+      // Déterminer quelle phrase doit être visible avec des transitions ultra fluides
       const totalPhrases = phrases.length;
-      const visibleIndex = Math.floor(progress * totalPhrases);
+      // Multiplier le progrès pour des transitions plus rapides
+      const fastProgress = Math.min(1, progress * 1.5); // 1.5x plus rapide
+      const visibleIndex = Math.floor(fastProgress * totalPhrases);
 
       if (visibleIndex !== currentPhraseIndex) {
         setCurrentPhraseIndex(visibleIndex);

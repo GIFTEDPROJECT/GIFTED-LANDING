@@ -8,7 +8,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import ParcoursSliderModal from "./ParcoursSliderModal";
+import { ParcoursModal } from "./Parcours";
 
 interface SavoirsSectionProps {
   className?: string;
@@ -147,12 +147,8 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   const [answeredYes, setAnsweredYes] = useState<boolean[]>([]);
   const [visitedCards, setVisitedCards] = useState<string[]>([]);
   const [transformedCards, setTransformedCards] = useState<string[]>([]);
-  const [isParcoursSliderOpen, setIsParcoursSliderOpen] = useState(false);
+  const [isParcoursModalOpen, setIsParcoursModalOpen] = useState(false);
   const [selectedParcoursId, setSelectedParcoursId] = useState<number>(1);
-  const [selectedParcoursTitle, setSelectedParcoursTitle] =
-    useState<string>("");
-  const [selectedParcoursDescription, setSelectedParcoursDescription] =
-    useState<string>("");
 
   const handleCardClick = (cardId: string) => {
     if (openCard === cardId) {
@@ -194,22 +190,8 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   };
 
   const handleParcoursClick = (parcoursId: number) => {
-    const card = quizCards.find((card) => {
-      const mapping: Record<string, number> = {
-        hygiene: 1,
-        rangement: 2,
-        respect: 3,
-        devoirs: 4,
-      };
-      return mapping[card.id] === parcoursId;
-    });
-
-    if (card) {
-      setSelectedParcoursId(parcoursId);
-      setSelectedParcoursTitle(card.courseName);
-      setSelectedParcoursDescription(card.question);
-      setIsParcoursSliderOpen(true);
-    }
+    setSelectedParcoursId(parcoursId);
+    setIsParcoursModalOpen(true);
   };
 
   const getCurrentCard = () => {
@@ -324,13 +306,11 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
         </div>
       )}
 
-      {/* Popin ParcoursSliderModal */}
-      <ParcoursSliderModal
-        isOpen={isParcoursSliderOpen}
-        onClose={() => setIsParcoursSliderOpen(false)}
+      {/* Popin ParcoursModal */}
+      <ParcoursModal
+        isOpen={isParcoursModalOpen}
+        onClose={() => setIsParcoursModalOpen(false)}
         parcoursId={selectedParcoursId}
-        parcoursTitle={selectedParcoursTitle}
-        parcoursDescription={selectedParcoursDescription}
       />
     </section>
   );

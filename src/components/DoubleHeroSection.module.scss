@@ -135,8 +135,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  opacity: 1;
-  transition: opacity 0.5s ease-out;
   pointer-events: none;
   
   .chevronScroll {
@@ -144,12 +142,7 @@
   }
 }
 
-.topContentHidden {
-  .topContent {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
-  }
-}
+// Les styles de disparition sont maintenant gérés via JavaScript
 
 
 .logoContainer {
@@ -233,13 +226,6 @@
 .visible {
   .bottomBlock {
     background-color: $beige-bg;
-    .container {
-      transform: scale(0.7);
-      transition: transform 0.3s ease-out;
-      .doubleHeroSectionBackgroundImage{
-        border-radius: 20px;
-      }
-    }
   }
 }
 .bottomBlock {
@@ -247,6 +233,7 @@
   width: 100%;
   position: relative;
   overflow: visible;
+  
   .container {
     position: sticky;
     top: 0;
@@ -255,10 +242,7 @@
     width: 100%;
     height: 100vh;
     z-index: 1;
-    will-change: transform;
     transform-origin: center center;
-    transition: transform 0.3s ease-out 0.5s;
-    transform: scale(1);
     overflow: hidden;
     
     .doubleHeroSectionBackgroundImage {
@@ -266,8 +250,8 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: border-radius 0.4s ease-out;
       object-position: top;
+      border-radius: 20px;
     }
   }
 }
@@ -388,79 +372,50 @@
   .bottomTitle {
     transform: translate(-50%, -75%);
     opacity: 0;
-    transition: transform 1s ease-out, opacity 1s ease-out;
   }
   
   .videoButton {
     transform: translate(-50%, -50%);
     opacity: 0;
-    transition: transform 1s ease-out, opacity 1s ease-out;
   }
 }
 
-// Afficher le chapitre quand la section arrive au top 0
-.chapterVisible {
-  .chapterStep {
-    transform: translate(-50%, -85%);
-    opacity: 1;
-    transition: transform 1s ease-out, opacity 1s ease-out;
-  }
-}
+// Le chapitre est maintenant géré par framer-motion
 
-// Faire disparaître le chapitre quand le titre apparaît
-.titleVisible {
-  .chapterStep {
-    opacity: 0;
-    transform: translate(-50%, -90%);
-    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-  }
-  
-  .bottomTitle {
-    transform: translate(-50%, -75%);
-    opacity: 1;
-    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-  }
-  
-  .videoButton {
-    transform: translate(-50%, -50%);
-    opacity: 1;
-    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-  }
-}
+// Les animations sont maintenant gérées par framer-motion
 
 // Afficher les parents et le logo quand le titre est visible
 .titleVisible .container .bottomSection {
   .womanImage {
     transform: translateX(0);
     opacity: 1;
-    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
   }
   .manImage {
     transform: translateX(0);
     opacity: 1;
-    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
   }
 }
 
 .titleVisible .container .logoContainerBottom {
   opacity: 1;
-  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  transition: opacity 0.4s ease-out;
 }
 
 .titleVisible .container .chevronScrollBottom {
   opacity: 1;
-  transition: opacity 0.8s ease-out;
+  transition: opacity 0.4s ease-out;
 }
 
 .chapterStep {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -80%);
+  margin-top: -50px; // Centré verticalement
+  margin-left: -50%; // Centré horizontalement
   z-index: 10;
   text-align: center;
-  opacity: 0;
-  transition: transform 1s ease-out, opacity 1s ease-out;
   width: 100%;
   
   .chapterText {
@@ -508,13 +463,12 @@
    -2px  2px 0 #231504,
    -2px  0   0 #231504;
   position: absolute;
-  top: 50%;
+  top: 30%;
   left: 50%;
-  transform: translate(-50%, -70%);
+  margin-top: -50px; // Centré verticalement
+  margin-left: -50%; // Centré horizontalement
   z-index: 10;
   text-align: center;
-  opacity: 0;
-  transition: transform 1s ease-out, opacity 1s ease-out;
   width: 100%;
   @include mobile-only {
     font-size: 1.5rem;
@@ -528,10 +482,8 @@
   position: absolute;
   top: 65%;
   left: 50%;
-  transform: translate(-50%, -30%);
+  margin-left: -133px; // Centré horizontalement
   z-index: 10;
-  opacity: 0;
-  transition: transform 1s ease-out, opacity 1s ease-out;
   color: #6b4423;
   font-family: var(--font-fredoka), sans-serif;
   cursor: pointer;
@@ -544,6 +496,7 @@
   border: none;
   border-radius: 25px;
   padding: .8rem 1.5rem;
+  width: 266px;
   font-size: 1.4rem;
   font-weight: 600;
   text-decoration: none;
@@ -589,7 +542,7 @@
 
 .logoContainerBottom {
   opacity: 0;
-  transition: transform 1s ease-out, opacity 1s ease-out;
+  transition: opacity 0.4s ease-out;
   .logoImageBottom {
     width: 340px;
     height: auto;
@@ -640,7 +593,7 @@
     height: auto !important;
     transform: translateX(-100%);
     opacity: 0;
-    transition: transform 1s ease-out, opacity 1s ease-out;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
     
     @include tablet-max {
       width: 48vw !important;
@@ -653,7 +606,7 @@
     max-width: 300px;
     transform: translateX(100%);
     opacity: 0;
-    transition: transform 1s ease-out, opacity 1s ease-out;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
     
     @include tablet-max {
       margin-right: -40px;
