@@ -24,16 +24,43 @@
   padding: 0.5rem 2rem;
 }
 
-// Container Swiper
+// Version desktop - navigation simple
+.desktopNav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+// Version mobile - avec Swiper
+.mobileNav {
+  display: none;
+  
+  @media (max-width: 768px) {
+    display: block;
+    width: 100%;
+  }
+}
+
+// Container Swiper (mobile uniquement)
 .swiperContainer {
   width: 100%;
   padding: 0.5rem 0;
-  display: flex;
-  justify-content: center;
+  overflow-x: auto;
+  touch-action: pan-x;
   
-  @media (max-width: 768px) {
-    padding: 0.5rem 0;
-    justify-content: flex-start; // Scroll horizontal sur mobile
+  // Masquer la scrollbar horizontale
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+  
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari/Opera
   }
 }
 

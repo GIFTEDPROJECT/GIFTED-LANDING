@@ -70,6 +70,22 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
     };
   }, [phrases.length]);
 
+  const handleNextSection = () => {
+    // Aller à la section suivante (pricing)
+    const nextSection = document.getElementById("pricing");
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handlePreviousSection = () => {
+    // Aller à la section précédente (method)
+    const previousSection = document.getElementById("method");
+    if (previousSection) {
+      previousSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -100,6 +116,24 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
               {phrase}
             </span>
           ))}
+        </div>
+        {/* Boutons de navigation entre sections */}
+        <div className={styles.navigationControls}>
+          <button
+            className={`${styles.navButton} ${styles.previousButton}`}
+            onClick={handlePreviousSection}
+            aria-label="Section précédente"
+          >
+            ← Notre méthode
+          </button>
+
+          <button
+            className={`${styles.navButton} ${styles.nextButton}`}
+            onClick={handleNextSection}
+            aria-label="Section suivante"
+          >
+            Notre projet →
+          </button>
         </div>
       </div>
     </section>

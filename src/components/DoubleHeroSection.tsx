@@ -172,7 +172,7 @@ const DoubleHeroSection: React.FC = () => {
           </motion.h2>
 
           {/* Bouton vidéo GIFTED */}
-          <motion.button
+          {/*  <motion.button
             className={styles.videoButton}
             onClick={() => setIsVideoModalOpen(true)}
             aria-label="Regarder la vidéo GIFTED"
@@ -183,7 +183,7 @@ const DoubleHeroSection: React.FC = () => {
           >
             <FaPlay className={styles.playIcon} />
             <span className={styles.videoButtonText}>GIFTED en vidéo</span>
-          </motion.button>
+          </motion.button> */}
 
           <img
             src="/images/hero-bottom-img.png"

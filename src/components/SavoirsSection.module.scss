@@ -496,13 +496,15 @@
 }
 
 .cardYesButton, .cardNoButton {
+  background: url('/images/btn-bg2.png') no-repeat center center;
+  background-size: 320%;
   color: $text-brown;
   border: none;
-  padding: .7rem 2rem;
+  padding: .4rem 1.4rem;
   border-radius: 40px;
   font-family: $font-primary;
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -523,16 +525,12 @@
 }
 
 .cardYesButton {
-  background: url('/images/bg-rangement.png') no-repeat center center;
-  border-color: #2a9d2a;
-  background-size: cover;
-  color: white;
+  border-color: #18d118;
+  background-size: 320%;
   box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
   animation: pulse 0.9s ease-out infinite;
 }
 .cardNoButton {
-  background: #f89993;
-  color: white;
   box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
   border-color: #e57373;
 }
@@ -548,7 +546,6 @@
   }
 }
 .cardDiscoverButton {
-  background: url('/images/btn-bg2.png') no-repeat center center;
   background-size: cover;
   color: $text-brown;
   border: none;

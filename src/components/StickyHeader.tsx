@@ -57,18 +57,18 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
     if (buttonAction) {
       buttonAction();
     } else {
-      // Amener vers la section contact
-      const contactSection = document.getElementById("contact");
-      if (contactSection) {
-        contactSection.scrollIntoView({
+      // Amener vers la section pricing
+      const pricingSection = document.getElementById("pricing");
+      if (pricingSection) {
+        pricingSection.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
       } else {
         // Fallback : chercher par classe CSS
-        const contactElement = document.querySelector(".contactSection");
-        if (contactElement) {
-          contactElement.scrollIntoView({ behavior: "smooth" });
+        const pricingElement = document.querySelector(".pricingSection");
+        if (pricingElement) {
+          pricingElement.scrollIntoView({ behavior: "smooth" });
         }
       }
     }

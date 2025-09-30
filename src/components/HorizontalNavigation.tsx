@@ -16,11 +16,10 @@ interface NavigationItem {
 }
 
 const navigationItems: NavigationItem[] = [
-  { id: "about", label: "À propos", href: "#about" },
-  { id: "savoirs", label: "Autonomie", href: "#savoirs" },
-  { id: "method", label: "Notre méthode", href: "#method" },
-  { id: "pricing", label: "Notre projet", href: "#pricing" },
-  { id: "contact", label: "Contact", href: "#contact" },
+  { id: "savoirs", label: "Les parcours d'autonomie", href: "#savoirs" },
+  { id: "method", label: "La méthode GIFTED", href: "#method" },
+  { id: "pricing", label: "Le projet GIFTED", href: "#pricing" },
+  { id: "contact", label: "Je m'inscris", href: "#pricing" },
 ];
 
 const HorizontalNavigation: React.FC = () => {
@@ -117,9 +116,14 @@ const HorizontalNavigation: React.FC = () => {
     };
   }, []);
 
-  // Centrer l'onglet actif avec Swiper
+  // Centrer l'onglet actif avec Swiper (mobile uniquement)
   useEffect(() => {
-    if (activeSection && swiperRef.current && swiperRef.current.slideTo) {
+    if (
+      activeSection &&
+      swiperRef.current &&
+      swiperRef.current.slideTo &&
+      window.innerWidth <= 768
+    ) {
       const activeIndex = navigationItems.findIndex(
         (item) => item.id === activeSection
       );
@@ -140,41 +144,55 @@ const HorizontalNavigation: React.FC = () => {
   return (
     <nav className={`${styles.navigation} ${isVisible ? styles.visible : ""}`}>
       <div className={styles.container}>
-        <Swiper
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          modules={[FreeMode, Navigation]}
-          freeMode={{
-            enabled: true,
-            sticky: false,
-          }}
-          slidesPerView="auto"
-          spaceBetween={8}
-          centeredSlides={false}
-          className={styles.swiperContainer}
-          breakpoints={{
-            768: {
-              centeredSlides: true,
-              spaceBetween: 16,
-            },
-          }}
-        >
+        {/* Version desktop - sans Swiper */}
+        <div className={styles.desktopNav}>
           {navigationItems.map((item) => (
-            <SwiperSlide key={item.id} className={styles.swiperSlide}>
-              <button
-                className={`${styles.navLink} ${
-                  activeSection === item.id ? styles.active : ""
-                }`}
-                onClick={() => handleNavClick(item.href)}
-                aria-label={`Aller à la section ${item.label}`}
-                data-section={item.id}
-              >
-                {item.label}
-              </button>
-            </SwiperSlide>
+            <button
+              key={item.id}
+              className={`${styles.navLink} ${
+                activeSection === item.id ? styles.active : ""
+              }`}
+              onClick={() => handleNavClick(item.href)}
+              aria-label={`Aller à la section ${item.label}`}
+              data-section={item.id}
+            >
+              {item.label}
+            </button>
           ))}
-        </Swiper>
+        </div>
+
+        {/* Version mobile - avec Swiper */}
+        <div className={styles.mobileNav}>
+          <Swiper
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+            }}
+            modules={[FreeMode, Navigation]}
+            freeMode={{
+              enabled: true,
+              sticky: false,
+            }}
+            slidesPerView="auto"
+            spaceBetween={8}
+            centeredSlides={false}
+            className={styles.swiperContainer}
+          >
+            {navigationItems.map((item) => (
+              <SwiperSlide key={item.id} className={styles.swiperSlide}>
+                <button
+                  className={`${styles.navLink} ${
+                    activeSection === item.id ? styles.active : ""
+                  }`}
+                  onClick={() => handleNavClick(item.href)}
+                  aria-label={`Aller à la section ${item.label}`}
+                  data-section={item.id}
+                >
+                  {item.label}
+                </button>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </nav>
   );
