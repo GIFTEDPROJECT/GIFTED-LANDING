@@ -104,10 +104,7 @@ export const EtapesCarousel: React.FC = () => {
                 return `<span class="${className}"></span>`;
               },
             }}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
+            autoplay={false}
             onSlideChange={(swiper) => setActiveSlide(swiper.activeIndex)}
             breakpoints={{
               1024: {

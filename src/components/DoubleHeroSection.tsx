@@ -1,189 +1,99 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import styles from "./DoubleHeroSection.module.scss";
 import { FaPlay } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useOptimizedIntersection } from "../hooks/useOptimizedIntersection";
 
 const DoubleHeroSection: React.FC = () => {
-  const [visiblePart, setVisiblePart] = useState<boolean>(false);
-  const [topContentHidden, setTopContentHidden] = useState<boolean>(false);
+  // États simplifiés
   const [isVideoModalOpen, setIsVideoModalOpen] = useState<boolean>(false);
-  const [bottomVisible, setBottomVisible] = useState<boolean>(false);
-  const [initialScrollY, setInitialScrollY] = useState<number>(0);
-  const [movementStarted, setMovementStarted] = useState<boolean>(false);
-  const [imageScale, setImageScale] = useState<number>(1);
-  const [currentScrollY, setCurrentScrollY] = useState<number>(0);
-  const [titleVisible, setTitleVisible] = useState<boolean>(false);
-  const [videoButtonVisible, setVideoButtonVisible] = useState<boolean>(false);
-  const [chapterVisible, setChapterVisible] = useState<boolean>(false);
-  const [parentsVisible, setParentsVisible] = useState<boolean>(false);
+  const [isTitleVisible, setIsTitleVisible] = useState<boolean>(false);
 
-  // Constante pour la hauteur de la fenêtre
-  const WINDOW_HEIGHT = typeof window !== "undefined" ? window.innerHeight : 0;
+  // Refs pour les éléments DOM
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Méthode principale qui gère le scroll et retourne la position
-  const getScrollPosition = useCallback(() => {
-    return window.scrollY;
+  // Framer Motion - Scroll progress
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Animations basées sur le scroll
+  const topContentOpacity = useTransform(scrollYProgress, [0.2, 0.4], [1, 0]);
+  const topContentY = useTransform(scrollYProgress, [0.2, 0.4], [0, -30]);
+  const imageScale = useTransform(scrollYProgress, [0.3, 0.7], [1, 0.82]);
+  const bottomBlockVisible = useTransform(scrollYProgress, [0.3, 0.4], [0, 1]);
+
+  // Chapitre apparaît quand topContent disparaît, puis disparaît pour le titre
+  const chapterOpacity = useTransform(
+    scrollYProgress,
+    [0.2, 0.5, 0.6],
+    [0, 1, 0]
+  );
+  const chapterY = useTransform(scrollYProgress, [0.2, 0.5], [30, 0]);
+
+  // Titre principal apparaît quand chapitre disparaît
+  const titleOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
+  const titleY = useTransform(scrollYProgress, [0.5, 0.7], [30, 0]);
+
+  // Bouton vidéo apparaît avec le titre
+  const buttonOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
+  const buttonY = useTransform(scrollYProgress, [0.5, 0.7], [30, 0]);
+
+  // Intersection Observer pour la deuxième partie
+  const { elementRef: bottomHeroRef, isIntersecting: isBottomSectionVisible } =
+    useOptimizedIntersection<HTMLDivElement>({
+      threshold: 0.1,
+      freezeOnceVisible: true,
+    });
+
+  // Observer pour le header
+  useEffect(() => {
+    const header = document.querySelector(
+      'header, .sticky-header, [class*="header"]'
+    ) as HTMLElement;
+
+    if (header) {
+      const headerObserver = new IntersectionObserver(
+        ([entry]) => {
+          setIsTitleVisible(entry.isIntersecting);
+        },
+        { threshold: 0.1 }
+      );
+
+      headerObserver.observe(header);
+      return () => headerObserver.disconnect();
+    }
   }, []);
 
-  // useEffect principal qui met à jour la position de scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = getScrollPosition();
-      setCurrentScrollY(scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [getScrollPosition]);
-
-  // useEffect pour initialiser l'état au chargement
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const initialScrollY = window.scrollY;
-      setCurrentScrollY(initialScrollY);
-
-      // Vérifier l'état initial du topContent
-      if (initialScrollY > window.innerHeight * 0.8) {
-        setTopContentHidden(true);
-      } else {
-        setTopContentHidden(false);
-      }
-    }
-  }, []);
-
-  // useEffect pour topContentHidden
-  useEffect(() => {
-    if (currentScrollY > WINDOW_HEIGHT * 0.8) {
-      setTopContentHidden(true);
-    } else {
-      setTopContentHidden(false);
-    }
-  }, [currentScrollY, WINDOW_HEIGHT]);
-
-  // useEffect pour visible
-  useEffect(() => {
-    if (currentScrollY > WINDOW_HEIGHT + 200) {
-      setVisiblePart(true);
-
-      // Calculer le rétrécissement de l'image basé sur le scroll
-      const sectionHeight = 300 * WINDOW_HEIGHT; // 300vh
-      const availableScrollDistance = sectionHeight - WINDOW_HEIGHT; // 200vh de scroll disponible
-      const currentScrollDistance = currentScrollY - WINDOW_HEIGHT;
-
-      // Animation plus rapide : commence dès le début et atteint 0.6 à mi-parcours
-      const scrollProgress = Math.min(
-        currentScrollDistance / (availableScrollDistance * 0.5),
-        1
-      );
-      const newScale = Math.min(1, 1 - scrollProgress * 30); // Rétrécir de 40% maximum (de 1 à 0.6)
-
-      // Arrêter l'animation quand bottomVisible est true
-      if (!bottomVisible) {
-        setImageScale(Math.max(0.82, newScale));
-      }
-
-      // Détecter quand le bas de la section est visible
-      const sectionElement = document.querySelector(
-        `.${styles.doubleHeroSection}`
-      );
-      if (sectionElement) {
-        const rect = sectionElement.getBoundingClientRect();
-        const isBottomVisible = rect.bottom <= WINDOW_HEIGHT && rect.bottom > 0;
-
-        // Capturer la position initiale quand bottomVisible devient true
-        if (isBottomVisible && !bottomVisible) {
-          setInitialScrollY(currentScrollY);
-          setMovementStarted(true);
-        }
-
-        // Détecter quand le fixedBackground doit disparaître (son top arrive en haut)
-        if (movementStarted && !isBottomVisible) {
-          const backgroundTop = currentScrollY - initialScrollY;
-          if (backgroundTop >= WINDOW_HEIGHT) {
-            setMovementStarted(false);
-          }
-        }
-
-        setBottomVisible(isBottomVisible);
-      }
-    } else {
-      setVisiblePart(false);
-      setBottomVisible(false);
-      setImageScale(1);
-      setTitleVisible(false);
-    }
-  }, [currentScrollY, bottomVisible, initialScrollY, movementStarted]);
-
-  // useEffect pour gérer l'apparition du chapitre et du titre
-  useEffect(() => {
-    if (visiblePart) {
-      // Détecter quand #bottom-hero arrive au top 0
-      const bottomHeroElement = document.getElementById("bottom-hero");
-      if (bottomHeroElement) {
-        const rect = bottomHeroElement.getBoundingClientRect();
-        const isBottomHeroAtTopZero = rect.top <= 0;
-
-        if (isBottomHeroAtTopZero) {
-          // Le chapitre s'affiche dès que #bottom-hero arrive au top 0
-          setChapterVisible(true);
-          console.log("Chapitre visible - bottom-hero rect.top:", rect.top);
-
-          // Détecter quand le header apparaît (sticky header)
-          const headerElement = document.querySelector(
-            'header, .sticky-header, [class*="header"]'
-          );
-          if (headerElement) {
-            const headerRect = headerElement.getBoundingClientRect();
-            const isHeaderVisible =
-              headerRect.top <= 0 && headerRect.bottom > 0;
-
-            if (isHeaderVisible) {
-              // Le titre principal s'affiche quand le header apparaît
-              setTitleVisible(true);
-              console.log(
-                "Titre visible - header détecté, titleVisible:",
-                true
-              );
-            } else {
-              setTitleVisible(false);
-              console.log(
-                "Titre caché - header non visible, titleVisible:",
-                false
-              );
-            }
-          } else {
-            // Pas de header détecté, le titre reste caché
-            setTitleVisible(false);
-          }
-        } else {
-          setChapterVisible(false);
-          setTitleVisible(false);
-        }
-      }
-    } else {
-      setChapterVisible(false);
-      setTitleVisible(false);
-    }
-  }, [visiblePart, currentScrollY]);
+  // Calculs dérivés
+  const isChapterVisible = isBottomSectionVisible;
 
   const closeVideoModal = () => {
     setIsVideoModalOpen(false);
   };
 
   return (
-    <section
+    <motion.section
+      ref={sectionRef}
       className={`${styles.doubleHeroSection} ${
-        visiblePart ? styles.visible : ""
-      } ${topContentHidden ? styles.topContentHidden : ""} ${
-        bottomVisible ? "bottom-section-visible" : ""
-      } ${chapterVisible ? styles.chapterVisible : ""} ${
-        titleVisible ? styles.titleVisible : ""
+        isBottomSectionVisible ? "bottom-section-visible" : ""
+      } ${isChapterVisible ? styles.chapterVisible : ""} ${
+        isTitleVisible ? styles.titleVisible : ""
       }`}
     >
-      <div className={styles.topContent}>
+      <motion.div
+        className={styles.topContent}
+        style={{
+          opacity: topContentOpacity,
+          y: topContentY,
+        }}
+      >
         <div className={styles.logoContainer}>
           <Image
             src="/images/rounded-logo.png"
@@ -209,21 +119,23 @@ const DoubleHeroSection: React.FC = () => {
             Scroller pour découvrir GIFTED
           </span>
         </div>
-      </div>
+      </motion.div>
+
       {/* Bloc du haut - Titre centré */}
       <div className={styles.topBlock}></div>
 
       {/* Bloc du bas - Copie du HeroSection */}
-      <div
-        id="bottom-hero"
-        className={`${styles.bottomBlock} ${visiblePart ? styles.visible : ""}`}
-        style={{}}
+      <motion.div
+        ref={bottomHeroRef}
+        className={`${styles.bottomBlock} ${
+          bottomBlockVisible ? styles.visible : ""
+        }`}
       >
-        <div
+        <motion.div
+          ref={containerRef}
           className={styles.container}
           style={{
-            transform: `scale(${imageScale})`,
-            transition: "transform 0.1s ease-out",
+            scale: imageScale,
           }}
         >
           <div className={styles.logoContainerBottom}>
@@ -236,26 +148,42 @@ const DoubleHeroSection: React.FC = () => {
               priority
             />
           </div>
-          <div className={styles.chapterStep}>
+          <motion.div
+            className={styles.chapterStep}
+            style={{
+              opacity: chapterOpacity,
+              y: chapterY,
+            }}
+          >
             <span className={styles.chapterText}>Chapitre 1 : l'autonomie</span>
-          </div>
-          <h2 className={styles.bottomTitle}>
+          </motion.div>
+          <motion.h2
+            className={styles.bottomTitle}
+            style={{
+              opacity: titleOpacity,
+              y: titleY,
+            }}
+          >
             <br />
             <span>
               Rendez vos enfants autonomes <br />
               en 5 minutes de fun par jour.
             </span>
-          </h2>
+          </motion.h2>
 
           {/* Bouton vidéo GIFTED */}
-          <button
+          <motion.button
             className={styles.videoButton}
             onClick={() => setIsVideoModalOpen(true)}
             aria-label="Regarder la vidéo GIFTED"
+            style={{
+              opacity: buttonOpacity,
+              y: buttonY,
+            }}
           >
             <FaPlay className={styles.playIcon} />
             <span className={styles.videoButtonText}>GIFTED en vidéo</span>
-          </button>
+          </motion.button>
 
           <img
             src="/images/hero-bottom-img.png"
@@ -285,8 +213,8 @@ const DoubleHeroSection: React.FC = () => {
               <Image src="/images/man.png" alt="Man" width={250} height={400} />
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Modal vidéo */}
       {isVideoModalOpen && (
@@ -319,7 +247,7 @@ const DoubleHeroSection: React.FC = () => {
           </div>
         </div>
       )}
-    </section>
+    </motion.section>
   );
 };
 

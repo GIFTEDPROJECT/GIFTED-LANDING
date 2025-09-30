@@ -7,6 +7,9 @@ export { default as WhySection } from './WhySection';
 export { default as StickyHeader } from './StickyHeader';
 export { default as SavoirsSection } from './SavoirsSection';
 export { MethodSection } from './MethodSection';
+export { default as MethodesSection } from './MethodesSection';
+export { default as ReveSection } from './ReveSection';
+export { default as EtapesCarousel } from './EtapesCarousel';
 // Export des composants du parcours
 export { ParcoursModal, FinalStep, FooterParcours, ModalHeader } from './Parcours';
 

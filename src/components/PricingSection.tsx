@@ -72,11 +72,6 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
           text: "Hygiène, rangement, respect, devoirs",
           included: true,
         },
-        {
-          text: `Découvrez nos avatars"
-`,
-          included: true,
-        },
       ],
       availability: "Disponible avant fin 2025",
       label: "Je teste gratuitement",
@@ -86,7 +81,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
       id: 2,
       icon: "/images/pricing-card2.png",
       price: "10 € pour un an",
-      originalPrice: "au lieu de 30 €/an à partir de Septembre",
+      originalPrice: "au lieu de 30 €/an début 2026",
       features: [
         {
           text: "Abonnement ANNUEL aux 4 parcours d'autonomie (hygiène, rangement, respect, devoirs)",
@@ -107,7 +102,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
           included: true,
         },
       ],
-      availability: "Disponible courant Septembre 2025",
+      availability: "Disponible début 2026",
       label: "Je m'inscris",
       url: "https://buy.stripe.com/5kQ4gzb08b9efy5h1u2ZO00",
     },
@@ -202,7 +197,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
               >
                 {formule.label}
               </button>
-              <p>Disponible avant fin 2025</p>
+              <p>{formule.availability}</p>
             </div>
           ))}
         </div>
