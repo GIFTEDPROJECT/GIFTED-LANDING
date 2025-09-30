@@ -167,7 +167,7 @@ const DoubleHeroSection: React.FC = () => {
             <br />
             <span>
               Rendez vos enfants autonomes <br />
-              en 5 minutes de fun par jour.
+              en 5 minutes de FUN par jour.
             </span>
           </motion.h2>
 

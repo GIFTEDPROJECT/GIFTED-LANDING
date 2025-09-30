@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useSectionRef } from "@/hooks/useSectionRef";
 import styles from "./ContactSection.module.scss";
 import Image from "next/image";
 
@@ -10,6 +11,7 @@ interface ContactSectionProps {
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ id }) => {
+  const sectionRef = useSectionRef(id || "contact");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -45,7 +47,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ id }) => {
   };
 
   return (
-    <section id={id} className={styles.contactSection}>
+    <section ref={sectionRef} id={id} className={styles.contactSection}>
       <div className={styles.birds}>
         <Image
           src="/images/birds.png"

@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Fredoka, Nunito, Quicksand } from "next/font/google";
 import "./globals.scss";
 import Footer from "@/components/Footer";
+import { SectionRefsProvider } from "@/contexts/SectionRefsContext";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -91,8 +92,10 @@ export default function RootLayout({
       <body
         className={`${fredoka.variable} ${nunito.variable} ${quicksand.variable}`}
       >
-        {children}
-        <Footer />
+        <SectionRefsProvider>
+          {children}
+          <Footer />
+        </SectionRefsProvider>
       </body>
     </html>
   );

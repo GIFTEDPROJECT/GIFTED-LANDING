@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useSectionRef } from "@/hooks/useSectionRef";
 import styles from "./MethodSection.module.scss";
 
 interface MethodSectionProps {
@@ -15,7 +16,7 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(false);
   const [stepsVisible, setStepsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useSectionRef(id || "method");
   const headerRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
 
@@ -95,7 +96,7 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
                   Votre enfant répond <br />à 5 questions d'autonomie
                 </p>
                 <p className={styles.stepSubtitle}>
-                  2 min de Fun pour l'enfant
+                  2 min de FUN pour l'enfant
                 </p>
               </div>
             </div>

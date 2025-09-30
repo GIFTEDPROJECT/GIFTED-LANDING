@@ -49,6 +49,7 @@
 
 .title {
   @include section-title(2.8rem);
+  
   text-align: center;
   margin-bottom: 1.5rem;
   
@@ -121,6 +122,7 @@
 
 .cardTitle {
   @include card-title(2rem);
+  
   margin-bottom: 1rem;
   color: $text-brown;
 }

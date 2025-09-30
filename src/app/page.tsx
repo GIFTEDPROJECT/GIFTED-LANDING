@@ -14,6 +14,7 @@ import DonationSection from "@/components/DonationSection";
 import ContactSection from "@/components/ContactSection";
 import DiscoverFutureSection from "@/components/DiscoverFutureSection";
 import StickyHeader from "@/components/StickyHeader";
+import HorizontalNavigation from "@/components/HorizontalNavigation";
 import { RevealSection } from "@/components/RevealSection";
 import styles from "./page.module.scss";
 import { MethodSection } from "@/components";
@@ -31,6 +32,9 @@ export default function Home() {
     <div className={styles.container}>
       {/* Header Sticky */}
       <StickyHeader />
+
+      {/* Navigation horizontale */}
+      <HorizontalNavigation />
 
       {/* Double Hero Section - Premier écran */}
       <DoubleHeroSection />
@@ -73,7 +77,7 @@ export default function Home() {
       <PricingSection id="pricing" />
 
       {/* Section Don */}
-      <DonationSection />
+      <DonationSection id="donation" />
 
       {/* Section Contact/email */}
       <ContactSection id="contact" />

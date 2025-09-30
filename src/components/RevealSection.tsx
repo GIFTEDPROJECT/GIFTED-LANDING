@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { useSectionRef } from "@/hooks/useSectionRef";
 import styles from "./RevealSection.module.scss";
 
 interface RevealSectionProps {
@@ -13,7 +14,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
   id,
 }) => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(-1);
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useSectionRef(id || "reveal");
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const phrases = [

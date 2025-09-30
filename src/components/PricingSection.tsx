@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSectionRef } from "@/hooks/useSectionRef";
 import styles from "./PricingSection.module.scss";
 import Image from "next/image";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
@@ -11,6 +12,7 @@ interface PricingSectionProps {
 }
 
 export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
+  const sectionRef = useSectionRef(id || "pricing");
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
   const [isParcoursModalOpen, setIsParcoursModalOpen] = useState(false);
   const [selectedParcoursId, setSelectedParcoursId] = useState<number>(1);
@@ -109,7 +111,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
   ];
 
   return (
-    <section id="pricing" className={styles.pricingSection}>
+    <section ref={sectionRef} id="pricing" className={styles.pricingSection}>
       <div className={styles.container}>
         <div className={styles.badge}>PRÉVENTES 2025</div>
 

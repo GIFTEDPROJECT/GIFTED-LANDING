@@ -35,6 +35,7 @@
 
 .title {
   @include section-title(2.5rem);
+  
   margin-bottom: 60px;
   
   @include tablet-max {
@@ -930,6 +931,7 @@
 
 .popupHeaderTitle {
   @include card-title(3rem);
+  
   margin: 0;
   text-align: center;
   
@@ -992,6 +994,7 @@
 
 .popupTitle {
   @include card-title(2.5rem);
+  
   margin-bottom: 2rem;
   color: white;
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);

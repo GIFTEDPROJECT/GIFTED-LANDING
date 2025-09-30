@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useSectionRef } from "@/hooks/useSectionRef";
 import styles from "./AboutSection.module.scss";
 import Image from "next/image";
 interface AboutSectionProps {
@@ -12,8 +13,14 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
   className,
   id,
 }) => {
+  const sectionRef = useSectionRef(id || "about");
+
   return (
-    <section id={id} className={`${styles.aboutSection} ${className || ""}`}>
+    <section
+      ref={sectionRef}
+      id={id}
+      className={`${styles.aboutSection} ${className || ""}`}
+    >
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.imageContainer}>

@@ -1,11 +1,18 @@
 "use client";
 
 import React from "react";
+import { useSectionRef } from "@/hooks/useSectionRef";
 import styles from "./DonationSection.module.scss";
 
-export const DonationSection: React.FC = () => {
+interface DonationSectionProps {
+  id?: string;
+}
+
+export const DonationSection: React.FC<DonationSectionProps> = ({ id }) => {
+  const sectionRef = useSectionRef(id || "donation");
+
   return (
-    <section className={styles.donationSection}>
+    <section ref={sectionRef} id={id} className={styles.donationSection}>
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.donationCard}>

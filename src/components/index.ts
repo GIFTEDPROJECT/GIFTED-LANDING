@@ -5,6 +5,7 @@ export { default as DoubleHeroSection } from './DoubleHeroSection';
 export { default as AboutSection } from './AboutSection';
 export { default as WhySection } from './WhySection';
 export { default as StickyHeader } from './StickyHeader';
+export { default as HorizontalNavigation } from './HorizontalNavigation';
 export { default as SavoirsSection } from './SavoirsSection';
 export { MethodSection } from './MethodSection';
 export { default as MethodesSection } from './MethodesSection';

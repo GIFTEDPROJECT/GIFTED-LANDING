@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+import { useSectionRef } from "@/hooks/useSectionRef";
 import styles from "./SavoirsSection.module.scss";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -140,6 +141,7 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   className,
   id,
 }) => {
+  const sectionRef = useSectionRef(id || "savoirs");
   const swiperRef = useRef<any>(null);
   const [openCard, setOpenCard] = useState<string | null>(null);
   const [showSecondContent, setShowSecondContent] = useState(false);
@@ -210,7 +212,11 @@ export const SavoirsSection: React.FC<SavoirsSectionProps> = ({
   };
 
   return (
-    <section id={id} className={`${styles.savoirsSection} ${className || ""}`}>
+    <section
+      ref={sectionRef}
+      id={id}
+      className={`${styles.savoirsSection} ${className || ""}`}
+    >
       <div className={styles.container}>
         <h2 className={styles.title}>
           Aimeriez-vous arrêter de répéter à votre enfant...?
