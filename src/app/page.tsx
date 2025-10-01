@@ -5,7 +5,7 @@ import HeroSection from "@/components/HeroSection";
 import DoubleHeroSection from "@/components/DoubleHeroSection";
 import AboutSection from "@/components/AboutSection";
 import WhySection from "@/components/WhySection";
-import SavoirsSection from "@/components/SavoirsSection";
+import AutonomieSection from "@/components/AutonomieSection";
 import MethodesSection from "@/components/MethodesSection";
 import EtapesCarousel from "@/components/EtapesCarousel";
 import ReveSection from "@/components/ReveSection";
@@ -43,7 +43,7 @@ export default function Home() {
       <AboutSection id="about" />
 
       {/* Section La transmission des savoirs dans GIFTED */}
-      <SavoirsSection id="savoirs" />
+      <AutonomieSection id="savoirs" />
 
       {/* Section Méthodes innovantes de GIFTED */}
       <MethodSection id="method" />

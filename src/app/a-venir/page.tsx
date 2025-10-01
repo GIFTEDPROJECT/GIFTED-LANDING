@@ -8,6 +8,7 @@ import MethodesSection from "@/components/MethodesSection";
 import EtapesCarousel from "@/components/EtapesCarousel";
 import ReveSection from "@/components/ReveSection";
 import styles from "./page.module.scss";
+import SavoirsSection from "@/components/SavoirsSection";
 
 export default function AvenirPage() {
   const handleDiscoverClick = () => {
@@ -29,6 +30,8 @@ export default function AvenirPage() {
 
         {/* Section Pourquoi les parents adorent GIFTED */}
         <WhySection type="parents" />
+
+        <SavoirsSection id="savoirs" />
 
         {/* Section Méthodes innovantes de GIFTED */}
         <MethodesSection />
