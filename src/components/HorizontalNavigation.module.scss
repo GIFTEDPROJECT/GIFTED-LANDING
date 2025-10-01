@@ -24,27 +24,18 @@
   padding: 0.5rem 2rem;
 }
 
-// Version desktop - navigation simple
+// Version desktop - navigation simple (masquée car dans le header)
 .desktopNav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  padding: 0.5rem 0;
-  
-  @media (max-width: 768px) {
-    display: none;
-  }
+  display: none;
 }
 
 // Version mobile - avec Swiper
 .mobileNav {
-  display: none;
-  
-  @media (max-width: 768px) {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
+
+  @media (min-width: 769px) {
+    display: none;
   }
 }
 

@@ -120,6 +120,43 @@
   }
 }
 
+// Navigation desktop
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  
+  @include mobile-only {
+    display: none;
+  }
+}
+
+.navLink {
+  background: none;
+  border: none;
+  color: $text-brown;
+  font-family: $font-primary;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  
+  &:hover {
+    background: rgba(139, 69, 19, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  &.active {
+    background: rgba(139, 69, 19, 0.15);
+    color: #8B4513;
+    font-weight: 600;
+  }
+}
+
 .logo {
   display: flex;
   align-items: center;

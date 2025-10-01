@@ -83,7 +83,7 @@ export default function Home() {
       <ContactSection id="contact" />
 
       {/* Section Découvrir l'avenir */}
-      <DiscoverFutureSection />
+      <DiscoverFutureSection id="discover-future" />
     </div>
   );
 }

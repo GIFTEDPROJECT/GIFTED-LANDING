@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useSectionRef } from "@/hooks/useSectionRef";
+import { ChevronsUp, ChevronsDown } from "react-feather";
 import styles from "./RevealSection.module.scss";
 
 interface RevealSectionProps {
@@ -16,6 +17,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(-1);
   const sectionRef = useSectionRef(id || "reveal");
   const videoRef = useRef<HTMLVideoElement>(null);
+  const currentPhraseIndexRef = useRef(-1);
 
   const phrases = [
     "Chaque petite tâche devient une grande victoire. ",
@@ -34,8 +36,9 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
       const sectionHeight = rect.height;
 
       // Ne redémarrer que quand on sort de la section ET qu'on a atteint au moins une phrase
-      if (rect.top > 0 && currentPhraseIndex >= 0) {
+      if (rect.top > 0 && currentPhraseIndexRef.current >= 0) {
         setCurrentPhraseIndex(-1);
+        currentPhraseIndexRef.current = -1;
         return;
       }
 
@@ -55,10 +58,15 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
       const totalPhrases = phrases.length;
       // Multiplier le progrès pour des transitions plus rapides
       const fastProgress = Math.min(1, progress * 1.5); // 1.5x plus rapide
-      const visibleIndex = Math.floor(fastProgress * totalPhrases);
+      // Ajuster le calcul pour éviter les problèmes d'index
+      const visibleIndex = Math.min(
+        Math.floor(fastProgress * totalPhrases),
+        totalPhrases - 1
+      );
 
-      if (visibleIndex !== currentPhraseIndex) {
+      if (visibleIndex !== currentPhraseIndexRef.current && visibleIndex >= 0) {
         setCurrentPhraseIndex(visibleIndex);
+        currentPhraseIndexRef.current = visibleIndex;
       }
     };
 
@@ -69,6 +77,11 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
       window.removeEventListener("scroll", handleScroll);
     };
   }, [phrases.length]);
+
+  // Synchroniser le ref avec le state
+  useEffect(() => {
+    currentPhraseIndexRef.current = currentPhraseIndex;
+  }, [currentPhraseIndex]);
 
   const handleNextSection = () => {
     // Aller à la section suivante (pricing)
@@ -105,6 +118,18 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
         >
           <source src="/images/payasagevideo.mp4" type="video/mp4" />
         </video>
+        {/* Bouton précédent - au-dessus du texte */}
+        <div className={styles.navigationControlsTop}>
+          <button
+            className={`${styles.navButton} ${styles.previousButton}`}
+            onClick={handlePreviousSection}
+            aria-label="Section précédente"
+          >
+            <ChevronsUp size={24} />
+            <span>Notre méthode</span>
+            <ChevronsUp size={24} />
+          </button>
+        </div>
         <div className={styles.phrasesContainer}>
           {phrases.map((phrase, index) => (
             <span
@@ -117,22 +142,16 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
             </span>
           ))}
         </div>
-        {/* Boutons de navigation entre sections */}
-        <div className={styles.navigationControls}>
-          <button
-            className={`${styles.navButton} ${styles.previousButton}`}
-            onClick={handlePreviousSection}
-            aria-label="Section précédente"
-          >
-            ← Notre méthode
-          </button>
-
+        {/* Bouton suivant - en dessous du texte */}
+        <div className={styles.navigationControlsBottom}>
           <button
             className={`${styles.navButton} ${styles.nextButton}`}
             onClick={handleNextSection}
             aria-label="Section suivante"
           >
-            Notre projet →
+            <ChevronsDown size={24} />
+            <span>Notre projet</span>
+            <ChevronsDown size={24} />
           </button>
         </div>
       </div>

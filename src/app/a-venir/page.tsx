@@ -29,7 +29,7 @@ export default function AvenirPage() {
         {/*  <WhySection type="children" /> */}
 
         {/* Section Pourquoi les parents adorent GIFTED */}
-        <WhySection type="parents" />
+        {/* <WhySection type="parents" /> */}
 
         <SavoirsSection id="savoirs" />
 

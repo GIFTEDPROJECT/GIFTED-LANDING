@@ -7,9 +7,9 @@ interface SectionRefsContextType {
   registerSection: (id: string, element: HTMLElement | null) => void;
 }
 
-const SectionRefsContext = createContext<SectionRefsContextType | undefined>(
-  undefined
-);
+export const SectionRefsContext = createContext<
+  SectionRefsContextType | undefined
+>(undefined);
 
 export const useSectionRefs = () => {
   const context = useContext(SectionRefsContext);

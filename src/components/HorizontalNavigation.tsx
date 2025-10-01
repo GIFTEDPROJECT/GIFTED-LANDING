@@ -18,8 +18,12 @@ interface NavigationItem {
 const navigationItems: NavigationItem[] = [
   { id: "savoirs", label: "Les parcours d'autonomie", href: "#savoirs" },
   { id: "method", label: "La méthode GIFTED", href: "#method" },
-  { id: "pricing", label: "Le projet GIFTED", href: "#pricing" },
   { id: "contact", label: "Je m'inscris", href: "#pricing" },
+  {
+    id: "discover-future",
+    label: "Le projet GIFTED",
+    href: "#discover-future",
+  },
 ];
 
 const HorizontalNavigation: React.FC = () => {

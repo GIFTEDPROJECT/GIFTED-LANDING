@@ -37,7 +37,7 @@ const savoirs = [
     id: "savoir-avoir",
     title: "SAVOIR-AVOIR",
     description:
-      "Accès à la première économie de partage pour enfants : Plus écolo, Plus rigolo!",
+      "Les cadeaux gagnés sur l’appli deviennent les trésors convoités de la toute première économie de partage pour enfants.",
     color: "yellow",
     position: "bottom-right",
   },

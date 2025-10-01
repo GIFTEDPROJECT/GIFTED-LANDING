@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import styles from "./StickyHeader.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { SectionRefsContext } from "@/contexts/SectionRefsContext";
 
 interface StickyHeaderProps {
   className?: string;
@@ -22,6 +23,22 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isRainingGifts, setIsRainingGifts] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+  const { sectionRefs } = useContext(SectionRefsContext) || {
+    sectionRefs: { current: {} },
+  };
+
+  // Navigation items
+  const navigationItems = [
+    { id: "savoirs", label: "Les parcours d'autonomie", href: "#savoirs" },
+    { id: "method", label: "La méthode GIFTED", href: "#method" },
+    { id: "contact", label: "Je m'inscris", href: "#pricing" },
+    {
+      id: "discover-future",
+      label: "Le projet GIFTED",
+      href: "#discover-future",
+    },
+  ];
 
   // Générer des positions et délais stables pour les cadeaux
   const giftConfigs = useMemo(() => {
@@ -44,6 +61,53 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Détection de la section active
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let maxIntersection = 0;
+        let activeId = "";
+
+        entries.forEach((entry) => {
+          if (
+            entry.isIntersecting &&
+            entry.intersectionRatio > maxIntersection
+          ) {
+            maxIntersection = entry.intersectionRatio;
+            // Si c'est la section "reveal", l'associer à "method"
+            activeId =
+              entry.target.id === "reveal" ? "method" : entry.target.id;
+          }
+        });
+
+        if (activeId) {
+          setActiveSection(activeId);
+        }
+      },
+      {
+        threshold: [0.1, 0.5, 0.9],
+        rootMargin: "-150px 0px -150px 0px",
+      }
+    );
+
+    // Observer toutes les sections via refs
+    Object.values(sectionRefs.current).forEach((element) => {
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, [sectionRefs]);
+
+  const handleNavClick = (href: string) => {
+    const sectionId = href.replace("#", "");
+    const element = sectionRefs.current[sectionId];
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const handleInscriptionClick = () => {
     // Déclencher la pluie de cadeaux immédiatement
@@ -141,6 +205,23 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
               className={styles.logo}
             />
           </Link>
+
+          {/* Navigation desktop */}
+          <nav className={styles.desktopNav}>
+            {navigationItems.map((item) => (
+              <button
+                key={item.id}
+                className={`${styles.navLink} ${
+                  activeSection === item.id ? styles.active : ""
+                }`}
+                onClick={() => handleNavClick(item.href)}
+                aria-label={`Aller à la section ${item.label}`}
+                data-section={item.id}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
 
           {/* Bouton personnalisable */}
           {renderButton()}

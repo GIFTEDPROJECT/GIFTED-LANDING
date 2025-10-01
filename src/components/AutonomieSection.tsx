@@ -256,7 +256,7 @@ export const AutonomieSection: React.FC<AutonomieSectionProps> = ({
                 </div>
                 <div className={styles.cardTopSection}>
                   <p className={styles.cardQuestion}>{card.description}</p>
-                  <div className={styles.cardButtons}>
+                  {/* <div className={styles.cardButtons}>
                     <div className={styles.buttonsContainer}>
                       <button
                         className={styles.cardYesButton}
@@ -271,7 +271,7 @@ export const AutonomieSection: React.FC<AutonomieSectionProps> = ({
                         NON
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
