@@ -93,7 +93,7 @@
   position: relative;
   border-radius: 25px;
   box-shadow: $card-shadow;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   animation: card-enter 0.8s ease-out forwards;
   cursor: pointer;
   transform-style: preserve-3d;
@@ -101,12 +101,17 @@
   min-height: 320px;
   
   &:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    z-index: 10;
   }
   
   @media (max-width: 768px) {
     min-height: 280px;
+    
+    &:hover {
+      transform: translateY(-5px) scale(1.03);
+    }
   }
 }
 

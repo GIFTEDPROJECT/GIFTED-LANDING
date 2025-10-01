@@ -64,7 +64,8 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
           <h2 className={styles.title}>La méthode GIFTED, c'est simple</h2>
           <div className={styles.subtitleContainer}>
             <p className={styles.subtitle}>
-              On conseille fortement la tablette pour les enfants...
+              Nous déconseillons l’usage du smartphone pour les enfants, et
+              recommandons plutôt une tablette ou un ordinateur
             </p>
           </div>
         </div>
@@ -121,9 +122,9 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
               </div>
               <div className={styles.stepText}>
                 <p className={styles.stepTitle}>
-                  Vous vérifiez ses réponses,
-                  <br /> les modifiez si besoin,
-                  <br /> puis les validez
+                  Vous vérifiez ses réponses, <br /> vous les modifiez si
+                  besoin,
+                  <br /> puis vous les validez
                 </p>
                 <p className={styles.stepSubtitle}>
                   Validation par le parent en quelques clics

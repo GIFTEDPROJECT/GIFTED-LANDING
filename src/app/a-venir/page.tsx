@@ -25,7 +25,7 @@ export default function AvenirPage() {
 
       <main className={styles.main}>
         {/* Section Pourquoi les enfants adorent GIFTED */}
-        <WhySection type="children" />
+        {/*  <WhySection type="children" /> */}
 
         {/* Section Pourquoi les parents adorent GIFTED */}
         <WhySection type="parents" />
