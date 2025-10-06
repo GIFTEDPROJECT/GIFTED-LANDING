@@ -86,8 +86,8 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
         }
       },
       {
-        threshold: [0.1, 0.5, 0.9],
-        rootMargin: "-150px 0px -150px 0px",
+        threshold: [0.1, 0.3, 0.5, 0.7, 0.9],
+        rootMargin: "-100px 0px -100px 0px",
       }
     );
 
@@ -100,6 +100,37 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
 
     return () => observer.disconnect();
   }, [sectionRefs]);
+
+  // Fallback avec scroll pour détecter la section active
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      let currentSection = "";
+
+      // Vérifier chaque section
+      Object.entries(sectionRefs.current).forEach(([id, element]) => {
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const elementTop = rect.top + window.scrollY;
+          const elementBottom = elementTop + rect.height;
+
+          if (scrollPosition >= elementTop && scrollPosition <= elementBottom) {
+            // Si c'est la section "reveal", l'associer à "method"
+            currentSection = id === "reveal" ? "method" : id;
+          }
+        }
+      });
+
+      if (currentSection && currentSection !== activeSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Appel initial
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [sectionRefs, activeSection]);
 
   const handleNavClick = (href: string) => {
     const sectionId = href.replace("#", "");
@@ -136,27 +167,6 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
         }
       }
     }
-  };
-
-  const renderButton = () => {
-    if (!showButton) return null;
-
-    if (buttonHref) {
-      return (
-        <Link href={buttonHref} className={styles.inscriptionButton}>
-          {buttonLabel}
-        </Link>
-      );
-    }
-
-    return (
-      <button
-        className={styles.inscriptionButton}
-        onClick={handleInscriptionClick}
-      >
-        {buttonLabel}
-      </button>
-    );
   };
 
   return (
@@ -222,9 +232,6 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
               </button>
             ))}
           </nav>
-
-          {/* Bouton personnalisable */}
-          {renderButton()}
         </div>
       </header>
     </>

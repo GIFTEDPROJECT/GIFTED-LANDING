@@ -21,8 +21,8 @@ const DiscoverFutureSection: React.FC<DiscoverFutureSectionProps> = ({
         <div className={styles.content}>
           <h2 className={styles.title}>Découvrez l'avenir de GIFTED</h2>
           <p className={styles.description}>
-            Explorez nos projets futurs et découvrez vos enfants pourrons
-            recréer le monde grâce à GIFTED.
+            Découvrez comment vos enfants apprendront à recréer le Monde avec
+            GIFTED.
           </p>
           <Link href="/a-venir" className={styles.discoverButton}>
             En savoir plus
