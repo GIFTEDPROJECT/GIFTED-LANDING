@@ -24,26 +24,28 @@ const DoubleHeroSection: React.FC = () => {
   });
 
   // Animations basées sur le scroll
-  const topContentOpacity = useTransform(scrollYProgress, [0.2, 0.4], [1, 0]);
-  const topContentY = useTransform(scrollYProgress, [0.2, 0.4], [0, -30]);
-  const imageScale = useTransform(scrollYProgress, [0.3, 0.7], [1, 0.82]);
+  const topContentOpacity = useTransform(scrollYProgress, [0.3, 0.35], [1, 0]);
+  const imageScale = useTransform(scrollYProgress, [0.6, 0.8], [1, 0.82]);
   const bottomBlockVisible = useTransform(scrollYProgress, [0.3, 0.4], [0, 1]);
 
   // Chapitre apparaît quand topContent disparaît, puis disparaît pour le titre
   const chapterOpacity = useTransform(
     scrollYProgress,
-    [0.2, 0.5, 0.6],
-    [0, 1, 0]
+    [0.35, 0.4, 0.6, 0.65],
+    [0, 1, 1, 0]
   );
-  const chapterY = useTransform(scrollYProgress, [0.2, 0.5], [30, 0]);
+  const chapterY = useTransform(scrollYProgress, [0.35, 0.4], [30, 0]);
+
+  // Logo du bas apparaît AVANT que le premier logo ne disparaisse
+  const logoBottomOpacity = useTransform(scrollYProgress, [0.25, 0.3], [0, 1]);
 
   // Titre principal apparaît quand chapitre disparaît
-  const titleOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
-  const titleY = useTransform(scrollYProgress, [0.5, 0.7], [30, 0]);
+  const titleOpacity = useTransform(scrollYProgress, [0.6, 0.65], [0, 1]);
+  const titleY = useTransform(scrollYProgress, [0.6, 0.65], [30, 0]);
 
   // Bouton vidéo apparaît avec le titre
-  const buttonOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
-  const buttonY = useTransform(scrollYProgress, [0.5, 0.7], [30, 0]);
+  const buttonOpacity = useTransform(scrollYProgress, [0.6, 0.65], [0, 1]);
+  const buttonY = useTransform(scrollYProgress, [0.6, 0.65], [30, 0]);
 
   // Intersection Observer pour la deuxième partie
   const { elementRef: bottomHeroRef, isIntersecting: isBottomSectionVisible } =
@@ -91,7 +93,6 @@ const DoubleHeroSection: React.FC = () => {
         className={styles.topContent}
         style={{
           opacity: topContentOpacity,
-          y: topContentY,
         }}
       >
         <div className={styles.logoContainer}>
@@ -106,8 +107,8 @@ const DoubleHeroSection: React.FC = () => {
         </div>
         <h1 className={styles.mainTitle}>
           <span>
-            Et si l'enfance recréait <br />
-            le monde ?
+            Et si l'Enfance recréait <br />
+            le Monde ?
           </span>
         </h1>
 
@@ -138,7 +139,12 @@ const DoubleHeroSection: React.FC = () => {
             scale: imageScale,
           }}
         >
-          <div className={styles.logoContainerBottom}>
+          <motion.div
+            className={styles.logoContainerBottom}
+            style={{
+              opacity: logoBottomOpacity,
+            }}
+          >
             <Image
               src="/images/rounded-logo.png"
               alt="GIFTED Logo"
@@ -147,7 +153,7 @@ const DoubleHeroSection: React.FC = () => {
               className={styles.logoImageBottom}
               priority
             />
-          </div>
+          </motion.div>
           <motion.div
             className={styles.chapterStep}
             style={{
@@ -155,7 +161,7 @@ const DoubleHeroSection: React.FC = () => {
               y: chapterY,
             }}
           >
-            <span className={styles.chapterText}>Chapitre 1 : l'autonomie</span>
+            <span className={styles.chapterText}>Chapitre 1 : l'Autonomie</span>
           </motion.div>
           <motion.h2
             className={styles.bottomTitle}
@@ -166,8 +172,8 @@ const DoubleHeroSection: React.FC = () => {
           >
             <br />
             <span>
-              Rendez vos enfants autonomes <br />
-              en 5 minutes de FUN par jour.
+              Transformez la discipline
+              <br /> en un jeu d'enfants !
             </span>
           </motion.h2>
 

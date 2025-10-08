@@ -25,7 +25,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
     "Simple à comprendre pour l'enfant.",
     "Amusant à réaliser et ultra motivant grâce au système de récompenses réelles, et non virtuelles.",
     "Graphismes enchanteurs, qui résonnent avec l'imaginaire de l'enfant.",
-    "Personnalisables par l'enfant (choix d'un avatar, choix du décor).",
+    "Parcours entièrement personnalisables. ( thématiques, questions... )",
   ];
 
   useEffect(() => {
@@ -148,7 +148,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
             aria-label="Section précédente"
           >
             <ChevronsUp size={24} />
-            <span>Notre méthode</span>
+            <span>Comment ça marche ?</span>
             <ChevronsUp size={24} />
           </button>
         </div>
@@ -172,7 +172,7 @@ export const RevealSection: React.FC<RevealSectionProps> = ({
             aria-label="Section suivante"
           >
             <ChevronsDown size={24} />
-            <span>Notre projet</span>
+            <span>Je m'inscris</span>
             <ChevronsDown size={24} />
           </button>
         </div>

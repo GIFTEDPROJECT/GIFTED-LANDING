@@ -90,15 +90,15 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
           included: true,
         },
         {
-          text: "Avatars personnalisables et évolutifs",
+          text: "Parcours entièrement personnalisables ( thématiques, questions... ) **",
           included: true,
         },
         {
-          text: `Possibilité de Co-Création avec les fondateurs de GIFTED:
+          text: `Co-Création avec les fondateurs de GIFTED:
           <ul>
             <li>Choix des "récompenses" pour les enfants</li>
             <li>Création du prochain parcours : le "Parcours Ecrans"</li>
-            <li>Et de toutes les fonctionnalités à venir</li>
+            <li>Et de toutes les fonctionnalités à venir ( parcours d'apprentissage scolaire... )</li>
           </ul>
 `,
           included: true,
@@ -116,8 +116,9 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
         <div className={styles.badge}>PRÉVENTES 2025</div>
 
         <h2 className={styles.title}>
-          Rendez vos enfants autonomes en 5 min de FUN par jour!
+          Transformez la discipline en jeu d'enfants !
         </h2>
+
         <p className={styles.subtitle}>
           L’application sera disponible fin 2025.
         </p>
@@ -148,7 +149,6 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
                     "Dites bye-bye aux conflits et Welcome au bonheur en famille"}
                 </p>
               </div>
-
               <div className={styles.priceContainer}>
                 <div className={styles.price}>
                   {formule.price}
@@ -174,7 +174,6 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
                   </div>
                 ))}
               </div>
-
               <button
                 className={styles.ctaButton}
                 onClick={() => {
@@ -207,6 +206,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
       <p className={styles.consents}>
         * Offre pour 12 mois, sans engagement pour l&apos;année suivante.
       </p>
+      <p className={styles.consents}>** en supplément.</p>
 
       {/* Modal Parcours */}
       <ParcoursModal

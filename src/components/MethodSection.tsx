@@ -61,13 +61,7 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
           ref={headerRef}
           className={`${styles.header} ${headerVisible ? styles.animate : ""}`}
         >
-          <h2 className={styles.title}>La méthode GIFTED, c'est simple</h2>
-          <div className={styles.subtitleContainer}>
-            <p className={styles.subtitle}>
-              Nous déconseillons l’usage du smartphone pour les enfants, et
-              recommandons plutôt une tablette ou un ordinateur
-            </p>
-          </div>
+          <h2 className={styles.title}>Comment ça marche ?</h2>
         </div>
 
         <div
@@ -97,7 +91,8 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
                   Votre enfant répond <br />à 5 questions d'autonomie
                 </p>
                 <p className={styles.stepSubtitle}>
-                  2 min de FUN pour l'enfant
+                  Nous déconseillons l’usage du smartphone pour les enfants, et
+                  recommandons plutôt une tablette ou un ordinateur
                 </p>
               </div>
             </div>
@@ -122,9 +117,9 @@ export const MethodSection: React.FC<MethodSectionProps> = ({
               </div>
               <div className={styles.stepText}>
                 <p className={styles.stepTitle}>
-                  Vous vérifiez ses réponses, <br /> vous les modifiez si
+                  Vous VÉRIFIEZ ses réponses, <br /> vous les MODIFIEZ si
                   besoin,
-                  <br /> puis vous les validez
+                  <br /> puis vous VALIDEZ
                 </p>
                 <p className={styles.stepSubtitle}>
                   Validation par le parent en quelques clics

@@ -57,7 +57,7 @@ const quizCards = [
     courseName: "Le Parcours Rangement",
     question: "As-tu rangé ta chambre aujourd'hui ?",
     percentage: "84%",
-    beackgroundImlage: "/images/slide2.png",
+    beackgroundImlage: "/assets/images/parcours/2/slide/2.png",
     slides: [
       {
         image: "/images/slide2.png",

@@ -78,10 +78,10 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 00px;
+  margin-bottom: 0px;
   @include mobile-only {
     gap: 20px;
-    margin-bottom: 70px;
+    max-height: 330px;
   }
   .avatarContainer {
     z-index: 100;
@@ -92,6 +92,17 @@
     display: flex;
     position: relative;
     margin-top: 40px;
+
+    @include mobile-only {
+      align-items: center;
+    }
+
+    img{
+      @include mobile-only {
+        width: 80px !important;
+        height: auto;
+      }
+    }
 
     
     &.jumping {
@@ -134,7 +145,7 @@
         }
       }
       @include mobile-only {
-        width: 100px !important;
+        width: 80px !important;
         height: auto;
         img {
           width: 100% !important;
@@ -195,12 +206,18 @@
         color: #045F46;
         right: -20px;
         box-shadow: 0 2px 0px rgba(#045F46, 1);
+        @include mobile-only {
+          right: -40px;
+        }
       }
       &.no {
         background: linear-gradient(to bottom, #FDC8C8 0%, #FFE1E1 100%);
         color: #5F0404;
         left: -20px;
         box-shadow: 0 2px 0px rgba(#5F0404, 1);
+        @include mobile-only {
+          left: -40px;
+        }
       }
     }
   }

@@ -16,6 +16,11 @@
   &.visible {
     transform: translateY(0);
   }
+  
+  // Masquer en desktop
+  @media (min-width: 769px) {
+    display: none;
+  }
 }
 
 .container {

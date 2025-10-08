@@ -94,7 +94,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   transform: translateY(100%);
@@ -124,7 +124,7 @@
 .desktopNav {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: .5rem;
   
   @include mobile-only {
     display: none;
@@ -136,10 +136,10 @@
   border: none;
   color: $text-brown;
   font-family: $font-primary;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.4rem;
   border-radius: 20px;
   transition: all 0.3s ease;
   text-decoration: none;

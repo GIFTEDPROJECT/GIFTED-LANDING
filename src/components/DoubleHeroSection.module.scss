@@ -2,7 +2,7 @@
 @use '../styles/mixins.scss' as *;
 
 .doubleHeroSection {
-  height: 300vh;
+  height: 400vh;
   width: 100%;
   background: transparent;
   background-size: cover;
@@ -93,11 +93,10 @@
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-fredoka);
-  font-size: 1rem;
-  color: #D2AC55;
+  font-size: 1.2rem;
+  color: #ca9c39;
   text-align: center;
   white-space: nowrap;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   font-weight: 600;
   letter-spacing: 0.5px;
   z-index: 1001;
@@ -105,7 +104,7 @@
 
 .chevronIconBottom {
   font-size: 6rem;
-  color: #D2AC55;
+  color: #ca9c39;
   filter: drop-shadow(0 4px 8px rgba(210, 172, 85, 0.3));
   transition: all 0.3s ease;
   -webkit-text-stroke: 2px #231504;
@@ -167,7 +166,7 @@
 
 .mainTitle {
 	font-family: var(--font-nunito), sans-serif;
-  color: #D2AC55;
+  color: #ca9c39;
   text-transform: none;
  	font-size: 4.5rem;
  	font-weight: 900;
@@ -176,13 +175,13 @@
  	white-space: normal;
  	word-wrap: break-word;
    text-shadow:
-   -2px -2px 0 #231504,
-    0   -2px 0 #231504,
-    2px -2px 0 #231504,
-    2px  2px 0 #231504,
-    0    2px 0 #231504,
-   -2px  2px 0 #231504,
-   -2px  0   0 #231504;
+   -2px -2px 0 #000000    ,
+    0   -2px 0 #000000,
+    2px -2px 0 #000000,
+    2px  2px 0 #000000,
+    0    2px 0 #000000,
+   -2px  2px 0 #000000,
+   -2px  0   0 #000000;
    @include mobile-only {
     font-size: 2.5rem;
    }
@@ -229,7 +228,7 @@
   }
 }
 .bottomBlock {
-  height: 200vh;
+  height: 300vh;
   width: 100%;
   position: relative;
   overflow: visible;
@@ -419,7 +418,7 @@
   
   .chapterText {
     font-family: var(--font-nunito), sans-serif;
-    color: #deb357;
+    color: #ca9c39;
     text-transform: none;
     font-size: 3.5rem;
     font-weight: 900;
@@ -427,13 +426,13 @@
     white-space: normal;
     word-wrap: break-word;
     text-shadow:
-      -2px -2px 0 #231504,
-       0   -2px 0 #231504,
-       2px -2px 0 #231504,
-       2px  2px 0 #231504,
-       0    2px 0 #231504,
-      -2px  2px 0 #231504,
-      -2px  0   0 #231504;
+      -2px -2px 0 #000000,
+       0   -2px 0 #000000,
+       2px -2px 0 #000000,
+       2px  2px 0 #000000,
+       0    2px 0 #000000,
+      -2px  2px 0 #000000,
+      -2px  0   0 #000000;
     
     @include mobile-only {
       font-size: 1.5rem;
@@ -445,7 +444,7 @@
 
 .bottomTitle {
   font-family: var(--font-nunito), sans-serif;
-  color: #deb357;
+  color: #ca9c39;
   text-transform: none;
  	font-size: 3.5rem;
  	font-weight: 900;
@@ -464,7 +463,7 @@
   position: absolute;
   top: 30%;
   left: 50%;
-  margin-top: -50px; // Centré verticalement
+  margin-top: 0px; // Centré verticalement
   margin-left: -50%; // Centré horizontalement
   z-index: 10;
   text-align: center;
@@ -633,11 +632,9 @@
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

@@ -314,9 +314,12 @@
   font-size: 1rem;
   color: $text-brown;
   font-weight: 400;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 0;
   text-align: center;
+  @include mobile-only {
+    text-align: left;
+  }
 }
 
 

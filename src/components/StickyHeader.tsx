@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo, useContext } from "react";
 import styles from "./StickyHeader.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { SectionRefsContext } from "@/contexts/SectionRefsContext";
 
 interface StickyHeaderProps {
@@ -21,7 +22,9 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
   buttonHref,
   showButton = true,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const [isVisible, setIsVisible] = useState(!isHomePage); // Visible par défaut si pas sur la home
   const [isRainingGifts, setIsRainingGifts] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const { sectionRefs } = useContext(SectionRefsContext) || {
@@ -31,8 +34,7 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
   // Navigation items
   const navigationItems = [
     { id: "savoirs", label: "Les parcours d'autonomie", href: "#savoirs" },
-    { id: "method", label: "La méthode GIFTED", href: "#method" },
-    { id: "contact", label: "Je m'inscris", href: "#pricing" },
+    { id: "method", label: "Comment ça marche ?", href: "#method" },
     {
       id: "discover-future",
       label: "Le projet GIFTED",
@@ -53,6 +55,13 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
   }, []);
 
   useEffect(() => {
+    // Sur la home, le header apparaît au scroll
+    // Sur les autres pages, il est toujours visible
+    if (!isHomePage) {
+      setIsVisible(true);
+      return;
+    }
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setIsVisible(scrollPosition > window.innerHeight * 1.8);
@@ -60,7 +69,7 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   // Détection de la section active
   useEffect(() => {
@@ -232,6 +241,16 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
               </button>
             ))}
           </nav>
+
+          {/* Bouton Je m'inscris */}
+          {showButton && (
+            <button
+              className={styles.inscriptionButton}
+              onClick={handleInscriptionClick}
+            >
+              {buttonLabel}
+            </button>
+          )}
         </div>
       </header>
     </>
