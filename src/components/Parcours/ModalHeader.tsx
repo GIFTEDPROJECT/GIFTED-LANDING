@@ -14,7 +14,7 @@ interface ModalHeaderProps {
   parcoursId?: number;
   onPreviousStep: () => void;
   onClose: () => void;
-  titleTransition: boolean;
+  titleTransition: "out" | "in" | null;
 }
 
 export const ModalHeader: React.FC<ModalHeaderProps> = ({
@@ -41,7 +41,11 @@ export const ModalHeader: React.FC<ModalHeaderProps> = ({
       {currentStep === 0 && <div className={styles.arrowPlaceholder}></div>}
       <div
         className={`${styles.question} ${
-          titleTransition ? styles.questionSlideUp : ""
+          titleTransition === "out"
+            ? styles.questionSlideOut
+            : titleTransition === "in"
+            ? styles.questionSlideIn
+            : ""
         }`}
         style={{
           background: parcoursId

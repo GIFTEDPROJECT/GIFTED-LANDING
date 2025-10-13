@@ -225,22 +225,24 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
             />
           </Link>
 
-          {/* Navigation desktop */}
-          <nav className={styles.desktopNav}>
-            {navigationItems.map((item) => (
-              <button
-                key={item.id}
-                className={`${styles.navLink} ${
-                  activeSection === item.id ? styles.active : ""
-                }`}
-                onClick={() => handleNavClick(item.href)}
-                aria-label={`Aller à la section ${item.label}`}
-                data-section={item.id}
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
+          {/* Navigation desktop - uniquement sur la home */}
+          {isHomePage && (
+            <nav className={styles.desktopNav}>
+              {navigationItems.map((item) => (
+                <button
+                  key={item.id}
+                  className={`${styles.navLink} ${
+                    activeSection === item.id ? styles.active : ""
+                  }`}
+                  onClick={() => handleNavClick(item.href)}
+                  aria-label={`Aller à la section ${item.label}`}
+                  data-section={item.id}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          )}
 
           {/* Bouton Je m'inscris */}
           {showButton && (

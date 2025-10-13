@@ -68,11 +68,14 @@
     width: 100%;
     border-radius: 10px;
     position: relative;
-    transition: all 1s ease-in-out;
+    transition: none;
 
-    &.questionSlideUp {
-      transform: translateY(-100%);
-      opacity: 0;
+    &.questionSlideOut {
+      animation: slideOutLeft 0.4s ease-in-out forwards;
+    }
+    
+    &.questionSlideIn {
+      animation: slideInRight 0.4s ease-in-out forwards;
     }
 
     @include mobile-only {
@@ -151,5 +154,28 @@
   .questionSlideUp {
     transform: translateX(-100%);
     opacity: 0;
+  }
+}
+
+// Animations de slide latéral
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 } 

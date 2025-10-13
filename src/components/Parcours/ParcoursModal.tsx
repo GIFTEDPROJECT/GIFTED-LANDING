@@ -44,7 +44,9 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<boolean[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<boolean | null>(null);
-  const [titleTransition, setTitleTransition] = useState(false);
+  const [titleTransition, setTitleTransition] = useState<"out" | "in" | null>(
+    null
+  );
   const [showFinalStep, setShowFinalStep] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showGiftMoneyIndex, setShowGiftMoneyIndex] = useState<number | null>(
@@ -156,74 +158,76 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
     // Démarrer la transition
     setIsTransitioning(true);
 
-    // Faire sauter le lion
-    setIsLionJumping(true);
-
     // Centrer la réponse sélectionnée
     setSelectedAnswer(answer);
 
-    // Jouer le son
-    if (answer === true) {
-      playSound(gainSoundRef.current);
-    } else if (answer === false) {
-      playSound(noSoundRef.current);
-    }
+    // === SÉQUENCE D'ANIMATION EN 5 TEMPS ===
 
-    // Enregistrer la réponse
-    let newAnswers;
-    if (currentStep < answers.length) {
-      newAnswers = [...answers];
-      newAnswers[currentStep] = answer;
-    } else {
-      newAnswers = [...answers, answer];
-    }
-    setAnswers(newAnswers);
+    // a. Déplacement de l'avatar sur la réponse
+    setIsLionJumping(true);
 
-    // Afficher le gift money si "Oui"
-    if (answer === true) {
-      setShowGiftMoneyIndex(currentStep);
-    }
-
-    // Arrêter l'animation du lion après 0.8 seconde
     setTimeout(() => {
+      // b. Le lion arrive sur la réponse et reste en place
       setIsLionJumping(false);
-      setIsLionInBottom(true);
-      // Le lion reste en bas pendant 500ms avant de repartir
-      setTimeout(() => {
-        setIsLionInBottom(false);
-        setIsLionReturning(true);
-        // Arrêter l'animation de retour après 0.6 seconde
-        setTimeout(() => {
-          setIsLionReturning(false);
-        }, 600);
-      }, 500);
-    }, 800);
+      setIsLionInBottom(true); // Maintenir la position en bas
 
-    // Pause de 3 secondes avec le nénuphare au centre, puis passer à l'étape suivante
-    if (currentStep < parcours.steps.length - 1) {
+      // c. Retarder l'ajout de la classe active (qui déclenche l'animation du GP)
       setTimeout(() => {
-        setTitleTransition(true);
+        // Enregistrer la réponse MAINTENANT (déclenche la classe active dans le footer)
+        let newAnswers;
+        if (currentStep < answers.length) {
+          newAnswers = [...answers];
+          newAnswers[currentStep] = answer;
+        } else {
+          newAnswers = [...answers, answer];
+        }
+        setAnswers(newAnswers);
+
+        // Jouer le son MAINTENANT (avec la classe active)
+        if (answer === true) {
+          playSound(gainSoundRef.current);
+          setShowGiftMoneyIndex(currentStep);
+        } else if (answer === false) {
+          playSound(noSoundRef.current);
+        }
+
+        // Attendre que l'animation du GP soit terminée + pause supplémentaire
         setTimeout(() => {
-          setCurrentStep(currentStep + 1);
-          setTitleTransition(false);
-          setSelectedAnswer(null); // Réinitialiser la sélection
-          setIsTransitioning(false); // Fin de la transition
-          // S'assurer que le lion est bien revenu à sa position initiale
-          setIsLionJumping(false);
-          setIsLionReturning(false);
+          // d. Le lion retourne à sa position initiale (salto)
           setIsLionInBottom(false);
-        }, 500);
-      }, 3000); // Pause de 3 secondes
-    } else {
-      setTimeout(() => {
-        setShowFinalStep(true);
-        setIsTransitioning(false); // Fin de la transition
-        // S'assurer que le lion est bien revenu à sa position initiale
-        setIsLionJumping(false);
-        setIsLionReturning(false);
-        setIsLionInBottom(false);
-      }, 3000); // Pause de 3 secondes avant la fin
-    }
+          setIsLionReturning(true);
+
+          setTimeout(() => {
+            setIsLionReturning(false);
+
+            // e. Balayage latéral pour la question suivante
+            setTimeout(() => {
+              if (currentStep < parcours.steps.length - 1) {
+                // Phase 1 : Question actuelle sort vers la gauche
+                setTitleTransition("out");
+
+                setTimeout(() => {
+                  // Phase 2 : Changer la question et la faire entrer depuis la droite
+                  setCurrentStep(currentStep + 1);
+                  setTitleTransition("in");
+                  setSelectedAnswer(null);
+
+                  setTimeout(() => {
+                    // Phase 3 : Réinitialiser l'animation
+                    setTitleTransition(null);
+                    setIsTransitioning(false);
+                  }, 400); // Durée de l'animation d'entrée
+                }, 400); // Durée de l'animation de sortie
+              } else {
+                // Dernière étape : afficher l'écran final
+                setShowFinalStep(true);
+                setIsTransitioning(false);
+              }
+            }, 100); // Petite pause avant le balayage
+          }, 700); // Durée du retour/salto
+        }, 2000); // Attendre l'animation du GP (1500ms) + pause de 500ms
+      }, 600); // Retard de 600ms avant l'animation du GP
+    }, 800); // Durée du saut vers la réponse
   };
 
   const handlePreviousStep = () => {
@@ -241,7 +245,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
     setCurrentStep(0);
     setAnswers([]);
     setSelectedAnswer(null);
-    setTitleTransition(false);
+    setTitleTransition(null);
     setShowFinalStep(false);
     setIsMuted(false);
     setShowGiftMoneyIndex(null);
@@ -317,7 +321,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
                     width={426}
                     height={426}
                     style={{
-                      width: "150px",
+                      width: "122px",
                       height: "auto",
                     }}
                   />
@@ -352,7 +356,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
                         width={334}
                         height={116}
                         style={{
-                          width: "120px",
+                          width: "110px",
                           height: "auto",
                         }}
                       />
@@ -386,7 +390,7 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
                         width={334}
                         height={116}
                         style={{
-                          width: "120px",
+                          width: "110px",
                           height: "auto",
                         }}
                       />
