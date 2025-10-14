@@ -203,21 +203,18 @@ export const ParcoursModal: React.FC<ParcoursModalProps> = ({
             // e. Balayage latéral pour la question suivante
             setTimeout(() => {
               if (currentStep < parcours.steps.length - 1) {
-                // Phase 1 : Question actuelle sort vers la gauche
                 setTitleTransition("out");
 
                 setTimeout(() => {
-                  // Phase 2 : Changer la question et la faire entrer depuis la droite
                   setCurrentStep(currentStep + 1);
                   setTitleTransition("in");
                   setSelectedAnswer(null);
+                  setIsTransitioning(false);
 
                   setTimeout(() => {
-                    // Phase 3 : Réinitialiser l'animation
                     setTitleTransition(null);
-                    setIsTransitioning(false);
-                  }, 400); // Durée de l'animation d'entrée
-                }, 400); // Durée de l'animation de sortie
+                  }, 800);
+                }, 800);
               } else {
                 // Dernière étape : afficher l'écran final
                 setShowFinalStep(true);

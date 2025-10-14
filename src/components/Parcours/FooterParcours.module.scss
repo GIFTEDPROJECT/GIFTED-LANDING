@@ -67,14 +67,10 @@
     flex-direction: column;
     opacity: 0.5;
     position: relative;
-    transition: all .4s ease;
+    transition: all .8s ease;
     opacity: 0;
     transform: translateY(100%) scale(0.7) !important;
-    @for $i from 1 through 6 {
-      &:nth-child(#{$i}) {
-          transition-delay: 0.5s * $i;
-      }
-    }
+
     
     &.no {
       opacity: 1;

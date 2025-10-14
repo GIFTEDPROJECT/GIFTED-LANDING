@@ -114,7 +114,7 @@
     }
     
     &.returning {
-      animation: lionReturn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation: lionReturn 0.7s ease-in-out forwards;
     }
   }
   
@@ -356,9 +356,6 @@
   @keyframes lionReturn {
     0% {
       transform: translateY(100px) rotateZ(0deg) scale(1.2);
-    }
-    50% {
-      transform: translateY(-10px) rotateZ(180deg) scale(1.05);
     }
     100% {
       transform: translateY(0) rotateZ(360deg) scale(1);
