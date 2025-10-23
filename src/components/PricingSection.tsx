@@ -22,43 +22,6 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
     setIsParcoursModalOpen(true);
   };
 
-  const toggleFeatures = (cardId: number) => {
-    const wasExpanded = expandedCards.includes(cardId);
-
-    setExpandedCards((prev) =>
-      prev.includes(cardId)
-        ? prev.filter((id) => id !== cardId)
-        : [...prev, cardId]
-    );
-
-    // Si on ouvre la liste (et qu'elle n'était pas ouverte avant)
-    if (!wasExpanded) {
-      // Attendre que le DOM soit mis à jour
-      setTimeout(() => {
-        const featuresList = document.querySelector(
-          `[data-card-id="${cardId}"] .${styles.featuresList}`
-        );
-        if (featuresList) {
-          featuresList.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
-      }, 100);
-    } else {
-      // Si on ferme la liste, scroll vers le haut de la carte
-      setTimeout(() => {
-        const card = document.querySelector(`[data-card-id="${cardId}"]`);
-        if (card) {
-          card.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
-      }, 100);
-    }
-  };
-
   const formules = [
     {
       id: 1,
@@ -174,30 +137,14 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ id }) => {
                   </div>
                 ))}
               </div>
-              <button
+              <a
                 className={styles.ctaButton}
-                onClick={() => {
-                  if (formule.id === 1) {
-                    // Pour le test gratuit, ouvrir le parcours
-                    handleTestGratuit();
-                  } else {
-                    // Pour l'abonnement, rediriger vers contact
-                    const contactSection = document.getElementById("contact");
-                    if (contactSection) {
-                      contactSection.scrollIntoView({ behavior: "smooth" });
-                    } else {
-                      // Fallback : chercher par classe CSS
-                      const contactElement =
-                        document.querySelector(".contactSection");
-                      if (contactElement) {
-                        contactElement.scrollIntoView({ behavior: "smooth" });
-                      }
-                    }
-                  }
-                }}
+                href={formule.url}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {formule.label}
-              </button>
+              </a>
               <p>{formule.availability}</p>
             </div>
           ))}

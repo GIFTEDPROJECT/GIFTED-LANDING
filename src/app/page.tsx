@@ -77,7 +77,7 @@ export default function Home() {
       <PricingSection id="pricing" />
 
       {/* Section Don */}
-      {/* <DonationSection id="donation" /> */}
+      <DonationSection id="donation" />
 
       {/* Section Contact/email */}
       <ContactSection id="contact" />
