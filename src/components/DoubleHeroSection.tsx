@@ -173,7 +173,7 @@ const DoubleHeroSection: React.FC = () => {
             <br />
             <span>
               Transformez la discipline en un jeu d'enfants
-              <br /> et regagnez du temps avec votre enfant
+              <br />Et retrouvez enfin le temps d’être parent
             </span>
           </motion.h2>
 
