@@ -74,7 +74,7 @@ export default function Home() {
       {/* <ReveSection /> */}
 
       {/* Section Pricing/Soutien */}
-      <PricingSection id="pricing" />
+      {/* <PricingSection id="pricing" /> */}
 
       {/* Section Don */}
       <DonationSection id="donation" />

@@ -5,8 +5,8 @@
 // Global styles moved to globals.scss
 
 .donationSection {
-  background: #FEF4E7;
-  padding: 6rem 2rem;
+  padding: 4rem 2rem;
+  background: rgb(238, 220, 201);
   position: relative;
   overflow: hidden;
   
@@ -23,6 +23,27 @@
   @include centered-container();
   position: relative;
   z-index: 2;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: linear-gradient(to right, $title-gradient-start, $title-gradient-end);
+  color: $text-brown;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+  
+  @include tablet-max {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .content {
@@ -66,24 +87,39 @@
 }
 
 .subtitle {
-  font-size: 2rem;
+  font-family: $font-primary;
+  font-size: 1.4rem;
   color: $text-brown;
-  line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto;
-  
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 auto 1.5rem;
+  flex: 1;
+  max-width: 340px;
+ 
   @include mobile-only {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
 
 .donationCard {
-  background: white;
-  border-radius: 25px;
-  padding: 3rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-  border: 10px solid #F2758E;
   position: relative;
+  background: $beige-bg;
+  border: 10px solid #ffaf01;
+  border-radius: 25px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  min-height: 400px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
   
   @include tablet-max {
     padding: 2rem;
@@ -91,15 +127,28 @@
   
   @include mobile-only {
     padding: 1.5rem;
+    min-height: 350px;
+    max-width: 100%;
   }
 }
 
 .cardHeader {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .iconContainer {
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  
+  img {
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
+  }
 }
 
 .icon {
@@ -128,18 +177,112 @@
 }
 
 .cardDescription {
-  font-size: 1.1rem;
+  font-family: $font-primary;
+  font-size: 1rem;
   color: $text-brown;
-  line-height: 1.6;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  text-align: left;
   
   @include mobile-only {
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+.priceContainer {
+  margin-bottom: 2rem;
+  position: relative;
+  
+  @include tablet-max {
+    margin-bottom: 1rem;
+  }
+}
+
+.price {
+  font-family: $font-primary;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: $wood-brown;
+  margin-bottom: 0.3rem;
+  
+  sup {
+    font-size: 16px;
+    font-weight: 400;
   }
   
-  & {
-    margin-bottom: 1rem;
-    color: $text-brown;
+  @include mobile-only {
+    font-size: 2rem;
   }
+}
+
+.originalPrice {
+  font-family: $font-primary;
+  font-size: 1.1rem;
+  color: $text-brown;
+  line-height: 1.3;
+  width: 100%;
+  text-align: center;
+}
+
+.featuresList {
+  text-align: left;
+  margin: 0 0 2rem;
+  overflow: hidden;
+  flex: 1;
+  
+  @include tablet-max {
+    margin: 1rem 0;
+  }
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+  font-family: $font-primary;
+  font-size: 1rem;
+  line-height: 1.4;
+  
+  &.included {
+    .checkmark {
+      color: $nature-green;
+      background: url('/images/check.png') center center/cover no-repeat;
+      width: 18px;
+      height: 18px;
+    }
+    .featureText {
+      color: $text-brown;
+    }
+  }
+  
+  &.notIncluded {
+    .checkmark {
+      color: #ccc;
+      background: url('/images/check.png') center center/cover no-repeat;
+      width: 18px;
+      height: 18px;
+      opacity: 0.5;
+      filter: grayscale(100%);
+    }
+    .featureText {
+      color: #999;
+    }
+  }
+}
+
+.checkmark {
+  margin-right: 0.8rem;
+  margin-top: 0.1rem;
+  font-weight: bold;
+  min-width: 18px;
+  flex-shrink: 0;
+}
+
+.featureText {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
 
 .amountSelection {
@@ -170,20 +313,21 @@
 }
 .ctaButton {
   width: 100%;
-  background: url('/images/btn-pricing-pink.png') center center/contain no-repeat;
+  background: url('/images/btn-pricing.png') center center/contain no-repeat;
   color: $beige-bg;
   text-shadow: 2px 2px 4px #0000004d;
   border: none;
   padding: 1rem 2rem;
   font-family: $font-primary;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: .8rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 1rem;
   color: white;
+  text-shadow: -1px -1px 1px rgba(0,0,0,.1), 1px 1px 1px rgba(0,0,0,.7);
   
   &:hover {
     transform: translateY(-2px);
