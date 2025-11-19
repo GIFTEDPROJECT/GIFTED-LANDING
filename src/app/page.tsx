@@ -16,6 +16,8 @@ import DiscoverFutureSection from "@/components/DiscoverFutureSection";
 import StickyHeader from "@/components/StickyHeader";
 import HorizontalNavigation from "@/components/HorizontalNavigation";
 import { RevealSection } from "@/components/RevealSection";
+import { ShareSection } from "@/components/ShareSection";
+import { GiftTreeSection } from "@/components/GiftTreeSection";
 import styles from "./page.module.scss";
 import { MethodSection } from "@/components";
 
@@ -63,6 +65,12 @@ export default function Home() {
 
       {/* Section Révélation des phrases */}
       <RevealSection id="reveal" />
+
+      {/* Section Share */}
+      <ShareSection id="share" />
+
+      {/* Section Gift Tree */}
+      <GiftTreeSection id="gift-tree" />
 
       {/* Section Méthodes innovantes de GIFTED */}
       {/*  <MethodesSection /> */}

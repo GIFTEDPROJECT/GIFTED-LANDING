@@ -1,0 +1,146 @@
+@use '../styles/vars.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+.giftTreeSection {
+  width: 100%;
+  min-height: 80vh;
+  position: relative;
+  
+  // Image de fond
+  background-image: url('/images/tree-bg.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  
+  @include mobile-only {
+    padding: 1rem;
+  }
+}
+
+.contentWrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2rem;
+  
+  @include mobile-only {
+    gap: 1.5rem;
+  }
+}
+
+.sectionTitle {
+    font-family: var(--font-nunito), sans-serif;
+    color: #ca9c39;
+    text-transform: none;
+    text-align: center;
+    font-size: 2rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      white-space: normal;
+      word-wrap: break-word;
+   text-shadow:
+   -2px -2px 0 #000000,
+    0   -2px 0 #000000,
+    2px -2px 0 #000000,
+    2px  2px 0 #000000,
+    0    2px 0 #000000,
+   -2px  2px 0 #000000,
+   -2px  0   0 #000000;
+  
+  @include tablet-max {
+    font-size: 2rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.5rem;
+  }
+}
+
+.imageContainer {
+	width: 100%;
+	max-width: 800px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.treeContentImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-width: 100%;
+  
+  @include mobile-only {
+    max-width: 100%;
+  }
+}
+
+.contentBlock {
+  width: 100%;
+  max-width: 1200px;
+  background-color: rgba(210, 172, 85, 0.9); // Doré avec transparence
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+	justify-self: flex-end;
+	align-self: flex-end;
+  
+  @include tablet-max {
+    padding: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @include mobile-only {
+    padding: 2rem;
+    margin-bottom: 1rem;
+    border-radius: 15px;
+  }
+}
+
+.title {
+  font-family: $font-primary;
+  color: $text-brown;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+  
+  @include tablet-max {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.text {
+  font-family: $font-primary;
+  font-size: 1.3rem;
+  color: $text-brown;
+  line-height: 1.6;
+  font-weight: 400;
+  
+  @include tablet-max {
+    font-size: 1.2rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1rem;
+  }
+}
+

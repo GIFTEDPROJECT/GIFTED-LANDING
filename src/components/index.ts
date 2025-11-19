@@ -11,6 +11,8 @@ export { MethodSection } from './MethodSection';
 export { default as MethodesSection } from './MethodesSection';
 export { default as ReveSection } from './ReveSection';
 export { default as EtapesCarousel } from './EtapesCarousel';
+export { ShareSection } from './ShareSection';
+export { GiftTreeSection } from './GiftTreeSection';
 // Export des composants du parcours
 export { ParcoursModal, FinalStep, FooterParcours, ModalHeader } from './Parcours';
 
