@@ -70,7 +70,7 @@ export default function Home() {
       <ShareSection id="share" />
 
       {/* Section Gift Tree */}
-      <GiftTreeSection id="gift-tree" />
+      {/* <GiftTreeSection id="gift-tree" /> */}
 
       {/* Section Méthodes innovantes de GIFTED */}
       {/*  <MethodesSection /> */}
