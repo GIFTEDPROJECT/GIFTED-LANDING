@@ -161,18 +161,27 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
     if (buttonAction) {
       buttonAction();
     } else {
-      // Amener vers la section pricing
-      const pricingSection = document.getElementById("pricing");
-      if (pricingSection) {
-        pricingSection.scrollIntoView({
+      // Amener vers la section donation
+      const donationSection = sectionRefs.current["donation"];
+      if (donationSection) {
+        donationSection.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
       } else {
-        // Fallback : chercher par classe CSS
-        const pricingElement = document.querySelector(".pricingSection");
-        if (pricingElement) {
-          pricingElement.scrollIntoView({ behavior: "smooth" });
+        // Fallback : chercher par ID
+        const donationElement = document.getElementById("donation");
+        if (donationElement) {
+          donationElement.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        } else {
+          // Fallback : chercher par classe CSS
+          const donationElementByClass = document.querySelector(".donationSection");
+          if (donationElementByClass) {
+            donationElementByClass.scrollIntoView({ behavior: "smooth" });
+          }
         }
       }
     }

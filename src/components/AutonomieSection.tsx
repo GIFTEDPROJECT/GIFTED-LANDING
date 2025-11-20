@@ -247,7 +247,7 @@ export const AutonomieSection: React.FC<AutonomieSectionProps> = ({
                   <div
                     className={`${styles.parcoursButton} ${styles[card.color]}`}
                   >
-                    <span>Voir le parcours </span>
+                    <span>Tester le parcours </span>
                     <span>
                       {card.title}
                       <img src="/images/eyes.png" alt="Voir le parcours !" />
