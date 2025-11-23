@@ -5,12 +5,27 @@
   width: 100vw;
   position: relative;
   -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   
   // Image de fond fixe
   background-image: url('/images/bg-share.png');
+  background-attachment: fixed;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  h3 {
+    font-family: $font-primary;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #092D57;
+    text-align: center;
+    margin: 0;
+    @include mobile-only {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 .screensContainer {
@@ -26,6 +41,10 @@
   align-items: center;
   position: relative;
   padding: 4rem 0;
+  min-height: 60vh;
+overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   @include mobile-only {
     padding:  0;
   }
@@ -41,31 +60,91 @@
   position: relative;
   padding: 2rem;
   text-align: center;
-}
-
-.title {
-  font-family: var(--font-fredoka), sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  background: url(/images/wood2.png) 50%;
-  background-size: cover;
-  color: rgba(0, 0, 0, 0);
-  -webkit-background-clip: text;
-  background-clip: text;
-  filter: drop-shadow(0 10px 16px #FFF);
-  text-align: center;
-  margin-bottom: 1rem;
+  @include mobile-only {
+    padding: 2rem 2rem 0;
+  }
+  .title {
+    font-family: var(--font-fredoka), sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    background: url(/images/wood2.png) 50%;
+    background-size: cover;
+    color: rgba(0, 0, 0, 0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 10px 16px #FFF);
+    text-align: center;
+    margin-bottom: 1rem;
+    
+    span {
+    font-family: var(--font-nunito), sans-serif;
+      color: #ca9c39;
+      text-transform: none;
+     font-weight: 900;
+     line-height: 1.2;
+     margin-bottom: 2rem;
+     white-space: normal;
+     word-wrap: break-word;
+     text-shadow:
+     -2px -2px 0 #000000,
+      0   -2px 0 #000000,
+      2px -2px 0 #000000,
+      2px  2px 0 #000000,
+      0    2px 0 #000000,
+     -2px  2px 0 #000000,
+     -2px  0   0 #000000;
+    }
+    
+    @include tablet-max {
+      font-size: 2rem;
+    }
+    
+    @include mobile-only {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+  }
   
-  span {
-	font-family: var(--font-nunito), sans-serif;
+  .highlight {
+    font-family: var(--font-nunito), sans-serif;
+    color: #ca9c39;
+    font-weight: 900;
+    text-shadow:
+      -2px -2px 0 #000000,
+      0   -2px 0 #000000,
+      2px -2px 0 #000000,
+      2px  2px 0 #000000,
+      0    2px 0 #000000,
+      -2px  2px 0 #000000,
+      -2px  0   0 #000000;
+  }
+  
+  .coinIcon {
+    display: inline-block;
+    font-size: 2rem;
+    vertical-align: middle;
+    margin: 0 0.25rem;
+    
+    @include tablet-max {
+      font-size: 1.5rem;
+    }
+    
+    @include mobile-only {
+      font-size: 1.2rem;
+    }
+  }
+  
+  .subtitle {
+    font-family: var(--font-nunito), sans-serif;
     color: #ca9c39;
     text-transform: none;
- 	font-weight: 900;
- 	line-height: 1.2;
- 	margin-bottom: 2rem;
- 	white-space: normal;
- 	word-wrap: break-word;
+    font-size: 2rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+      white-space: normal;
+      word-wrap: break-word;
    text-shadow:
    -2px -2px 0 #000000,
     0   -2px 0 #000000,
@@ -74,216 +153,159 @@
     0    2px 0 #000000,
    -2px  2px 0 #000000,
    -2px  0   0 #000000;
+    
+    @include tablet-max {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    @include mobile-only {
+      font-size: 1.5rem;
+      margin: 0 0 2rem 0;
+    }
   }
   
-  @include tablet-max {
-    font-size: 2rem;
+  .blocksGrid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 2rem;
+    
+    @include tablet-max {
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+    }
+    
+    @include mobile-only {
+      gap: 1rem;
+      flex-direction: column;
+      flex-wrap: no-wrap;
+    }
   }
   
-  @include mobile-only {
-    font-size: 1.5rem;
-    margin: 0;
-  }
-}
-
-.highlight {
-  font-family: var(--font-nunito), sans-serif;
-  color: #ca9c39;
-  font-weight: 900;
-  text-shadow:
-    -2px -2px 0 #000000,
-    0   -2px 0 #000000,
-    2px -2px 0 #000000,
-    2px  2px 0 #000000,
-    0    2px 0 #000000,
-    -2px  2px 0 #000000,
-    -2px  0   0 #000000;
-}
-
-.coinIcon {
-  display: inline-block;
-  font-size: 2rem;
-  vertical-align: middle;
-  margin: 0 0.25rem;
+  .block {
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 45%;
+    position: relative;
+    @include mobile-only {
+      flex: 1;
+      &:nth-child(odd) {
+        left: -40px
+      }
+      &:nth-child(even) {
+          right: -40px;
+          top: -50px;
+      }
+      &:nth-child(3) {
+        top: -80px;
+      }
+      &:nth-child(4) {
+        top: -120px;
+      }
+    }
   
-  @include tablet-max {
-    font-size: 1.5rem;
   }
   
-  @include mobile-only {
-    font-size: 1.2rem;
-  }
-}
-
-.subtitle {
-  font-family: var(--font-nunito), sans-serif;
-  color: #ca9c39;
-  text-transform: none;
-  font-size: 2rem;
-    font-weight: 900;
-    line-height: 1.2;
-    margin-bottom: 2rem;
-    white-space: normal;
-    word-wrap: break-word;
- text-shadow:
- -2px -2px 0 #000000,
-  0   -2px 0 #000000,
-  2px -2px 0 #000000,
-  2px  2px 0 #000000,
-  0    2px 0 #000000,
- -2px  2px 0 #000000,
- -2px  0   0 #000000;
-  
-  @include tablet-max {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  @include mobile-only {
-    font-size: 1.5rem;
-    margin: 0 0 2rem 0;
-  }
-}
-
-.blocksGrid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 2rem;
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 2rem;
-  
-  @include tablet-max {
-    gap: 1.5rem;
-    padding: 0 1.5rem;
-  }
-  
-  @include mobile-only {
-    gap: 1rem;
-    flex-direction: column;
-    flex-wrap: no-wrap;
-  }
-}
-
-.block {
-  border-radius: 20px;
-  display: flex;
-  flex-direction: row;
-  flex: 0 0 45%;
-  position: relative;
-  @include mobile-only {
+  .cloudContainer {
     flex: 1;
-    &:nth-child(odd) {
-      left: -40px
+    background-image: url('/images/nuage.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+    min-height: 200px;
+    
+    @include tablet-max {
+      padding: 1.5rem;
+      min-height: 150px;
     }
-    &:nth-child(even) {
-        right: -40px;
-        top: -50px;
-    }
-    &:nth-child(3) {
-      top: -80px;
-    }
-    &:nth-child(4) {
-      top: -120px;
+    
+    @include mobile-only {
+      padding: 1rem;
+      min-height: 120px;
     }
   }
-
-}
-
-.cloudContainer {
-  flex: 1;
-  background-image: url('/images/nuage.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  z-index: 2;
-  min-height: 200px;
   
-  @include tablet-max {
-    padding: 1.5rem;
-    min-height: 150px;
+  // Nuage à droite (blocs 1 et 3) : chevauche vers la gauche
+  .block:nth-child(odd) .cloudContainer {
+    margin-left: -50px;
+    margin-right: 0;
+    
+    @include tablet-max {
+      margin-left: -35px;
+    }
+    
+    @include mobile-only {
+      margin-left: -15px;
+    }
   }
   
-  @include mobile-only {
+  // Nuage à gauche (blocs 2 et 4) : chevauche vers la droite
+  .block:nth-child(even) .cloudContainer {
+    margin-left: 0;
+    margin-right: -50px;
+    
+    @include tablet-max {
+      margin-right: -35px;
+    }
+    
+    @include mobile-only {
+      margin-right: -15px;
+    }
+  }
+  
+  .cloudText {
+    font-family: $font-primary;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #00485B;
+    text-align: center;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
     padding: 1rem;
-    min-height: 120px;
+    
+    @include tablet-max {
+      font-size: 1.1rem;
+      padding: 0.75rem;
+    }
+    
+    @include mobile-only {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+  }
+  
+  .imageContainer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+    
+    @include mobile-only {
+      width: 100px;
+      height: 100px;
+      padding: .5rem;
+      position: absolute;
+      top: -20px;
+    }
   }
 }
 
-// Nuage à droite (blocs 1 et 3) : chevauche vers la gauche
-.block:nth-child(odd) .cloudContainer {
-  margin-left: -50px;
-  margin-right: 0;
-  
-  @include tablet-max {
-    margin-left: -35px;
-  }
-  
-  @include mobile-only {
-    margin-left: -15px;
-  }
-}
-
-// Nuage à gauche (blocs 2 et 4) : chevauche vers la droite
-.block:nth-child(even) .cloudContainer {
-  margin-left: 0;
-  margin-right: -50px;
-  
-  @include tablet-max {
-    margin-right: -35px;
-  }
-  
-  @include mobile-only {
-    margin-right: -15px;
-  }
-}
-
-.cloudText {
-  font-family: $font-primary;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #00485B;
-  text-align: center;
-  line-height: 1.4;
-  position: relative;
-  z-index: 1;
-  padding: 1rem;
-  
-  @include tablet-max {
-    font-size: 1.1rem;
-    padding: 0.75rem;
-  }
-  
-  @include mobile-only {
-    font-size: 0.9rem;
-    padding: 0.5rem;
-  }
-}
-
-.imageContainer {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  background: transparent;
-  position: relative;
-  z-index: 1;
-  
-  @include mobile-only {
-    width: 100px;
-    height: 100px;
-    padding: .5rem;
-    position: absolute;
-    top: -20px;
-  }
-}
 
 // Image à gauche sur mobile pour les blocs impairs (1, 3)
 .block:nth-child(odd) .imageContainer {
@@ -324,3 +346,270 @@
   }
 }
 
+.secondScreen {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  min-height: 60vh;
+overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  @include mobile-only {
+    padding: 0 2rem;
+  }
+  .firstImageContainer {
+    @include mobile-only {
+      width: 160px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .cardImageContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    max-width: 820px;
+
+    @include mobile-only {
+      gap: 0;
+      left: 20px;
+    }
+    .cardImage {
+      position: relative;
+      z-index: 1;
+      @include mobile-only {
+        flex: 0 0 130px;
+        &:first-child {
+          right: -20px;
+          z-index: 0;
+        }
+        &:last-child {
+          left: -20px;
+          z-index: 0;
+        }
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+    }
+  }
+  h3 {
+    font-family: $font-primary;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #092D57;
+    text-align: center;
+    margin: 0;
+    @include mobile-only {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.thirdScreen {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  min-height: 60vh;
+overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  .peopleContainer {
+    max-width: 550px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.fourthScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  min-height: 60vh;
+overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  @include mobile-only {
+    padding: 0 2rem;
+  }
+  .imageContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;    align-items: flex-end;
+    justify-content: flex-end;
+    max-width: 700px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.fifthScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  min-height: 60vh;
+overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  .imageContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.sixthScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  min-height: 60vh;
+overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  .imageContainer {
+    max-width: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.seventhScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  min-height: 60vh;
+overflow: hidden;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  .imageContainer {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+
+.lastScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem O;
+  width: 100%;
+  min-height: 60vh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  
+  .lastScreenContent {
+    width: 100%;
+    display: flex;    
+    align-items: flex-end;
+    width: 100%;
+    img{
+      width: 100%;
+      @include mobile-only {
+       width: auto;
+      }
+    }
+  }
+  
+  h3 {
+    font-family: $font-primary;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #092D57;
+    text-align: center;
+    margin: 0;
+    @include mobile-only {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.pass {
+  position: sticky;
+  bottom: 2rem;
+  align-self: flex-end;
+  margin-left: auto;
+  margin-right: 2rem;
+  color: $text-brown;
+  font-family: $font-primary;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 1000;
+  width: auto;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  background: transparent;
+  border: none;
+  
+  @include mobile-only {
+    bottom: 4rem;
+    margin-right: 1rem;
+  }
+}
+
+// Les animations sont maintenant entièrement gérées par Framer Motion
+// Aucun style CSS d'animation nécessaire

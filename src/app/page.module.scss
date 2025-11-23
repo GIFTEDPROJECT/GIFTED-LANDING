@@ -5,6 +5,7 @@
   min-height: 100vh;
   scroll-behavior: smooth;
   background: $beige-bg;
+  scroll-snap-type: y proximity;
 }
 
 .main {
