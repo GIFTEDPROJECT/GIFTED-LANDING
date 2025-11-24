@@ -64,13 +64,13 @@ export default function Home() {
       {/* <WhySection type="parents" /> */}
 
       {/* Section Révélation des phrases */}
-      <RevealSection id="reveal" />
+      {/* <RevealSection id="reveal" /> */}
 
       {/* Section Share */}
       <ShareSection id="share" />
 
       {/* Section Gift Tree */}
-      {/* <GiftTreeSection id="gift-tree" /> */}
+      <GiftTreeSection id="gift-tree" />
 
       {/* Section Méthodes innovantes de GIFTED */}
       {/*  <MethodesSection /> */}

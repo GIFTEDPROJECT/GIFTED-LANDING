@@ -26,6 +26,7 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
 
   return (
     <section ref={sectionRef} id={id} className={styles.shareSection}>
+      <div className={styles.backgroundParallax} />
       <div className={styles.screensContainer}>
         <div className={styles.screen}>
           <div className={styles.firstScreenContent}>
@@ -69,7 +70,7 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
                 <div className={styles.cloudContainer}>
                   <p className={styles.cloudText}>
                     ...qui renforcent
-                    <br /> leurs liens
+                    <br /> ses liens
                   </p>
                 </div>
               </motion.div>
@@ -116,7 +117,7 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
                 </div>
                 <div className={styles.cloudContainer}>
                   <p className={styles.cloudText}>
-                    avec leur
+                    avec sa
                     <br /> famille,
                   </p>
                 </div>
@@ -132,15 +133,15 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
                 <div className={styles.cloudContainer}>
                   <p className={styles.cloudText}>
                     et avec <br />
-                    leurs amis…
+                    ses amis…
                   </p>
                 </div>
                 <div className={styles.imageContainer}>
                   <Image
                     src="/images/share-section1-img4.png"
                     alt="Moment de partage"
-                    width={500}
-                    height={500}
+                    width={540}
+                    height={540}
                     className={styles.blockImage}
                   />
                 </div>
@@ -148,13 +149,44 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
             </div>
           </div>
         </div>
+        <div className={styles.thirdScreen}>
+          <motion.h3
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            L'enfant choisit trois de ses proches...{" "}
+          </motion.h3>
+          <motion.div
+            className={styles.peopleContainer}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <img
+              src="/images/share/screen3.png"
+              alt="People"
+              className={styles.peopleImage}
+            />
+          </motion.div>
+        </div>
         <div className={styles.secondScreen}>
+          <motion.h3
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            ... et quelle activité il souhaite faire avec chacun...{" "}
+          </motion.h3>
           <motion.div
             className={styles.firstImageContainer}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
           >
             <img
               src="/images/share/screen2-dad.png"
@@ -167,7 +199,7 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
           >
             <motion.div
               className={styles.cardImage}
@@ -209,39 +241,16 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
               />
             </motion.div>
           </motion.div>
-          <motion.h3
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-          >
-            ... et quelle activité il souhaite faire avec chacun...{" "}
-          </motion.h3>
         </div>
-        <div className={styles.thirdScreen}>
-          <motion.div
-            className={styles.peopleContainer}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <img
-              src="/images/share/screen3.png"
-              alt="People"
-              className={styles.peopleImage}
-            />
-          </motion.div>
+        <div className={styles.fourthScreen}>
           <motion.h3
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            L'enfant choisit trois de ses proches...{" "}
+            Chaque invité reçoit par Whatsapp...
           </motion.h3>
-        </div>
-        <div className={styles.fourthScreen}>
           <div className={styles.imageContainer}>
             <motion.div
               className={styles.image}
@@ -270,16 +279,16 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
               />
             </motion.div>
           </div>
+        </div>
+        <div className={styles.fifthScreen}>
           <motion.h3
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Chaque invité reçoit par Whatsapp...
+            ...une superbe invitation.
           </motion.h3>
-        </div>
-        <div className={styles.fifthScreen}>
           <motion.div
             className={styles.imageContainer}
             initial={{ opacity: 0, scale: 0.8 }}
@@ -293,17 +302,17 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
               className={styles.image}
             />
           </motion.div>
-          <motion.h3
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            L'invité choisit une activité...
-          </motion.h3>
         </div>
       </div>
       <div className={styles.sixthScreen}>
+        <motion.h3
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          Imaginez… puis fixez la date qui le rend réel....
+        </motion.h3>
         <motion.div
           className={styles.imageContainer}
           initial={{ opacity: 0, scale: 0.8 }}
@@ -317,16 +326,16 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
             className={styles.image}
           />
         </motion.div>
+      </div>
+      <div className={styles.seventhScreen}>
         <motion.h3
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          Imaginez… puis fixez la date qui le rend réel....
+          Vous vivez votre moment de partage...
         </motion.h3>
-      </div>
-      <div className={styles.seventhScreen}>
         <motion.div
           className={styles.imageContainer}
           initial={{ opacity: 0, scale: 0.8 }}
@@ -340,23 +349,8 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
             className={styles.image}
           />
         </motion.div>
-        <motion.h3
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          Vous vivez votre moment de partage...
-        </motion.h3>
       </div>
       <div className={styles.lastScreen}>
-        <div className={styles.lastScreenContent}>
-          <img
-            src="/images/share/screen9.png"
-            alt="Image"
-            className={styles.image}
-          />
-        </div>
         <motion.h3
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -365,6 +359,13 @@ export const ShareSection: React.FC<ShareSectionProps> = ({ id }) => {
         >
           Enfin vous téléchargez vos photos dans l’appli...
         </motion.h3>
+        <div className={styles.lastScreenContent}>
+          <img
+            src="/images/share/screen9.png"
+            alt="Image"
+            className={styles.image}
+          />
+        </div>
       </div>
       <div className={styles.pass} onClick={handlePassClick}>
         Passer

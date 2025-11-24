@@ -8,13 +8,15 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  // Pas d'overflow hidden pour que sticky fonctionne
   
-  // Image de fond fixe
-  background-image: url('/images/bg-share.png');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  // S'assurer que le contenu est au-dessus du background
+  // Exclure aussi .pass pour qu'il puisse être sticky
+  & > *:not(.backgroundParallax):not(.pass) {
+    position: relative;
+    z-index: 1;
+  }
+  
   h3 {
     font-family: $font-primary;
     font-size: 2rem;
@@ -26,6 +28,22 @@
       font-size: 1.5rem;
     }
   }
+}
+
+.backgroundParallax {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/images/bg-share.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  z-index: 0;
+  pointer-events: none; // Permet aux clics de passer à travers
+  align-self: flex-start; // Important pour sticky dans un flex container
 }
 
 .screensContainer {
@@ -190,8 +208,10 @@ overflow: hidden;
     border-radius: 20px;
     display: flex;
     flex-direction: row;
-    flex: 0 0 45%;
+    align-items: center;
+    text-align: center;
     position: relative;
+    flex: 0 0 45%;
     @include mobile-only {
       flex: 1;
       &:nth-child(odd) {
@@ -223,7 +243,7 @@ overflow: hidden;
     padding: 2rem;
     position: relative;
     z-index: 2;
-    min-height: 200px;
+    max-height: 160px;
     
     @include tablet-max {
       padding: 1.5rem;
@@ -295,6 +315,8 @@ overflow: hidden;
     background: transparent;
     position: relative;
     z-index: 1;
+    width: 340px;
+    height: 340px;
     
     @include mobile-only {
       width: 100px;
@@ -567,9 +589,6 @@ overflow: hidden;
     width: 100%;
     img{
       width: 100%;
-      @include mobile-only {
-       width: auto;
-      }
     }
   }
   
@@ -598,7 +617,7 @@ overflow: hidden;
   text-decoration: underline;
   font-weight: 600;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 10;
   width: auto;
   padding: 0.5rem 1rem;
   text-align: center;

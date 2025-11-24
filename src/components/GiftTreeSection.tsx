@@ -15,21 +15,14 @@ export const GiftTreeSection: React.FC<GiftTreeSectionProps> = ({ id }) => {
   return (
     <section ref={sectionRef} id={id} className={styles.giftTreeSection}>
       <div className={styles.contentWrapper}>
-        <h2 className={styles.sectionTitle}>
-          Un album photo de ses moments de partage...
-        </h2>
-        <div className={styles.imageContainer}>
-          <Image
-            src="/images/tree-content.png"
-            alt="Gift Points - Album photo"
-            width={1200}
-            height={800}
-            className={styles.treeContentImage}
-          />
-        </div>
+        <h2 className={styles.sectionTitle}>La photo synthèse !</h2>
         <div className={styles.contentBlock}>
+          <p className={styles.textBold}>
+            Un album photo de tous ses moments de partage
+          </p>
           <p className={styles.text}>
-            C’est ainsi que vous offrez à votre enfant un cadeau pour la vie...
+            Et c’est ainsi que vous offrez à votre enfant un cadeau pour la
+            vie...
           </p>
         </div>
       </div>

@@ -3,19 +3,20 @@
 
 .giftTreeSection {
   width: 100%;
-  min-height: 80vh;
+  min-height: 100vh;
   position: relative;
   
   // Image de fond
-  background-image: url('/images/tree-bg.png');
+  background-image: url('/images/share/tree-bg.png');
   background-size: cover;
-  background-position: center center;
+  background-position: center top;
   background-repeat: no-repeat;
   
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4rem 0;
+  flex-direction: column;
   
   @include mobile-only {
     padding: 1rem;
@@ -28,8 +29,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   gap: 2rem;
+  flex: 1;
   
   @include mobile-only {
     gap: 1.5rem;
@@ -87,15 +89,14 @@
 .contentBlock {
   width: 100%;
   max-width: 1200px;
-  background-color: rgba(210, 172, 85, 0.9); // Doré avec transparence
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(210, 172, 85, 0.4);
   border-radius: 20px;
   padding: 3rem;
   text-align: center;
   margin-bottom: 2rem;
 	justify-self: flex-end;
 	align-self: flex-end;
+  backdrop-filter: blur(10px);
   
   @include tablet-max {
     padding: 2.5rem;
@@ -114,8 +115,7 @@
   color: $text-brown;
   font-size: 1.8rem;
   font-weight: 700;
-  line-height: 1.4;
-  margin-bottom: 1.5rem;
+  line-height: 1;
   
   @include tablet-max {
     font-size: 1.5rem;
@@ -132,7 +132,7 @@
   font-family: $font-primary;
   font-size: 1.3rem;
   color: $text-brown;
-  line-height: 1.6;
+  line-height: 1.2;
   font-weight: 400;
   
   @include tablet-max {
@@ -143,4 +143,23 @@
     font-size: 1rem;
   }
 }
+
+.textBold {
+  font-family: $font-primary;
+  font-size: 1.3rem;
+  color: $text-brown;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  
+  @include tablet-max {
+    font-size: 1.2rem;
+  }
+  
+  @include mobile-only {
+    font-size: 1rem;
+  }
+}
+
+
 
